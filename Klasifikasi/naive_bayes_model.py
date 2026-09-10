@@ -10,10 +10,10 @@ import pandas as pd
 BASE_DIR = Path(__file__).resolve().parents[1]
 LABEL_DIR = BASE_DIR / "Label"
 
-# Gunakan file label utama agar aspek sesuai dengan dataset yang sudah diberi label
-DATASET_FILE = LABEL_DIR / "dataset_labeled.xlsx"
+# Prioritaskan dataset yang sudah seimbang agar distribusi sentimen tidak didominasi netral
+DATASET_FILE = LABEL_DIR / "dataset_labeled_balanced.xlsx"
 if not DATASET_FILE.exists():
-    DATASET_FILE = LABEL_DIR / "dataset_labeled_balanced.xlsx"
+    DATASET_FILE = LABEL_DIR / "dataset_labeled.xlsx"
 
 TEXT_COLUMN = "aspect_text"
 LABEL_COLUMN = "sentiment"
@@ -236,6 +236,14 @@ def evaluate(y_true, y_pred):
     print(f"Recall (macro): {macro_recall:.4f}")
     print(f"F1-Score (macro): {macro_f1:.4f}")
 
+    return {
+        "accuracy": accuracy,
+        "precision": macro_precision,
+        "recall": macro_recall,
+        "f1_score": macro_f1,
+        "labels": labels,
+    }
+
 
 def parse_aspects(value):
     if pd.isna(value):
@@ -300,6 +308,21 @@ def summarize_by_aspect(df):
     return summary
 
 
+def save_evaluation_csv(metrics):
+    metrics_df = pd.DataFrame([
+        {"metric": "Accuracy", "score": float(metrics.get("accuracy", 0.0))},
+        {"metric": "Precision", "score": float(metrics.get("precision", 0.0))},
+        {"metric": "Recall", "score": float(metrics.get("recall", 0.0))},
+        {"metric": "F1-Score", "score": float(metrics.get("f1_score", 0.0))},
+    ])
+
+    output_metrics_path = BASE_DIR / "Visualisasi" / "evaluation_metrics.csv"
+    output_metrics_path.parent.mkdir(parents=True, exist_ok=True)
+    metrics_df.to_csv(output_metrics_path, index=False)
+    print(f"\nHasil evaluasi disimpan di: {output_metrics_path}")
+    return output_metrics_path
+
+
 def main():
     dataset_path = DATASET_FILE
     if not dataset_path.exists():
@@ -322,6 +345,9 @@ def main():
     labels = sorted(class_counts.keys())
     y_pred = []
     for text in test_df[TEXT_COLUMN].tolist():
+        if not text.strip():
+            y_pred.append("netral")
+            continue
         y_pred.append(predict_text(text, priors, class_term_counts, class_term_totals, vocab, idf, labels))
 
     y_true = test_df[LABEL_COLUMN].tolist()
@@ -333,7 +359,8 @@ def main():
     print(f"Train set: {len(train_df)}")
     print(f"Test set: {len(test_df)}")
     print(f"Rasio split: 80:20")
-    evaluate(y_true, y_pred)
+    metrics = evaluate(y_true, y_pred)
+    save_evaluation_csv(metrics)
 
     aspect_summary = summarize_by_aspect(df)
     if not aspect_summary.empty:

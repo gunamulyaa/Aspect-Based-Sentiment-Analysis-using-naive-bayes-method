@@ -240,16 +240,23 @@ def calculate_sentiment(text):
     # ========================================================
     # MENENTUKAN LABEL
     # ========================================================
+    # Netral hanya dipakai jika benar-benar tidak ada sinyal sentimen
+    # atau selisihnya sangat kecil. Jangan jadikan netral sebagai default
+    # ketika ada kata positif/negatif yang jelas.
+    # ========================================================
 
-    if positive_hits == 0 and negative_hits == 0:
+    sentiment_score = positive_score - negative_score
+    total_hits = positive_hits + negative_hits
+    total_weight = positive_score + negative_score
+
+    if total_hits == 0 and total_weight == 0:
         sentiment = "netral"
-
-    elif positive_hits + positive_score > negative_hits + negative_score:
+    elif total_hits > 0 and abs(sentiment_score) <= 0.1:
+        sentiment = "netral"
+    elif sentiment_score > 0:
         sentiment = "positif"
-
-    elif negative_hits + negative_score > positive_hits + positive_score:
+    elif sentiment_score < 0:
         sentiment = "negatif"
-
     else:
         sentiment = "netral"
 
@@ -300,27 +307,33 @@ df["sentiment"] = results.apply(
 # BALANCING DATASET
 # ============================================================
 
-# Tetap simpan dataset utama utuh, dan buat dataset seimbang sebagai file tambahan.
+# Over-sampling kelas minoritas agar positif dan negatif mendekati jumlah netral,
+# tanpa menghilangkan kelas netral sebagai kelas dominan yang sudah lebih banyak.
 positive_count = (df["sentiment"] == "positif").sum()
 negative_count = (df["sentiment"] == "negatif").sum()
 neutral_count = (df["sentiment"] == "netral").sum()
 
-max_minor_class = max(positive_count, negative_count)
-target_neutral = min(neutral_count, max_minor_class)
+target_count = neutral_count
 
-neutral_sample = df[df["sentiment"] == "netral"].sample(
-    n=target_neutral,
-    random_state=42
-)
+balanced_frames = []
 
-balanced_df = pd.concat(
-    [
-        df[df["sentiment"] == "positif"],
-        df[df["sentiment"] == "negatif"],
-        neutral_sample,
-    ],
-    ignore_index=True
-)
+neutral_df = df[df["sentiment"] == "netral"]
+if len(neutral_df) > target_count:
+    neutral_df = neutral_df.sample(n=target_count, random_state=42)
+balanced_frames.append(neutral_df)
+
+for label in ["positif", "negatif"]:
+    class_df = df[df["sentiment"] == label]
+    if len(class_df) < target_count:
+        class_df = class_df.sample(n=target_count, replace=True, random_state=42)
+    else:
+        class_df = class_df.sample(n=target_count, random_state=42)
+    balanced_frames.append(class_df)
+
+balanced_df = pd.concat(balanced_frames, ignore_index=True)
+
+# Acak ulang agar urutan data tidak terstruktur berdasarkan kelas.
+balanced_df = balanced_df.sample(frac=1, random_state=42).reset_index(drop=True)
 
 # ============================================================
 # MENYIMPAN DATASET

@@ -59,34 +59,73 @@ def save_summary(df):
 
 
 def make_bar_chart(label_counts, title, filename):
+    plt.style.use("seaborn-v0_8-whitegrid")
     labels = ["Positif", "Negatif", "Netral"]
     values = [int(label_counts.get("positif", 0)), int(label_counts.get("negatif", 0)), int(label_counts.get("netral", 0))]
 
-    fig, ax = plt.subplots(figsize=(8, 5))
+    fig, ax = plt.subplots(figsize=(9, 5.5))
     colors = ["#2ecc71", "#e74c3c", "#3498db"]
-    bars = ax.bar(labels, values, color=colors)
-    ax.set_title(title)
-    ax.set_ylabel("Jumlah")
-    ax.set_xlabel("Sentimen")
+    bars = ax.bar(labels, values, color=colors, width=0.7, edgecolor="black", linewidth=0.8)
+    ax.set_title(title, fontsize=14, fontweight="bold")
+    ax.set_ylabel("Jumlah", fontsize=11)
+    ax.set_xlabel("Sentimen", fontsize=11)
+    ax.set_ylim(0, max(values) * 1.25 if max(values) > 0 else 1)
+    ax.grid(axis="y", linestyle="--", alpha=0.35)
     for bar, value in zip(bars, values):
-        ax.text(bar.get_x() + bar.get_width() / 2, value + 0.5, str(value), ha="center", va="bottom")
+        ax.text(bar.get_x() + bar.get_width() / 2, value + max(values) * 0.02, str(value), ha="center", va="bottom", fontsize=10, fontweight="bold")
     fig.tight_layout()
-    fig.savefig(OUTPUT_DIR / filename, dpi=300)
+    fig.savefig(OUTPUT_DIR / filename, dpi=300, bbox_inches="tight")
     plt.close(fig)
 
 
 def make_split_chart(train_count, test_count, filename):
-    fig, ax = plt.subplots(figsize=(7, 5))
+    plt.style.use("seaborn-v0_8-whitegrid")
+    fig, ax = plt.subplots(figsize=(8, 5.5))
     labels = ["Train (80%)", "Test (20%)"]
     values = [train_count, test_count]
     colors = ["#8e44ad", "#f39c12"]
-    ax.bar(labels, values, color=colors)
-    ax.set_title("Pembagian Dataset 80:20")
-    ax.set_ylabel("Jumlah Data")
-    for i, value in enumerate(values):
-        ax.text(i, value + 5, str(value), ha="center", va="bottom")
+    bars = ax.bar(labels, values, color=colors, width=0.7, edgecolor="black", linewidth=0.8)
+    ax.set_title("Pembagian Dataset 80:20", fontsize=14, fontweight="bold")
+    ax.set_ylabel("Jumlah Data", fontsize=11)
+    ax.set_xlabel("Kelompok", fontsize=11)
+    ax.set_ylim(0, max(values) * 1.2 if max(values) > 0 else 1)
+    ax.grid(axis="y", linestyle="--", alpha=0.35)
+    for bar, value in zip(bars, values):
+        ax.text(bar.get_x() + bar.get_width() / 2, value + max(values) * 0.02, str(value), ha="center", va="bottom", fontsize=10, fontweight="bold")
     fig.tight_layout()
-    fig.savefig(OUTPUT_DIR / filename, dpi=300)
+    fig.savefig(OUTPUT_DIR / filename, dpi=300, bbox_inches="tight")
+    plt.close(fig)
+
+
+def make_evaluation_chart(filename="bar_chart_evaluasi.png"):
+    metrics_path = OUTPUT_DIR / "evaluation_metrics.csv"
+    if not metrics_path.exists():
+        pd.DataFrame([
+            {"metric": "Accuracy", "score": 0.0},
+            {"metric": "Precision", "score": 0.0},
+            {"metric": "Recall", "score": 0.0},
+            {"metric": "F1-Score", "score": 0.0},
+        ]).to_csv(metrics_path, index=False)
+
+    eval_df = pd.read_csv(metrics_path)
+    eval_df = eval_df[eval_df["metric"].isin(["Accuracy", "Precision", "Recall", "F1-Score"])].copy()
+    eval_df["score"] = pd.to_numeric(eval_df["score"], errors="coerce").fillna(0.0)
+
+    plt.style.use("seaborn-v0_8-whitegrid")
+    fig, ax = plt.subplots(figsize=(9, 5.5))
+    metrics = ["Accuracy", "Precision", "Recall", "F1-Score"]
+    scores = [float(eval_df.loc[eval_df["metric"] == m, "score"].iloc[0]) if m in eval_df["metric"].values else 0.0 for m in metrics]
+    colors = ["#1f77b4", "#2ca02c", "#ff7f0e", "#d62728"]
+    bars = ax.bar(metrics, [s * 100 for s in scores], color=colors, edgecolor="black", linewidth=0.8)
+    ax.set_title("Hasil Evaluasi Model", fontsize=14, fontweight="bold")
+    ax.set_ylabel("Skor (%)", fontsize=11)
+    ax.set_ylim(0, 100)
+    ax.grid(axis="y", linestyle="--", alpha=0.35)
+    for bar, value in zip(bars, scores):
+        pct = value * 100
+        ax.text(bar.get_x() + bar.get_width() / 2, pct + 2, f"{pct:.2f}%", ha="center", va="bottom", fontsize=10, fontweight="bold")
+    fig.tight_layout()
+    fig.savefig(OUTPUT_DIR / filename, dpi=300, bbox_inches="tight")
     plt.close(fig)
 
 
@@ -120,6 +159,7 @@ def generate_all_visualizations():
 
     make_bar_chart(label_counts, "Distribusi Sentimen", "bar_chart_sentimen.png")
     make_split_chart(len(train_df), len(test_df), "bar_chart_split_80_20.png")
+    make_evaluation_chart("bar_chart_evaluasi.png")
 
     for sentiment in ["positif", "negatif", "netral"]:
         make_wordcloud_for_sentiment(df, sentiment, f"wordcloud_{sentiment}.png")
@@ -131,6 +171,7 @@ def generate_all_visualizations():
     print(f"Netral: {int(label_counts.get('netral', 0))}")
     print(f"Train: {len(train_df)}")
     print(f"Test: {len(test_df)}")
+    print("Evaluasi visualisasi: bar_chart_evaluasi.png")
 
 
 if __name__ == "__main__":
