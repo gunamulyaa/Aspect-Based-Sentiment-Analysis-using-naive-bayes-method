@@ -12,7 +12,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 INPUT_FILE = os.path.join(
     BASE_DIR,
-    "Dataset",
+    "Hasil_Merge",
     "combined_dataset.xlsx"
 )
 
