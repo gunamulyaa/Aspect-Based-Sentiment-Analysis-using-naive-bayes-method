@@ -3,13 +3,13 @@ import glob
 import os
 
 # Folder tempat dataset Excel berada
-folder = "."
+folder = os.path.dirname(os.path.abspath(__file__))
 
 # Cari semua file Excel
 files = glob.glob(os.path.join(folder, "*.xlsx"))
 
 # Jangan ikut membaca file hasil gabungan jika script dijalankan ulang
-output_file = "combined_dataset.xlsx"
+output_file = os.path.join(folder, "combined_dataset.xlsx")
 files = [file for file in files if os.path.basename(file) != output_file]
 
 print(f"Jumlah dataset ditemukan: {len(files)}")

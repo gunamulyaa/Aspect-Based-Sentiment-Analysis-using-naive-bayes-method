@@ -3,3 +3,6 @@ pandas>=2.0.0
 python-dotenv>=1.0.0
 Sastrawi
 nltk
+scikit-learn>=1.4.0
+matplotlib>=3.8.0
+wordcloud>=1.9.3
