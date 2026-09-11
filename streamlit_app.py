@@ -30,6 +30,11 @@ if summary_path.exists():
     st.subheader("Distribusi Sentimen")
     st.image(str(VIS_DIR / "bar_chart_sentimen.png"), use_container_width=True)
 
+    balance_path = VIS_DIR / "bar_chart_balancing.png"
+    if balance_path.exists():
+        st.subheader("Perbandingan Sebelum vs Sesudah Balancing")
+        st.image(str(balance_path), use_container_width=True)
+
     st.subheader("Pembagian Dataset 80:20")
     st.image(str(VIS_DIR / "bar_chart_split_80_20.png"), use_container_width=True)
 

@@ -9,9 +9,9 @@ from wordcloud import WordCloud
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 LABEL_DIR = BASE_DIR / "Label"
-DATASET_FILE = LABEL_DIR / "dataset_labeled.xlsx"
-if not DATASET_FILE.exists():
-    DATASET_FILE = LABEL_DIR / "dataset_labeled_balanced.xlsx"
+RAW_DATASET_FILE = LABEL_DIR / "dataset_labeled.xlsx"
+BALANCED_DATASET_FILE = LABEL_DIR / "dataset_labeled_balanced.xlsx"
+DATASET_FILE = BALANCED_DATASET_FILE if BALANCED_DATASET_FILE.exists() else RAW_DATASET_FILE
 
 OUTPUT_DIR = Path(__file__).resolve().parent
 
@@ -33,11 +33,18 @@ def load_dataset():
     return df
 
 
+def get_label_counts(df):
+    counts = df["sentiment"].fillna("netral").astype(str).str.strip().str.lower().value_counts()
+    return {
+        "positif": int(counts.get("positif", 0)),
+        "negatif": int(counts.get("negatif", 0)),
+        "netral": int(counts.get("netral", 0)),
+    }
+
+
 def save_summary(df):
     total_dataset = len(df)
-    label_counts = (
-        df["sentiment"].value_counts().reindex(["positif", "negatif", "netral"], fill_value=0)
-    )
+    label_counts = pd.Series(get_label_counts(df)).reindex(["positif", "negatif", "netral"], fill_value=0)
 
     shuffled = df.sample(frac=1, random_state=42).reset_index(drop=True)
     split_idx = int(len(shuffled) * 0.8)
@@ -92,6 +99,39 @@ def make_split_chart(train_count, test_count, filename):
     ax.grid(axis="y", linestyle="--", alpha=0.35)
     for bar, value in zip(bars, values):
         ax.text(bar.get_x() + bar.get_width() / 2, value + max(values) * 0.02, str(value), ha="center", va="bottom", fontsize=10, fontweight="bold")
+    fig.tight_layout()
+    fig.savefig(OUTPUT_DIR / filename, dpi=300, bbox_inches="tight")
+    plt.close(fig)
+
+
+def make_balance_comparison_chart(before_counts, after_counts, filename="bar_chart_balancing.png"):
+    plt.style.use("seaborn-v0_8-whitegrid")
+    labels = ["Positif", "Negatif", "Netral"]
+    before_values = [int(before_counts.get("positif", 0)), int(before_counts.get("negatif", 0)), int(before_counts.get("netral", 0))]
+    after_values = [int(after_counts.get("positif", 0)), int(after_counts.get("negatif", 0)), int(after_counts.get("netral", 0))]
+
+    fig, ax = plt.subplots(figsize=(10, 6))
+    x = [0, 1, 2]
+    width = 0.32
+
+    bars_before = ax.bar([i - width / 2 for i in x], before_values, width=width, label="Sebelum balancing", color="#95a5a6", edgecolor="black", linewidth=0.8)
+    bars_after = ax.bar([i + width / 2 for i in x], after_values, width=width, label="Setelah balancing", color="#3498db", edgecolor="black", linewidth=0.8)
+
+    ax.set_title("Perbandingan Distribusi Sentimen Sebelum dan Sesudah Balancing", fontsize=14, fontweight="bold")
+    ax.set_ylabel("Jumlah Data", fontsize=11)
+    ax.set_xlabel("Sentimen", fontsize=11)
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels)
+    ax.legend()
+    ax.grid(axis="y", linestyle="--", alpha=0.35)
+
+    max_value = max(max(before_values), max(after_values), 1)
+    ax.set_ylim(0, max_value * 1.25)
+
+    for bars in [bars_before, bars_after]:
+        for bar, value in zip(bars, [before_values[0], before_values[1], before_values[2]] if bars is bars_before else after_values):
+            ax.text(bar.get_x() + bar.get_width() / 2, value + max_value * 0.02, str(value), ha="center", va="bottom", fontsize=10, fontweight="bold")
+
     fig.tight_layout()
     fig.savefig(OUTPUT_DIR / filename, dpi=300, bbox_inches="tight")
     plt.close(fig)
@@ -157,7 +197,13 @@ def generate_all_visualizations():
     df = load_dataset()
     train_df, test_df, label_counts = save_summary(df)
 
+    raw_df = pd.read_excel(RAW_DATASET_FILE) if RAW_DATASET_FILE.exists() else df
+    balanced_df = pd.read_excel(BALANCED_DATASET_FILE) if BALANCED_DATASET_FILE.exists() else df
+    before_counts = get_label_counts(raw_df)
+    after_counts = get_label_counts(balanced_df)
+
     make_bar_chart(label_counts, "Distribusi Sentimen", "bar_chart_sentimen.png")
+    make_balance_comparison_chart(before_counts, after_counts, "bar_chart_balancing.png")
     make_split_chart(len(train_df), len(test_df), "bar_chart_split_80_20.png")
     make_evaluation_chart("bar_chart_evaluasi.png")
 
@@ -171,6 +217,7 @@ def generate_all_visualizations():
     print(f"Netral: {int(label_counts.get('netral', 0))}")
     print(f"Train: {len(train_df)}")
     print(f"Test: {len(test_df)}")
+    print("Perbandingan balancing: bar_chart_balancing.png")
     print("Evaluasi visualisasi: bar_chart_evaluasi.png")
 
 
