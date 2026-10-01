@@ -14,7 +14,7 @@ arahkan direktori ke folder hasil ekstrak dengan menjalankan perintah berikut:
 `cd download/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method`
 
 ## Install Requirements
-`pip install -r requirements.txt`
+`py -m pip install -r requirements.txt`
 
 ## Running app
 1. `py app.py` [windows]
