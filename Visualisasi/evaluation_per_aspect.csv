@@ -1,0 +1,6 @@
+﻿Aspek,Jumlah_Data_Uji,Prediksi_Benar,Accuracy,Precision,Recall,F1_Score,Accuracy_Pct,Precision_Pct,Recall_Pct,F1_Score_Pct
+Perlindungan Anak,209,193,0.9234,0.9165,0.9211,0.9183,92.34,91.65,92.11,91.83
+Peran Orang Tua,66,62,0.9394,0.9385,0.9396,0.9376,93.94,93.85,93.96,93.76
+Peran Pemerintah/Komdigi,239,220,0.9205,0.8905,0.9174,0.8992,92.05,89.05,91.74,89.92
+Efektivitas Kebijakan,252,232,0.9206,0.9041,0.9238,0.91,92.06,90.41,92.38,91.0
+Keseluruhan (Total),766,707,0.923,0.9104,0.9235,0.9147,92.3,91.04,92.35,91.47

@@ -1,398 +1,751 @@
-import math
-import os
-import re
-from collections import defaultdict
-from pathlib import Path
+# -*- coding: utf-8 -*-
+"""
+Tahap Pembagian Data 80:20 (Bebas Kebocoran Komentar), Penyeimbangan Data Latih,
+Perhitungan TF-IDF (Sesuai Rumus Bab III), Pelatihan Multinomial Naive Bayes,
+dan Evaluasi Keseluruhan serta Per Aspek.
 
+Acuan Revisi Bab I-III:
+- Poin 4: Perhitungan TF-IDF sesuai rumus Bab III:
+    TF(t, d)  = f(t, d) / |d|
+    IDF(t)    = log(N / df(t)) + 1
+    TF-IDF    = TF(t, d) * IDF(t)
+  Kosakata (vocabulary) dan nilai IDF HANYA dibentuk dari data latih.
+- Poin 5: Pisahkan data latih dan uji 80:20 SEBELUM penyeimbangan berdasarkan Comment_ID
+  agar komentar yang sama beserta seluruh pasangan aspeknya tidak tersebar ke kedua kelompok
+  (0 tumpang tindih / zero overlap). Penyeimbangan (oversampling) hanya dilakukan pada data latih.
+- Poin 6: Latih ulang Naive Bayes dan buat evaluasi keseluruhan serta per aspek:
+  Confusion Matrix, Accuracy, Precision, Recall, F1-Score, dan Jumlah Data Uji.
+- Poin 7: Buat ulang tabel distribusi 4 aspek dengan kolom Positif, Negatif, Netral, dan Total
+  menggunakan data SEBELUM penyeimbangan; tampilkan jumlah data setelah penyeimbangan secara
+  terpisah untuk menjelaskan eksperimen.
+"""
+
+import math
+import pickle
+import sys
+from collections import Counter, defaultdict
+from pathlib import Path
 import pandas as pd
 
+try:
+    sys.stdout.reconfigure(encoding="utf-8")
+except AttributeError:
+    pass
+
+# =========================================================
+# KONFIGURASI DIREKTORI & BERKAS
+# =========================================================
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 LABEL_DIR = BASE_DIR / "Label"
+KLASIFIKASI_DIR = BASE_DIR / "Klasifikasi"
+VISUALISASI_DIR = BASE_DIR / "Visualisasi"
 
-# Prioritaskan dataset yang sudah seimbang agar distribusi sentimen tidak didominasi netral
-DATASET_FILE = LABEL_DIR / "dataset_labeled_balanced.xlsx"
-if not DATASET_FILE.exists():
-    DATASET_FILE = LABEL_DIR / "dataset_labeled.xlsx"
+sys.path.insert(0, str(LABEL_DIR))
+from Dictionary import ASPECT_CATEGORIES  # noqa: E402
+
+KLASIFIKASI_DIR.mkdir(parents=True, exist_ok=True)
+VISUALISASI_DIR.mkdir(parents=True, exist_ok=True)
+
+INPUT_PAIRS_FILE = LABEL_DIR / "dataset_pasangan_komentar_aspek.xlsx"
+if not INPUT_PAIRS_FILE.exists():
+    INPUT_PAIRS_FILE = LABEL_DIR / "dataset_labeled.xlsx"
+
+TRAIN_RAW_FILE = KLASIFIKASI_DIR / "data_latih_80.xlsx"
+TRAIN_BALANCED_FILE = KLASIFIKASI_DIR / "data_latih_80_balanced.xlsx"
+LABEL_BALANCED_FILE = LABEL_DIR / "dataset_labeled_balanced.xlsx"
+TEST_FILE = KLASIFIKASI_DIR / "data_uji_20.xlsx"
+TEST_PREDICTIONS_FILE = KLASIFIKASI_DIR / "hasil_prediksi_data_uji.xlsx"
+
+ASPECT_SUMMARY_FILE = KLASIFIKASI_DIR / "aspect_sentiment_summary.xlsx"
+BALANCING_EXP_FILE = KLASIFIKASI_DIR / "tabel_eksperimen_balancing_latih.xlsx"
+FULL_EVAL_EXCEL = KLASIFIKASI_DIR / "evaluasi_naive_bayes_lengkap.xlsx"
+OVERLAP_PROOF_CSV = KLASIFIKASI_DIR / "bukti_tidak_tumpang_tindih.csv"
+MODEL_PKL_FILE = KLASIFIKASI_DIR / "naive_bayes_model.pkl"
 
 TEXT_COLUMN = "aspect_text"
 LABEL_COLUMN = "sentiment"
-
-TOPIC_ASPECT_MAP = {
-    "perlindungan_anak": [
-        "perlindungan anak", "melindungi anak", "menjaga anak", "lindungi anak",
-        "keamanan anak", "anak aman", "safety child", "proteksi anak",
-        "kesehatan anak", "anak terlindung", "pelindung anak", "safety", "santunan anak"
-    ],
-    "batas_usia": [
-        "batas usia", "umur minimum", "usia minimum", "batas umur", "di bawah 16",
-        "dibawah 16", "under 16", "minimum age", "usia max 16", "usia 16",
-        "usia anak dibawah 16", "umur anak di bawah 16", "batasan usia",
-        "anak umur 16", "anak dibawah umur"
-    ],
-    "verifikasi_usia": [
-        "verifikasi usia", "cek usia", "validasi usia", "konfirmasi usia",
-        "usia harus diverifikasi", "verifikasi umur", "age verification",
-        "cek umur", "validasi umur", "konfirmasi umur", "check age",
-        "konfirmasi umur anak", "cek kelayakan usia"
-    ],
-    "pengawasan_orangtua": [
-        "orang tua", "orangtua", "pengawasan orang tua", "kontrol orang tua",
-        "didampingi orang tua", "orang tua harus", "pengawasan ortu",
-        "pengawasan orangtua", "orang tua memantau"
-    ],
-    "konten_negatif": [
-        "konten negatif", "konten tidak layak", "konten dewasa", "konten berbahaya",
-        "iklan aneh", "video tidak layak", "bahaya", "berbahaya", "hoax",
-        "konten tidak sehat", "konten merugikan anak"
-    ],
-    "kecanduan": [
-        "kecanduan", "ketagihan", "ketergantungan", "candu", "terlalu sering",
-        "bergantung", "addictive", "ketergantungan media", "menghabiskan waktu"
-    ]
-}
-
-TOPIC_ASPECT_LABELS = {
-    "perlindungan_anak": "Perlindungan Anak",
-    "batas_usia": "Batas Usia",
-    "verifikasi_usia": "Verifikasi Usia",
-    "pengawasan_orangtua": "Pengawasan Orang Tua",
-    "konten_negatif": "Konten Negatif",
-    "kecanduan": "Kecanduan"
-}
+SENTIMENT_LABELS = ["positif", "negatif", "netral"]
 
 
-def map_topic_aspect(aspect):
-    aspect = str(aspect).strip().lower()
-    if not aspect:
-        return "lainnya"
+# =========================================================
+# 1. PEMBAGIAN DATA LATIH & UJI 80:20 PER KOMENTAR UNIK
+# =========================================================
 
-    for canonical, phrases in TOPIC_ASPECT_MAP.items():
-        for phrase in phrases:
-            if phrase in aspect:
-                return canonical
+def split_train_test_by_comment(
+    df: pd.DataFrame,
+    test_size: float = 0.20,
+    random_state: int = 42,
+) -> tuple[pd.DataFrame, pd.DataFrame, dict]:
+    """
+    Memisahkan data latih (80%) dan data uji (20%) berdasarkan Comment_ID unik
+    SEBELUM penyeimbangan, sehingga seluruh pasangan aspek dari komentar yang sama
+    berada di kelompok yang sama (0 overlap).
+    """
+    unique_cids = (
+        df["Comment_ID"]
+        .drop_duplicates()
+        .sample(frac=1.0, random_state=random_state)
+        .tolist()
+    )
+    n_total_comments = len(unique_cids)
+    n_train_comments = int(round(n_total_comments * (1.0 - test_size)))
 
-    return "lainnya"
+    train_cid_set = set(unique_cids[:n_train_comments])
+    test_cid_set = set(unique_cids[n_train_comments:])
+
+    train_df = df[df["Comment_ID"].isin(train_cid_set)].copy().reset_index(drop=True)
+    test_df = df[df["Comment_ID"].isin(test_cid_set)].copy().reset_index(drop=True)
+
+    # Pembuktian 0 tumpang tindih (Zero Overlap Proof)
+    overlap_cid = set(train_df["Comment_ID"]) & set(test_df["Comment_ID"])
+    overlap_raw = set(train_df["Comment Text"]) & set(test_df["Comment Text"])
+    overlap_norm = set(train_df["normalized_text"]) & set(test_df["normalized_text"])
+    overlap_stem = set(train_df["stemmed_text"]) & set(test_df["stemmed_text"])
+
+    assert len(overlap_cid) == 0, f"Terdapat overlap Comment_ID: {len(overlap_cid)}"
+    assert len(overlap_raw) == 0, f"Terdapat overlap Comment Text: {len(overlap_raw)}"
+    assert len(overlap_norm) == 0, f"Terdapat overlap normalized_text: {len(overlap_norm)}"
+    assert len(overlap_stem) == 0, f"Terdapat overlap stemmed_text: {len(overlap_stem)}"
+
+    proof = {
+        "Total_Komentar_Unik_Beraspek": n_total_comments,
+        "Komentar_Unik_Latih_80": len(train_cid_set),
+        "Komentar_Unik_Uji_20": len(test_cid_set),
+        "Pasangan_Aspek_Latih_Sebelum_Balancing": len(train_df),
+        "Pasangan_Aspek_Uji": len(test_df),
+        "Total_Pasangan_Aspek": len(df),
+        "Overlap_Comment_ID": len(overlap_cid),
+        "Overlap_Comment_Text": len(overlap_raw),
+        "Overlap_Normalized_Text": len(overlap_norm),
+        "Overlap_Stemmed_Text": len(overlap_stem),
+        "Status_Validasi": "TERBUKTI 0 TUMPANG TINDIH (ZERO OVERLAP)",
+    }
+    return train_df, test_df, proof
 
 
-def clean_text(text):
-    if pd.isna(text):
-        return ""
-    text = str(text).lower()
-    text = re.sub(r"[^a-z0-9\s]", " ", text)
-    text = re.sub(r"\s+", " ", text).strip()
-    return text
+# =========================================================
+# 2. PENYEIMBANGAN (BALANCING) HANYA PADA DATA LATIH
+# =========================================================
+
+def balance_training_data(train_df: pd.DataFrame, random_state: int = 42) -> pd.DataFrame:
+    """
+    Menyeimbangkan kelas sentimen ('positif', 'negatif', 'netral') HANYA pada data latih
+    menggunakan random oversampling menuju jumlah kelas terbanyak di data latih.
+    Data uji sama sekali tidak disentuh.
+    """
+    counts = train_df[LABEL_COLUMN].value_counts()
+    target_count = int(counts.max())
+
+    balanced_parts = []
+    for label in SENTIMENT_LABELS:
+        subset = train_df[train_df[LABEL_COLUMN] == label]
+        if len(subset) < target_count:
+            deficit = target_count - len(subset)
+            extra = subset.sample(n=deficit, replace=True, random_state=random_state)
+            sampled = pd.concat([subset, extra], ignore_index=True)
+        else:
+            sampled = subset.sample(n=target_count, replace=False, random_state=random_state)
+        balanced_parts.append(sampled)
+
+    balanced_train_df = (
+        pd.concat(balanced_parts, ignore_index=True)
+        .sample(frac=1.0, random_state=random_state)
+        .reset_index(drop=True)
+    )
+    return balanced_train_df
 
 
-def split_train_test(df, test_size=0.2, random_state=42):
-    df = df.sample(frac=1, random_state=random_state).reset_index(drop=True)
-    split_idx = max(1, int(len(df) * (1 - test_size)))
-    train_df = df.iloc[:split_idx].copy()
-    test_df = df.iloc[split_idx:].copy()
-    return train_df, test_df
+# =========================================================
+# 3. PERHITUNGAN TF-IDF SESUAI RUMUS BAB III (DARI DATA LATIH)
+# =========================================================
 
+def compute_tfidf_from_train(train_texts: list[str]) -> tuple[list[str], dict[str, float], dict[str, int]]:
+    """
+    Menghitung kosakata (vocabulary), Document Frequency (df), dan Inverse Document Frequency (IDF)
+    HANYA dari dokumen data latih sesuai rumus pada Bab III:
+      TF(t, d)     = f(t, d) / |d|
+      IDF(t)       = log(N / df(t)) + 1
+      TF-IDF(t, d) = TF(t, d) * IDF(t)
+    dengan N = jumlah dokumen latih dan df(t) = jumlah dokumen latih yang memuat kata t.
+    """
+    docs: list[list[str]] = []
+    vocab_set: set[str] = set()
 
-def compute_tfidf(train_texts):
-    docs = []
-    vocab = set()
     for text in train_texts:
-        tokens = text.split()
+        tokens = str(text).split()
         if not tokens:
             continue
         docs.append(tokens)
-        vocab.update(tokens)
+        vocab_set.update(tokens)
 
-    vocab = sorted(vocab)
-    vocab_index = {term: i for i, term in enumerate(vocab)}
+    vocab = sorted(vocab_set)
     n_docs = len(docs)
-    df_count = defaultdict(int)
+    df_count: dict[str, int] = defaultdict(int)
+
     for tokens in docs:
-        unique_terms = set(tokens)
-        for term in unique_terms:
+        for term in set(tokens):
             df_count[term] += 1
 
-    idf = {}
+    idf: dict[str, float] = {}
     for term in vocab:
-        idf[term] = math.log((1 + n_docs) / (1 + df_count.get(term, 0))) + 1.0
+        # Rumus Bab III: IDF(t) = log(N / df(t)) + 1
+        idf[term] = math.log(n_docs / df_count[term]) + 1.0
 
-    tfidf_matrix = []
-    for tokens in docs:
-        vec = {term: 0.0 for term in vocab}
-        total_terms = len(tokens)
-        if total_terms == 0:
-            tfidf_matrix.append(vec)
-            continue
-        tf = defaultdict(float)
-        for token in tokens:
-            tf[token] += 1.0
-        for term, count in tf.items():
-            term_tf = count / total_terms
-            vec[term] = term_tf * idf.get(term, 1.0)
-        tfidf_matrix.append(vec)
-
-    return vocab, idf, tfidf_matrix
+    return vocab, idf, dict(df_count)
 
 
-def vectorize_text(text, vocab, idf):
-    tokens = text.split()
+def vectorize_tfidf(text: str, vocab_set: set[str], idf: dict[str, float]) -> dict[str, float]:
+    """
+    Menghitung bobot TF-IDF untuk satu dokumen menggunakan kosakata dan IDF dari data latih.
+    Kata di data uji yang tidak ada di kosakata data latih diabaikan (OOV ignored).
+    """
+    tokens = str(text).split()
     if not tokens:
-        return {term: 0.0 for term in vocab}
-    total_terms = len(tokens)
-    vec = {term: 0.0 for term in vocab}
-    tf = defaultdict(float)
-    for token in tokens:
-        tf[token] += 1.0
-    for term, count in tf.items():
-        if term in vocab:
-            vec[term] = (count / total_terms) * idf.get(term, 1.0)
+        return {}
+    total_terms = float(len(tokens))
+    tf_counts = Counter(tokens)
+    vec: dict[str, float] = {}
+    for term, count in tf_counts.items():
+        if term in vocab_set:
+            tf_val = count / total_terms
+            vec[term] = tf_val * idf[term]
     return vec
 
 
-def train_nb(train_df, vocab, idf):
-    class_counts = defaultdict(int)
-    class_term_totals = defaultdict(float)
-    class_term_counts = defaultdict(dict)
+# =========================================================
+# 4. PELATIHAN & PREDIKSI MULTINOMIAL NAIVE BAYES
+# =========================================================
+
+def train_multinomial_nb(
+    train_df: pd.DataFrame,
+    vocab: list[str],
+    idf: dict[str, float],
+) -> tuple[dict[str, float], dict[str, dict[str, float]], dict[str, float], dict[str, int]]:
+    """
+    Melatih model Multinomial Naive Bayes menggunakan bobot TF-IDF data latih
+    dengan Laplace smoothing (+1).
+    """
+    vocab_set = set(vocab)
+    class_counts: dict[str, int] = defaultdict(int)
+    class_term_totals: dict[str, float] = defaultdict(float)
+    class_term_counts: dict[str, dict[str, float]] = {lbl: defaultdict(float) for lbl in SENTIMENT_LABELS}
 
     for _, row in train_df.iterrows():
-        label = row[LABEL_COLUMN]
-        text = row[TEXT_COLUMN]
-        vec = vectorize_text(text, vocab, idf)
+        label = str(row[LABEL_COLUMN]).strip().lower()
+        text = str(row[TEXT_COLUMN])
+        vec = vectorize_tfidf(text, vocab_set, idf)
         class_counts[label] += 1
-
-        inner = class_term_counts.setdefault(label, {})
         for term, weight in vec.items():
-            if weight <= 0:
-                continue
-            inner[term] = inner.get(term, 0.0) + weight
-            class_term_totals[label] += weight
+            if weight > 0.0:
+                class_term_counts[label][term] += weight
+                class_term_totals[label] += weight
 
-    total_docs = len(train_df)
-    priors = {label: math.log(class_counts[label] / total_docs) for label in class_counts}
+    total_docs = float(len(train_df))
+    priors = {
+        label: math.log(class_counts[label] / total_docs)
+        for label in SENTIMENT_LABELS
+    }
+    return priors, {k: dict(v) for k, v in class_term_counts.items()}, dict(class_term_totals), dict(class_counts)
 
-    return priors, class_term_counts, class_term_totals, class_counts
 
+def predict_multinomial_nb(
+    text: str,
+    priors: dict[str, float],
+    class_term_counts: dict[str, dict[str, float]],
+    class_term_totals: dict[str, float],
+    vocab: list[str],
+    vocab_set: set[str],
+    idf: dict[str, float],
+) -> str:
+    vec = vectorize_tfidf(text, vocab_set, idf)
+    v_size = float(len(vocab))
+    scores: dict[str, float] = {}
 
-def predict_text(text, priors, class_term_counts, class_term_totals, vocab, idf, labels):
-    vec = vectorize_text(text, vocab, idf)
-    scores = {}
-
-    for label in labels:
+    for label in SENTIMENT_LABELS:
         score = priors[label]
-        denom = class_term_totals[label] + len(vocab)
-
+        denom = class_term_totals.get(label, 0.0) + v_size
+        term_weights = class_term_counts.get(label, {})
         for term, weight in vec.items():
-            if weight <= 0:
-                continue
-            count = class_term_counts[label].get(term, 0.0)
-            score += weight * math.log((count + 1.0) / denom)
-
+            if weight > 0.0:
+                w_count = term_weights.get(term, 0.0)
+                score += weight * math.log((w_count + 1.0) / denom)
         scores[label] = score
 
     return max(scores, key=scores.get)
 
 
-def evaluate(y_true, y_pred):
-    labels = sorted(set(y_true) | set(y_pred))
-    confusion = {label: {target: 0 for target in labels} for label in labels}
+# =========================================================
+# 5. EVALUASI METRIK & CONFUSION MATRIX (KESELURUHAN & PER ASPEK)
+# =========================================================
+
+def compute_evaluation_metrics(y_true: list[str], y_pred: list[str], scope_name: str = "Keseluruhan") -> dict:
+    """
+    Menghitung Confusion Matrix (3x3), Accuracy, Precision (Macro & Per Kelas),
+    Recall (Macro & Per Kelas), F1-Score (Macro & Per Kelas), serta Jumlah Data Uji.
+    """
+    labels = SENTIMENT_LABELS
+    confusion = {actual: {pred: 0 for pred in labels} for actual in labels}
     for actual, pred in zip(y_true, y_pred):
-        confusion[actual][pred] = confusion[actual].get(pred, 0) + 1
+        if actual in confusion and pred in confusion[actual]:
+            confusion[actual][pred] += 1
 
-    total = len(y_true)
-    tp_total = 0
-    for label in labels:
-        tp_total += confusion[label].get(label, 0)
+    n_samples = len(y_true)
+    tp_total = sum(confusion[lbl][lbl] for lbl in labels)
+    accuracy = tp_total / n_samples if n_samples > 0 else 0.0
 
-    accuracy = tp_total / total if total else 0.0
+    per_class = {}
+    prec_list, rec_list, f1_list = [], [], []
+    weighted_prec, weighted_rec, weighted_f1 = 0.0, 0.0, 0.0
 
-    print("\nConfusion Matrix:")
-    print("\t" + "\t".join(labels))
-    for label in labels:
-        row = [confusion[label].get(target, 0) for target in labels]
-        print(label, "\t" + "\t".join(map(str, row)))
+    for lbl in labels:
+        tp = confusion[lbl][lbl]
+        fp = sum(confusion[other][lbl] for other in labels if other != lbl)
+        fn = sum(confusion[lbl][other] for other in labels if other != lbl)
+        support = tp + fn
 
-    print("\nAccuracy:", round(accuracy, 4))
+        prec = tp / (tp + fp) if (tp + fp) > 0 else 0.0
+        rec = tp / (tp + fn) if (tp + fn) > 0 else 0.0
+        f1 = (2.0 * prec * rec / (prec + rec)) if (prec + rec) > 0 else 0.0
 
-    total_precision = 0.0
-    total_recall = 0.0
-    total_f1 = 0.0
-    for label in labels:
-        tp = confusion[label].get(label, 0)
-        predicted_total = sum(confusion[target].get(label, 0) for target in labels)
-        actual_total = sum(confusion[label].get(target, 0) for target in labels)
+        per_class[lbl] = {
+            "precision": prec,
+            "recall": rec,
+            "f1_score": f1,
+            "support": support,
+            "tp": tp,
+            "fp": fp,
+            "fn": fn,
+        }
+        prec_list.append(prec)
+        rec_list.append(rec)
+        f1_list.append(f1)
 
-        precision = tp / predicted_total if predicted_total else 0.0
-        recall = tp / actual_total if actual_total else 0.0
-        f1 = (2 * precision * recall / (precision + recall)) if (precision + recall) else 0.0
+        if n_samples > 0:
+            weighted_prec += prec * (support / n_samples)
+            weighted_rec += rec * (support / n_samples)
+            weighted_f1 += f1 * (support / n_samples)
 
-        total_precision += precision
-        total_recall += recall
-        total_f1 += f1
-
-    macro_precision = total_precision / len(labels) if labels else 0.0
-    macro_recall = total_recall / len(labels) if labels else 0.0
-    macro_f1 = total_f1 / len(labels) if labels else 0.0
-
-    print(f"Precision (macro): {macro_precision:.4f}")
-    print(f"Recall (macro): {macro_recall:.4f}")
-    print(f"F1-Score (macro): {macro_f1:.4f}")
+    macro_precision = sum(prec_list) / len(labels)
+    macro_recall = sum(rec_list) / len(labels)
+    macro_f1 = sum(f1_list) / len(labels)
 
     return {
+        "scope": scope_name,
+        "n_test": n_samples,
+        "tp_total": tp_total,
         "accuracy": accuracy,
         "precision": macro_precision,
         "recall": macro_recall,
         "f1_score": macro_f1,
-        "labels": labels,
+        "weighted_precision": weighted_prec,
+        "weighted_recall": weighted_rec,
+        "weighted_f1": weighted_f1,
+        "confusion": confusion,
+        "per_class": per_class,
     }
 
 
-def parse_aspects(value):
-    if pd.isna(value):
-        return []
+# =========================================================
+# 6. TABEL DISTRIBUSI 4 ASPEK (SEBELUM BALANCING) & TABEL BALANCING
+# =========================================================
 
-    text = str(value).strip()
-    if not text:
-        return []
+def build_four_aspect_distribution_table(df_before_balancing: pd.DataFrame) -> pd.DataFrame:
+    """
+    Acuan Revisi Poin 7:
+    Membuat tabel distribusi 4 aspek dengan kolom:
+    Aspek | Positif | Negatif | Netral | Total
+    menggunakan data SEBELUM penyeimbangan.
+    """
+    rows = []
+    for aspect in ASPECT_CATEGORIES:
+        sub = df_before_balancing[df_before_balancing["aspect"] == aspect]
+        vc = sub[LABEL_COLUMN].value_counts()
+        pos = int(vc.get("positif", 0))
+        neg = int(vc.get("negatif", 0))
+        neu = int(vc.get("netral", 0))
+        tot = pos + neg + neu
+        rows.append({
+            "Aspek": aspect,
+            "Positif": pos,
+            "Negatif": neg,
+            "Netral": neu,
+            "Total": tot,
+        })
 
-    separators = [",", ";", "|", "\n"]
-    for sep in separators:
-        text = text.replace(sep, ",")
-
-    aspects = []
-    for part in text.split(","):
-        aspect = part.strip().lower()
-        if aspect:
-            aspects.append(aspect)
-    return aspects
-
-
-def summarize_by_aspect(df):
-    records = []
-    for _, row in df.iterrows():
-        aspect_text = row.get(TEXT_COLUMN, "")
-        sentiment = str(row.get(LABEL_COLUMN, "netral")).strip().lower()
-
-        if sentiment not in {"positif", "netral"}:
-            continue
-
-        aspects = parse_aspects(aspect_text)
-        if not aspects:
-            continue
-
-        for aspect in aspects:
-            mapped_aspect = map_topic_aspect(aspect)
-            if mapped_aspect in TOPIC_ASPECT_LABELS:
-                records.append({"aspect": mapped_aspect, "sentiment": sentiment})
-
-    if not records:
-        return pd.DataFrame(columns=["Aspek", "Positif", "Netral", "N Aspek"])
-
-    aspect_df = pd.DataFrame(records)
-    summary = (
-        aspect_df.groupby("aspect", as_index=False)["sentiment"]
-        .value_counts()
-        .pivot(index="aspect", columns="sentiment", values="count")
-        .fillna(0)
-        .astype(int)
-    )
-
-    for label in ["positif", "netral"]:
-        if label not in summary.columns:
-            summary[label] = 0
-
-    summary = summary[["positif", "netral"]].reset_index().rename(columns={"aspect": "Aspek"})
-    summary["Aspek"] = summary["Aspek"].map(TOPIC_ASPECT_LABELS)
-    summary = summary.rename(columns={"positif": "Positif", "netral": "Netral"})
-    summary["N Aspek"] = summary[["Positif", "Netral"]].sum(axis=1)
-    summary = summary[["Aspek", "Positif", "Netral", "N Aspek"]]
-    summary = summary.sort_values(["N Aspek", "Positif", "Netral"], ascending=False).reset_index(drop=True)
-    return summary
+    summary_df = pd.DataFrame(rows)
+    total_row = pd.DataFrame([{
+        "Aspek": "Total Keseluruhan",
+        "Positif": int(summary_df["Positif"].sum()),
+        "Negatif": int(summary_df["Negatif"].sum()),
+        "Netral": int(summary_df["Netral"].sum()),
+        "Total": int(summary_df["Total"].sum()),
+    }])
+    return pd.concat([summary_df, total_row], ignore_index=True)
 
 
-def save_evaluation_csv(metrics):
-    metrics_df = pd.DataFrame([
-        {"metric": "Accuracy", "score": float(metrics.get("accuracy", 0.0))},
-        {"metric": "Precision", "score": float(metrics.get("precision", 0.0))},
-        {"metric": "Recall", "score": float(metrics.get("recall", 0.0))},
-        {"metric": "F1-Score", "score": float(metrics.get("f1_score", 0.0))},
-    ])
+def build_balancing_experiment_tables(
+    full_df: pd.DataFrame,
+    train_raw_df: pd.DataFrame,
+    train_bal_df: pd.DataFrame,
+    test_df: pd.DataFrame,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """
+    Acuan Revisi Poin 7:
+    Menampilkan jumlah data sebelum dan sesudah penyeimbangan secara terpisah
+    untuk menjelaskan eksperimen bahwa balancing HANYA dilakukan pada data latih (80%).
+    """
+    def count_sent(d: pd.DataFrame) -> dict[str, int]:
+        vc = d[LABEL_COLUMN].value_counts()
+        return {
+            "Positif": int(vc.get("positif", 0)),
+            "Negatif": int(vc.get("negatif", 0)),
+            "Netral": int(vc.get("netral", 0)),
+            "Total": len(d),
+        }
 
-    output_metrics_path = BASE_DIR / "Visualisasi" / "evaluation_metrics.csv"
-    output_metrics_path.parent.mkdir(parents=True, exist_ok=True)
-    metrics_df.to_csv(output_metrics_path, index=False)
-    print(f"\nHasil evaluasi disimpan di: {output_metrics_path}")
-    return output_metrics_path
+    c_full = count_sent(full_df)
+    c_tr_raw = count_sent(train_raw_df)
+    c_tr_bal = count_sent(train_bal_df)
+    c_test = count_sent(test_df)
+
+    overview_rows = [
+        {
+            "Kelompok_Data": "1. Seluruh Pasangan Komentar-Aspek (100% - Sebelum Split & Balancing)",
+            "Komentar_Unik": int(full_df["Comment_ID"].nunique()),
+            **c_full,
+        },
+        {
+            "Kelompok_Data": "2. Data Latih (80% - Sebelum Balancing)",
+            "Komentar_Unik": int(train_raw_df["Comment_ID"].nunique()),
+            **c_tr_raw,
+        },
+        {
+            "Kelompok_Data": "3. Data Latih (80% - Sesudah Balancing / Oversampling)",
+            "Komentar_Unik": int(train_bal_df["Comment_ID"].nunique()),
+            **c_tr_bal,
+        },
+        {
+            "Kelompok_Data": "4. Data Uji (20% - Alami / Tanpa Balancing)",
+            "Komentar_Unik": int(test_df["Comment_ID"].nunique()),
+            **c_test,
+        },
+    ]
+    overview_df = pd.DataFrame(overview_rows)
+
+    # Rincian per aspek pada Data Latih (Sebelum vs Sesudah Balancing) & Data Uji
+    aspect_exp_rows = []
+    for aspect in ASPECT_CATEGORIES:
+        tr_sub_raw = train_raw_df[train_raw_df["aspect"] == aspect]
+        tr_sub_bal = train_bal_df[train_bal_df["aspect"] == aspect]
+        te_sub = test_df[test_df["aspect"] == aspect]
+
+        vc_raw = tr_sub_raw[LABEL_COLUMN].value_counts()
+        vc_bal = tr_sub_bal[LABEL_COLUMN].value_counts()
+        vc_te = te_sub[LABEL_COLUMN].value_counts()
+
+        aspect_exp_rows.append({
+            "Aspek": aspect,
+            "Latih_Sebelum_Positif": int(vc_raw.get("positif", 0)),
+            "Latih_Sebelum_Negatif": int(vc_raw.get("negatif", 0)),
+            "Latih_Sebelum_Netral": int(vc_raw.get("netral", 0)),
+            "Latih_Sebelum_Total": len(tr_sub_raw),
+            "Latih_Sesudah_Positif": int(vc_bal.get("positif", 0)),
+            "Latih_Sesudah_Negatif": int(vc_bal.get("negatif", 0)),
+            "Latih_Sesudah_Netral": int(vc_bal.get("netral", 0)),
+            "Latih_Sesudah_Total": len(tr_sub_bal),
+            "Uji_Alami_Positif": int(vc_te.get("positif", 0)),
+            "Uji_Alami_Negatif": int(vc_te.get("negatif", 0)),
+            "Uji_Alami_Netral": int(vc_te.get("netral", 0)),
+            "Uji_Alami_Total": len(te_sub),
+        })
+    aspect_exp_df = pd.DataFrame(aspect_exp_rows)
+    return overview_df, aspect_exp_df
 
 
 def main():
-    dataset_path = DATASET_FILE
-    if not dataset_path.exists():
-        raise FileNotFoundError(f"Dataset tidak ditemukan: {dataset_path}")
+    print("========================================")
+    print("TAHAP 4: SPLIT 80:20, BALANCING LATIH, TF-IDF & NAIVE BAYES")
+    print("========================================")
 
-    df = pd.read_excel(dataset_path)
-    if TEXT_COLUMN not in df.columns or LABEL_COLUMN not in df.columns:
-        raise ValueError(f"Kolom {TEXT_COLUMN} atau {LABEL_COLUMN} tidak tersedia.")
+    if not INPUT_PAIRS_FILE.exists():
+        raise FileNotFoundError(f"Dataset pasangan komentar-aspek tidak ditemukan: {INPUT_PAIRS_FILE}")
 
-    df = df[[TEXT_COLUMN, LABEL_COLUMN]].copy()
-    df[TEXT_COLUMN] = df[TEXT_COLUMN].fillna("").apply(clean_text)
+    df = pd.read_excel(INPUT_PAIRS_FILE)
+    df[TEXT_COLUMN] = df[TEXT_COLUMN].fillna("").astype(str).str.strip()
     df[LABEL_COLUMN] = df[LABEL_COLUMN].fillna("netral").astype(str).str.strip().str.lower()
-    df = df[df[TEXT_COLUMN].str.strip() != ""].reset_index(drop=True)
 
-    train_df, test_df = split_train_test(df, test_size=0.2, random_state=42)
+    # 1. Tabel distribusi 4 aspek SEBELUM penyeimbangan
+    aspect_dist_df = build_four_aspect_distribution_table(df)
+    aspect_dist_df.to_excel(ASPECT_SUMMARY_FILE, index=False)
+    aspect_dist_df.to_csv(
+        VISUALISASI_DIR / "distribusi_4_aspek_sebelum_balancing.csv",
+        index=False,
+        encoding="utf-8-sig",
+    )
 
-    vocab, idf, _ = compute_tfidf(train_df[TEXT_COLUMN].tolist())
-    priors, class_term_counts, class_term_totals, class_counts = train_nb(train_df, vocab, idf)
+    print("\n[1/5] Tabel Distribusi 4 Aspek (Data Sebelum Penyeimbangan):")
+    print(aspect_dist_df.to_string(index=False))
 
-    labels = sorted(class_counts.keys())
-    y_pred = []
-    for text in test_df[TEXT_COLUMN].tolist():
-        if not text.strip():
-            y_pred.append("netral")
-            continue
-        y_pred.append(predict_text(text, priors, class_term_counts, class_term_totals, vocab, idf, labels))
+    # 2. Split 80:20 berdasarkan Comment_ID SEBELUM penyeimbangan
+    train_raw_df, test_df, overlap_proof = split_train_test_by_comment(df, test_size=0.20, random_state=42)
+    pd.DataFrame([overlap_proof]).to_csv(OVERLAP_PROOF_CSV, index=False, encoding="utf-8-sig")
+    pd.DataFrame([overlap_proof]).to_csv(VISUALISASI_DIR / "bukti_tidak_tumpang_tindih.csv", index=False, encoding="utf-8-sig")
 
+    print("\n[2/5] Pembagian Data Latih (80%) & Data Uji (20%) Berdasarkan Comment_ID:")
+    for k, v in overlap_proof.items():
+        print(f" - {k:40s}: {v}")
+
+    # 3. Penyeimbangan HANYA pada data latih
+    train_balanced_df = balance_training_data(train_raw_df, random_state=42)
+
+    train_raw_df.to_excel(TRAIN_RAW_FILE, index=False)
+    train_balanced_df.to_excel(TRAIN_BALANCED_FILE, index=False)
+    train_balanced_df.to_excel(LABEL_BALANCED_FILE, index=False)
+    test_df.to_excel(TEST_FILE, index=False)
+
+    balancing_overview_df, balancing_aspect_df = build_balancing_experiment_tables(
+        df, train_raw_df, train_balanced_df, test_df
+    )
+    with pd.ExcelWriter(BALANCING_EXP_FILE, engine="openpyxl") as writer:
+        balancing_overview_df.to_excel(writer, sheet_name="Ringkasan_Balancing", index=False)
+        balancing_aspect_df.to_excel(writer, sheet_name="Balancing_Per_Aspek", index=False)
+
+    balancing_overview_df.to_csv(
+        VISUALISASI_DIR / "tabel_eksperimen_balancing.csv",
+        index=False,
+        encoding="utf-8-sig",
+    )
+    balancing_aspect_df.to_csv(
+        VISUALISASI_DIR / "tabel_eksperimen_balancing_per_aspek.csv",
+        index=False,
+        encoding="utf-8-sig",
+    )
+
+    print("\n[3/5] Tabel Eksperimen Penyeimbangan Data Latih (Data Uji Tidak Di-balancing):")
+    print(balancing_overview_df.to_string(index=False))
+
+    # 4. Pembentukan Kosakata & IDF HANYA dari Data Latih
+    vocab, idf, df_counts = compute_tfidf_from_train(train_balanced_df[TEXT_COLUMN].tolist())
+    vocab_set = set(vocab)
+    print(f"\n[4/5] Perhitungan TF-IDF (Rumus Bab III - Hanya dari Data Latih):")
+    print(f" - Jumlah dokumen latih (N) : {len(train_balanced_df)}")
+    print(f" - Ukuran kosakata latih |V|: {len(vocab)} kata unik")
+
+    # Latih Multinomial Naive Bayes
+    priors, class_term_counts, class_term_totals, class_counts = train_multinomial_nb(
+        train_balanced_df, vocab, idf
+    )
+
+    # 5. Evaluasi pada Data Uji (20%) Keseluruhan dan Per Aspek
     y_true = test_df[LABEL_COLUMN].tolist()
+    y_pred = [
+        predict_multinomial_nb(
+            text=t,
+            priors=priors,
+            class_term_counts=class_term_counts,
+            class_term_totals=class_term_totals,
+            vocab=vocab,
+            vocab_set=vocab_set,
+            idf=idf,
+        )
+        for t in test_df[TEXT_COLUMN].tolist()
+    ]
+
+    test_pred_df = test_df.copy()
+    test_pred_df["predicted_sentiment"] = y_pred
+    test_pred_df["is_correct"] = test_pred_df[LABEL_COLUMN] == test_pred_df["predicted_sentiment"]
+    test_pred_df["Status_Prediksi"] = test_pred_df["is_correct"].map({True: " Sesuai", False: " Tidak Sesuai"}).str.strip()
+    test_pred_df.to_excel(TEST_PREDICTIONS_FILE, index=False)
+
+    overall_eval = compute_evaluation_metrics(y_true, y_pred, scope_name="Keseluruhan (4 Aspek)")
 
     print("\n========================================")
-    print("TF-IDF + NAIVE BAYES")
+    print("[5/5] HASIL EVALUASI MODEL NAIVE BAYES PADA DATA UJI (20%)")
     print("========================================")
-    print(f"Jumlah dataset total: {len(df)}")
-    print(f"Train set: {len(train_df)}")
-    print(f"Test set: {len(test_df)}")
-    print(f"Rasio split: 80:20")
-    metrics = evaluate(y_true, y_pred)
-    save_evaluation_csv(metrics)
+    print(f"Jumlah Data Uji (Pasangan Komentar-Aspek) : {overall_eval['n_test']} (dari {test_df['Comment_ID'].nunique()} komentar unik)")
+    print(f"Prediksi Benar                            : {overall_eval['tp_total']} / {overall_eval['n_test']}")
+    print(f"Accuracy                                  : {overall_eval['accuracy'] * 100:.2f}% ({overall_eval['accuracy']:.4f})")
+    print(f"Precision (Macro)                         : {overall_eval['precision'] * 100:.2f}% ({overall_eval['precision']:.4f})")
+    print(f"Recall (Macro)                            : {overall_eval['recall'] * 100:.2f}% ({overall_eval['recall']:.4f})")
+    print(f"F1-Score (Macro)                          : {overall_eval['f1_score'] * 100:.2f}% ({overall_eval['f1_score']:.4f})")
 
-    aspect_summary = summarize_by_aspect(df)
-    if not aspect_summary.empty:
-        print("\n========================================")
-        print("RINGKASAN ASPEK SENTIMEN")
-        print("========================================")
-        print(aspect_summary.to_string(index=False))
+    print("\nConfusion Matrix Keseluruhan (Baris = Aktual, Kolom = Prediksi):")
+    cm_overall_rows = []
+    header_str = "Aktual \\ Prediksi\t" + "\t".join(lbl.capitalize() for lbl in SENTIMENT_LABELS)
+    print(header_str)
+    for actual in SENTIMENT_LABELS:
+        row_vals = [overall_eval["confusion"][actual][pred] for pred in SENTIMENT_LABELS]
+        print(f"{actual.capitalize():16s}\t" + "\t".join(str(v) for v in row_vals))
+        cm_overall_rows.append({
+            "Aktual": actual.capitalize(),
+            "Prediksi_Positif": overall_eval["confusion"][actual]["positif"],
+            "Prediksi_Negatif": overall_eval["confusion"][actual]["negatif"],
+            "Prediksi_Netral": overall_eval["confusion"][actual]["netral"],
+            "Total_Aktual": sum(row_vals),
+        })
+    cm_overall_df = pd.DataFrame(cm_overall_rows)
+    cm_overall_df.to_csv(VISUALISASI_DIR / "confusion_matrix_overall.csv", index=False, encoding="utf-8-sig")
 
-        summary_path = BASE_DIR / "Klasifikasi" / "aspect_sentiment_summary.xlsx"
-        if summary_path.exists():
-            try:
-                summary_path.unlink()
-            except PermissionError:
-                pass
-        aspect_summary.to_excel(summary_path, index=False)
-        print(f"\nHasil per aspek tersimpan di: {summary_path}")
+    # Evaluasi Per Kelas Sentimen
+    per_class_rows = []
+    for lbl in SENTIMENT_LABELS:
+        pc = overall_eval["per_class"][lbl]
+        per_class_rows.append({
+            "Kelas_Sentimen": lbl.capitalize(),
+            "Precision": round(pc["precision"], 4),
+            "Recall": round(pc["recall"], 4),
+            "F1_Score": round(pc["f1_score"], 4),
+            "Jumlah_Data_Uji": pc["support"],
+        })
+    per_class_df = pd.DataFrame(per_class_rows)
 
-    model_path = BASE_DIR / "Klasifikasi" / "naive_bayes_model.pkl"
-    payload = {
+    # Evaluasi Per Aspek
+    per_aspect_rows = []
+    cm_aspect_rows = []
+
+    print("\nEvaluasi Per Kategori Aspek:")
+    for aspect in ASPECT_CATEGORIES:
+        sub_df = test_pred_df[test_pred_df["aspect"] == aspect]
+        ev_asp = compute_evaluation_metrics(
+            sub_df[LABEL_COLUMN].tolist(),
+            sub_df["predicted_sentiment"].tolist(),
+            scope_name=aspect,
+        )
+        per_aspect_rows.append({
+            "Aspek": aspect,
+            "Jumlah_Data_Uji": ev_asp["n_test"],
+            "Prediksi_Benar": ev_asp["tp_total"],
+            "Accuracy": round(ev_asp["accuracy"], 4),
+            "Precision": round(ev_asp["precision"], 4),
+            "Recall": round(ev_asp["recall"], 4),
+            "F1_Score": round(ev_asp["f1_score"], 4),
+            "Accuracy_Pct": round(ev_asp["accuracy"] * 100, 2),
+            "Precision_Pct": round(ev_asp["precision"] * 100, 2),
+            "Recall_Pct": round(ev_asp["recall"] * 100, 2),
+            "F1_Score_Pct": round(ev_asp["f1_score"] * 100, 2),
+        })
+        print(
+            f" - {aspect:26s} | N_uji={ev_asp['n_test']:3d} | "
+            f"Acc={ev_asp['accuracy']*100:6.2f}% | Prec={ev_asp['precision']*100:6.2f}% | "
+            f"Rec={ev_asp['recall']*100:6.2f}% | F1={ev_asp['f1_score']*100:6.2f}%"
+        )
+        for actual in SENTIMENT_LABELS:
+            cm_aspect_rows.append({
+                "Aspek": aspect,
+                "Aktual": actual.capitalize(),
+                "Prediksi_Positif": ev_asp["confusion"][actual]["positif"],
+                "Prediksi_Negatif": ev_asp["confusion"][actual]["negatif"],
+                "Prediksi_Netral": ev_asp["confusion"][actual]["netral"],
+                "Total_Aktual": sum(ev_asp["confusion"][actual].values()),
+            })
+
+    # Tambahkan baris Keseluruhan ke tabel evaluasi per aspek
+    per_aspect_rows.append({
+        "Aspek": "Keseluruhan (Total)",
+        "Jumlah_Data_Uji": overall_eval["n_test"],
+        "Prediksi_Benar": overall_eval["tp_total"],
+        "Accuracy": round(overall_eval["accuracy"], 4),
+        "Precision": round(overall_eval["precision"], 4),
+        "Recall": round(overall_eval["recall"], 4),
+        "F1_Score": round(overall_eval["f1_score"], 4),
+        "Accuracy_Pct": round(overall_eval["accuracy"] * 100, 2),
+        "Precision_Pct": round(overall_eval["precision"] * 100, 2),
+        "Recall_Pct": round(overall_eval["recall"] * 100, 2),
+        "F1_Score_Pct": round(overall_eval["f1_score"] * 100, 2),
+    })
+
+    per_aspect_df = pd.DataFrame(per_aspect_rows)
+    cm_aspect_df = pd.DataFrame(cm_aspect_rows)
+
+    per_aspect_df.to_csv(VISUALISASI_DIR / "evaluation_per_aspect.csv", index=False, encoding="utf-8-sig")
+    cm_aspect_df.to_csv(VISUALISASI_DIR / "confusion_matrix_per_aspect.csv", index=False, encoding="utf-8-sig")
+
+    # Simpan evaluation_metrics.csv untuk grafik keseluruhan
+    metrics_df = pd.DataFrame([
+        {"metric": "Accuracy", "score": round(overall_eval["accuracy"], 4), "n_test": overall_eval["n_test"]},
+        {"metric": "Precision", "score": round(overall_eval["precision"], 4), "n_test": overall_eval["n_test"]},
+        {"metric": "Recall", "score": round(overall_eval["recall"], 4), "n_test": overall_eval["n_test"]},
+        {"metric": "F1-Score", "score": round(overall_eval["f1_score"], 4), "n_test": overall_eval["n_test"]},
+    ])
+    metrics_df.to_csv(VISUALISASI_DIR / "evaluation_metrics.csv", index=False, encoding="utf-8-sig")
+
+    # Pilih sampel komentar representatif (mencakup ke-4 aspek & komentar multi-aspek) untuk diperiksa
+    sample_rows = []
+    # 1. Ambil contoh komentar multi-aspek di data uji
+    test_cid_counts = test_pred_df["Comment_ID"].value_counts()
+    multi_cids = test_cid_counts[test_cid_counts >= 2].index.tolist()
+    picked_cids = multi_cids[:6]
+    for cid in picked_cids:
+        sub = test_pred_df[test_pred_df["Comment_ID"] == cid]
+        for _, r in sub.iterrows():
+            sample_rows.append(r)
+
+    # 2. Pastikan setiap aspek & setiap kelas sentimen terwakili
+    for asp in ASPECT_CATEGORIES:
+        for sent in SENTIMENT_LABELS:
+            sub = test_pred_df[
+                (test_pred_df["aspect"] == asp)
+                & (test_pred_df[LABEL_COLUMN] == sent)
+                & (~test_pred_df["Comment_ID"].isin(picked_cids))
+            ]
+            if not sub.empty:
+                sample_rows.append(sub.iloc[0])
+
+    sample_inspect_df = pd.DataFrame(sample_rows).drop_duplicates(subset=["Pair_ID"]).reset_index(drop=True)
+    sample_export_df = sample_inspect_df[[
+        "Pair_ID", "Comment_ID", "Comment Text", "normalized_text",
+        "aspect", "matched_keywords", "aspect_context",
+        LABEL_COLUMN, "predicted_sentiment", "Status_Prediksi",
+    ]].rename(columns={
+        "Comment Text": "Komentar_Asli",
+        "normalized_text": "Komentar_Normalisasi",
+        "aspect": "Aspek",
+        "matched_keywords": "Kata_Kunci_Aspek",
+        "aspect_context": "Konteks_Klausa_Aspek",
+        LABEL_COLUMN: "Label_Acuan_InSet",
+        "predicted_sentiment": "Hasil_Prediksi_NB",
+    })
+    sample_export_df.to_csv(
+        VISUALISASI_DIR / "contoh_prediksi_komentar_aspek.csv",
+        index=False,
+        encoding="utf-8-sig",
+    )
+
+    # Simpan seluruh tabel evaluasi ke satu berkas Excel multi-sheet
+    with pd.ExcelWriter(FULL_EVAL_EXCEL, engine="openpyxl") as writer:
+        per_aspect_df.to_excel(writer, sheet_name="Evaluasi_Per_Aspek", index=False)
+        per_class_df.to_excel(writer, sheet_name="Evaluasi_Per_Kelas", index=False)
+        cm_overall_df.to_excel(writer, sheet_name="Confusion_Matrix_Total", index=False)
+        cm_aspect_df.to_excel(writer, sheet_name="Confusion_Matrix_Aspek", index=False)
+        aspect_dist_df.to_excel(writer, sheet_name="Distribusi_4_Aspek_Awal", index=False)
+        balancing_overview_df.to_excel(writer, sheet_name="Eksperimen_Balancing", index=False)
+        pd.DataFrame([overlap_proof]).to_excel(writer, sheet_name="Bukti_Zero_Overlap", index=False)
+        sample_export_df.to_excel(writer, sheet_name="Contoh_Prediksi_Uji", index=False)
+
+    # Simpan model Naive Bayes
+    model_payload = {
         "vocab": vocab,
         "idf": idf,
+        "df_counts": df_counts,
         "priors": priors,
         "class_term_counts": class_term_counts,
         "class_term_totals": class_term_totals,
-        "labels": labels,
+        "labels": SENTIMENT_LABELS,
+        "aspect_categories": ASPECT_CATEGORIES,
+        "overlap_proof": overlap_proof,
     }
+    with open(MODEL_PKL_FILE, "wb") as f:
+        pickle.dump(model_payload, f)
 
-    with open(model_path, "wb") as f:
-        import pickle
-        pickle.dump(payload, f)
-
-    print(f"\nModel tersimpan di: {model_path}")
+    print(f"\nBerkas hasil klasifikasi & evaluasi disimpan di:")
+    print(f" - Distribusi 4 aspek (sebelum balancing) : {ASPECT_SUMMARY_FILE}")
+    print(f" - Tabel eksperimen balancing data latih  : {BALANCING_EXP_FILE}")
+    print(f" - Evaluasi lengkap Naive Bayes           : {FULL_EVAL_EXCEL}")
+    print(f" - Hasil prediksi data uji lengkap        : {TEST_PREDICTIONS_FILE}")
+    print(f" - Bukti 0 tumpang tindih latih/uji       : {OVERLAP_PROOF_CSV}")
+    print(f" - Model tersimpan                        : {MODEL_PKL_FILE}")
+    print("========================================")
 
 
 if __name__ == "__main__":

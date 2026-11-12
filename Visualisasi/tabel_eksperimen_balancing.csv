@@ -1,0 +1,5 @@
+﻿Kelompok_Data,Komentar_Unik,Positif,Negatif,Netral,Total
+1. Seluruh Pasangan Komentar-Aspek (100% - Sebelum Split & Balancing),2367,768,1389,1576,3733
+2. Data Latih (80% - Sebelum Balancing),1894,604,1085,1278,2967
+3. Data Latih (80% - Sesudah Balancing / Oversampling),1894,1278,1278,1278,3834
+4. Data Uji (20% - Alami / Tanpa Balancing),473,164,304,298,766

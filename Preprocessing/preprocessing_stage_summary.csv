@@ -1,0 +1,9 @@
+﻿Tahap,Jumlah_Data,Keterangan
+1. Data Mentah Gabungan (combined_dataset.xlsx),5802,Gabungan 7 berkas Excel dataset komentar TikTok
+2. Baris Kosong / Tanpa Teks / Hanya Simbol Dihapus,323,26 baris kosong awal + 297 baris hanya simbol/angka/emoji netral
+3. Data Komentar Valid Setelah Pembersihan,5479,Baris dengan teks valid setelah cleansing & stemming
+4. Duplikasi Komentar Identik Dihapus,1478,Komentar berulang/identik dihapus agar tidak bocor antara latih & uji
+5. Komentar Unik Bersih (dataset_preprocessed.xlsx),4001,Komentar unik ber-ID C0001 s.d. C3996
+6. Komentar Tanpa Aspek Terdeteksi (Dikeluarkan),1634,Tidak otomatis diberi label netral sesuai Poin 3 revisi
+7. Komentar Unik Memiliki >= 1 Aspek,2367,Komentar yang memuat minimal 1 dari 4 kategori aspek
+8. Total Pasangan Komentar-Aspek Terbentuk,3733,"Satu komentar multi-aspek dipecah menjadi beberapa pasangan (komentar, aspek)"
