@@ -1,2 +1,2 @@
 ﻿total_dataset,total_unique_comments,total_positif,total_negatif,total_netral,train_comments,test_comments,train_set,train_set_balanced,test_set,train_raw_positif,train_raw_negatif,train_raw_netral,train_bal_positif,train_bal_negatif,train_bal_netral,test_positif,test_negatif,test_netral,rasio_split,overlap_komentar
-3733,2367,768,1389,1576,1894,473,2967,3834,766,604,1085,1278,1278,1278,1278,164,304,298,80:20,0
+2744,1768,543,1038,1163,1414,354,2196,2805,548,433,828,935,935,935,935,110,210,228,80:20,0

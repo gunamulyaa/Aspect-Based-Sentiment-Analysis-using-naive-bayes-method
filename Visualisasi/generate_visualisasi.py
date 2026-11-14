@@ -582,6 +582,67 @@ def make_wordcloud_four_aspects(df: pd.DataFrame, filename: str = "wordcloud_4_a
     plt.close(fig)
 
 
+def make_human_audit_chart(filename: str = "bar_chart_evaluasi_manusia.png"):
+    audit_path = OUTPUT_DIR / "evaluasi_terhadap_label_manusia.csv"
+    if not audit_path.exists():
+        return
+
+    df_aud = pd.read_csv(audit_path)
+    if "Cakupan" in df_aud.columns:
+        df_aud = df_aud[df_aud["Cakupan"] == "Keseluruhan (4 Aspek)"].copy()
+    if df_aud.empty:
+        return
+
+    plt.style.use("seaborn-v0_8-whitegrid")
+    metrics = ["Accuracy_Pct", "Precision_Pct", "Recall_Pct", "F1_Score_Pct"]
+    metric_labels = ["Accuracy", "Precision (Macro)", "Recall (Macro)", "F1-Score (Macro)"]
+    x = np.arange(len(metrics))
+    width = 0.34
+
+    fig, ax = plt.subplots(figsize=(10, 5.8))
+    colors = ["#2980b9", "#e67e22"]
+
+    for idx, (_, row) in enumerate(df_aud.iterrows()):
+        vals = [float(row[m]) for m in metrics]
+        offset = -width / 2 if idx == 0 else width / 2
+        bars = ax.bar(
+            x + offset,
+            vals,
+            width,
+            label=row.get("Metode_Dievaluasi", row.get("Metode_yang_Dievaluasi", f"Metode {idx+1}")),
+            color=colors[idx % len(colors)],
+            edgecolor="black",
+            linewidth=0.85,
+        )
+        for bar, v in zip(bars, vals):
+            ax.text(
+                bar.get_x() + bar.get_width() / 2,
+                v + 1.5,
+                f"{v:.2f}%",
+                ha="center",
+                va="bottom",
+                fontsize=9.5,
+                fontweight="bold",
+            )
+
+    ax.set_title(
+        "Evaluasi Kamus InSet & Naive Bayes terhadap Label Acuan Manusia (N = 100 Sampel Audit)",
+        fontsize=12.8,
+        fontweight="bold",
+        pad=12,
+    )
+    ax.set_ylabel("Skor Evaluasi (%)", fontsize=11)
+    ax.set_xticks(x)
+    ax.set_xticklabels(metric_labels, fontsize=10.5, fontweight="bold")
+    ax.set_ylim(0, 108)
+    ax.legend(frameon=True, fontsize=10, loc="upper right")
+    ax.grid(axis="y", linestyle="--", alpha=0.4)
+
+    fig.tight_layout()
+    fig.savefig(OUTPUT_DIR / filename, dpi=300, bbox_inches="tight")
+    plt.close(fig)
+
+
 def generate_all_visualizations():
     print("========================================")
     print("TAHAP 5: PEMBUATAN GRAFIK, CONFUSION MATRIX, & WORD CLOUD")
@@ -613,6 +674,7 @@ def generate_all_visualizations():
     make_per_aspect_evaluation_chart("bar_chart_evaluasi_per_aspek.png")
     make_confusion_matrix_overall_chart("confusion_matrix_keseluruhan.png")
     make_confusion_matrix_per_aspect_chart("confusion_matrix_per_aspek.png")
+    make_human_audit_chart("bar_chart_evaluasi_manusia.png")
 
     for sentiment in ["positif", "negatif", "netral"]:
         make_wordcloud_for_sentiment(full_df, sentiment, f"wordcloud_{sentiment}.png")

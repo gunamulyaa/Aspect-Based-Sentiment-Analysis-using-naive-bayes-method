@@ -10,6 +10,7 @@ SCRIPTS = [
     BASE_DIR / "Preprocessing" / "preprocessing.py",
     BASE_DIR / "Label" / "Labeling.py",
     BASE_DIR / "Klasifikasi" / "naive_bayes_model.py",
+    BASE_DIR / "Label" / "human_inspection_audit.py",
     BASE_DIR / "Visualisasi" / "generate_visualisasi.py",
 ]
 

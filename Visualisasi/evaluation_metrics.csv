@@ -1,5 +1,5 @@
 ﻿metric,score,n_test
-Accuracy,0.923,766
-Precision,0.9104,766
-Recall,0.9235,766
-F1-Score,0.9147,766
+Accuracy,0.6679,548
+Precision,0.662,548
+Recall,0.6822,548
+F1-Score,0.6597,548

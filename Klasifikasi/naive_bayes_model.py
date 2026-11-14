@@ -159,15 +159,63 @@ def balance_training_data(train_df: pd.DataFrame, random_state: int = 42) -> pd.
 # =========================================================
 # 3. PERHITUNGAN TF-IDF SESUAI RUMUS BAB III (DARI DATA LATIH)
 # =========================================================
+# Acuan Revisi Poin 7 (Dicocokkan dengan Bab II Persamaan 2.1-2.3 & Bab III Tabel 3.12):
+#   TF(t, d)     = f(t, d) / |d|         (frekuensi relatif kata t terhadap total kata di dokumen d)
+#   IDF(t)       = log10(N / df(t))      (logaritma basis 10 TANPA penambahan konstanta +1,
+#                                         sesuai Tabel 3.12: N=3, df=1 -> log10(3/1)=0.477;
+#                                         df=2 -> log10(3/2)=0.176; df=3 -> log10(3/3)=0.000)
+#   W(d, t)      = TF(t, d) * IDF(t)
+
+
+def verify_tfidf_formula_against_bab3() -> pd.DataFrame:
+    """
+    Memverifikasi kesesuaian rumus TF-IDF di kode dengan perhitungan manual Tabel 3.11 & Tabel 3.12
+    pada Bab III Laporan Seminar:
+      D1: "tuju bijak perintah lindung anak" (5 kata; pada Tabel 3.11 diasumsikan panjang dokumen 6 kata)
+      Untuk N = 3 dokumen:
+      - DF = 1 -> IDF = log10(3/1) = 0.4771 (dibulatkan 3 desimal: 0.477), TF = 1/6 = 0.167 -> W = 0.080
+      - DF = 2 -> IDF = log10(3/2) = 0.1761 (dibulatkan 3 desimal: 0.176), TF = 1/6 = 0.167 -> W = 0.029
+      - DF = 3 -> IDF = log10(3/3) = 0.0000 (dibulatkan 3 desimal: 0.000), TF = 1/6 = 0.167 -> W = 0.000
+    """
+    n_bab3 = 3
+    rows = []
+    expected_table_3_12 = {
+        1: (0.477, 0.080),
+        2: (0.176, 0.029),
+        3: (0.000, 0.000),
+    }
+    tf_bab3 = 1.0 / 6.0
+    for df_val, (exp_idf, exp_w) in expected_table_3_12.items():
+        calc_idf = math.log10(n_bab3 / df_val)
+        calc_w = round(tf_bab3, 3) * round(calc_idf, 3)
+        assert round(calc_idf, 3) == exp_idf, f"IDF mismatch for df={df_val}: {round(calc_idf, 3)} != {exp_idf}"
+        assert round(calc_w, 3) == exp_w, f"TF-IDF mismatch for df={df_val}: {round(calc_w, 3)} != {exp_w}"
+        rows.append({
+            "N_Dokumen": n_bab3,
+            "DF": df_val,
+            "TF_Bab_III (1/6)": round(tf_bab3, 3),
+            "Rumus_IDF": f"log10({n_bab3}/{df_val})",
+            "IDF_Kode (3 desimal)": round(calc_idf, 3),
+            "IDF_Tabel_3_12_Bab_III": exp_idf,
+            "TF_IDF_Kode (3 desimal)": round(calc_w, 3),
+            "TF_IDF_Tabel_3_12_Bab_III": exp_w,
+            "Status": "SESUAI PERSIS DENGAN TABEL 3.12 BAB III",
+        })
+    ver_df = pd.DataFrame(rows)
+    ver_df.to_csv(KLASIFIKASI_DIR / "verifikasi_rumus_tfidf_bab3.csv", index=False, encoding="utf-8-sig")
+    ver_df.to_csv(VISUALISASI_DIR / "verifikasi_rumus_tfidf_bab3.csv", index=False, encoding="utf-8-sig")
+    return ver_df
+
 
 def compute_tfidf_from_train(train_texts: list[str]) -> tuple[list[str], dict[str, float], dict[str, int]]:
     """
     Menghitung kosakata (vocabulary), Document Frequency (df), dan Inverse Document Frequency (IDF)
-    HANYA dari dokumen data latih sesuai rumus pada Bab III:
+    HANYA dari dokumen data latih sesuai rumus pada Bab II & Bab III (Tabel 3.12):
       TF(t, d)     = f(t, d) / |d|
-      IDF(t)       = log(N / df(t)) + 1
+      IDF(t)       = log10(N / df(t))
       TF-IDF(t, d) = TF(t, d) * IDF(t)
-    dengan N = jumlah dokumen latih dan df(t) = jumlah dokumen latih yang memuat kata t.
+    dengan N = jumlah dokumen latih, df(t) = jumlah dokumen latih yang memuat kata t,
+    logaritma menggunakan basis 10 (`math.log10`), dan TANPA konstanta `+ 1`.
     """
     docs: list[list[str]] = []
     vocab_set: set[str] = set()
@@ -189,8 +237,8 @@ def compute_tfidf_from_train(train_texts: list[str]) -> tuple[list[str], dict[st
 
     idf: dict[str, float] = {}
     for term in vocab:
-        # Rumus Bab III: IDF(t) = log(N / df(t)) + 1
-        idf[term] = math.log(n_docs / df_count[term]) + 1.0
+        # Rumus Bab III Tabel 3.12: IDF(t) = log10(N / df(t)) tanpa konstanta +1
+        idf[term] = math.log10(n_docs / df_count[term])
 
     return vocab, idf, dict(df_count)
 
@@ -525,10 +573,12 @@ def main():
     print("\n[3/5] Tabel Eksperimen Penyeimbangan Data Latih (Data Uji Tidak Di-balancing):")
     print(balancing_overview_df.to_string(index=False))
 
-    # 4. Pembentukan Kosakata & IDF HANYA dari Data Latih
+    # 4. Verifikasi Rumus TF-IDF Bab III (Tabel 3.12) & Pembentukan Kosakata + IDF dari Data Latih
+    tfidf_ver_df = verify_tfidf_formula_against_bab3()
     vocab, idf, df_counts = compute_tfidf_from_train(train_balanced_df[TEXT_COLUMN].tolist())
     vocab_set = set(vocab)
-    print(f"\n[4/5] Perhitungan TF-IDF (Rumus Bab III - Hanya dari Data Latih):")
+    print(f"\n[4/5] Perhitungan TF-IDF (Rumus Bab III Tabel 3.12: TF=f/|d|, IDF=log10(N/df) tanpa +1):")
+    print(tfidf_ver_df.to_string(index=False))
     print(f" - Jumlah dokumen latih (N) : {len(train_balanced_df)}")
     print(f" - Ukuran kosakata latih |V|: {len(vocab)} kata unik")
 

@@ -1,46 +1,96 @@
-# Catatan Perubahan & Laporan Revisi (Acuan Bab I–III)
+# Catatan Perubahan & Laporan Revisi Kedua (Acuan Bab I–III)
 **Topik Penelitian**: Analisis Sentimen Berbasis Aspek (*Aspect-Based Sentiment Analysis* / ABSA) terhadap Kebijakan Pembatasan Penggunaan Media Sosial bagi Anak di Bawah 16 Tahun Menggunakan Metode *Multinomial Naive Bayes* dan Kamus *InSet*.
 
 ---
 
-## 1. Ringkasan Pemenuhan 8 Poin Revisi (Bab I–III)
+## 1. Ringkasan Pemenuhan 9 Poin Revisi (Bab I–III)
 
 | No | Poin Revisi | Perubahan yang Dilakukan | Berkas Terkait |
 | :-: | :--- | :--- | :--- |
-| **1** | **Pemetaan 4 Kategori Aspek & Kata Kunci (Termasuk Bentuk Setelah Stemming)** | Mengubah pemetaan aspek dari 6 topik lama menjadi **4 kategori aspek sesuai Bab I–III**: `Perlindungan Anak`, `Peran Orang Tua`, `Peran Pemerintah/Komdigi`, dan `Efektivitas Kebijakan`. Kata kunci mencakup bentuk kata dasar, kata berimbuhan, dan bentuk akar hasil *stemming* Sastrawi (mis. `perlindungan`/`melindungi` $\rightarrow$ `lindung`, `pengawasan` $\rightarrow$ `awas`, `pendampingan` $\rightarrow$ `damping`, `pengasuhan` $\rightarrow$ `asuh`, `pendidikan` $\rightarrow$ `didik`, `pemerintah` $\rightarrow$ `perintah`, `kebijakan` $\rightarrow$ `bijak`, `peraturan`/`mengatur` $\rightarrow$ `atur`, `pembatasan` $\rightarrow$ `batas`, `penerapan` $\rightarrow$ `terap`, `setuju` $\rightarrow$ `tuju`). | `Label/Dictionary.py`, `Preprocessing/preprocessing.py`, `Label/Labeling.py` |
-| **2** | **Pembentukan Pasangan Komentar–Aspek Multi-Label Kontekstual** | Satu komentar yang membahas lebih dari satu aspek dipecah menjadi beberapa baris pasangan `(komentar, aspek)`. Dari `2.367` komentar unik beraspek (di antaranya `1.002` komentar multi-aspek), terbentuk **`3.733` pasangan komentar–aspek**. Setiap pasangan aspek dievaluasi pada klausa/konteks aspeknya (memisahkan klausa pada konjungsi kontras seperti `tapi`, `tetapi`, `namun`, `padahal`, `sedangkan`, `meski`, `walaupun`) sehingga satu komentar dapat memiliki label sentimen berbeda pada aspek yang berbeda. | `Label/Labeling.py`, `Label/dataset_pasangan_komentar_aspek.xlsx` |
-| **3** | **Penggunaan Kamus InSet, Pelestarian Negasi, & Pengeluaran Komentar Tanpa Aspek** | Menerapkan kamus **InSet (Indonesian Sentiment Lexicon)** berbobot $-5$ s.d. $+5$ (`Label/inset_positive.tsv` & `Label/inset_negative.tsv`). Memperbaiki bug pada `Preprocessing/preprocessing.py` yang sebelumnya menghapus kata negasi (`tidak`, `bukan`, `jangan`) pada `ASPECT_EXCLUSION` dan memasukkan `belum` ke `STOPWORDS`. Seluruh kata negasi (`tidak`, `bukan`, `jangan`, `belum`, `tanpa`, `kurang`, `tak`) dipertahankan pada teks pelabelan maupun klasifikasi. Sebanyak **`1.634` komentar unik yang tidak memuat aspek dikeluarkan** (`Label/komentar_tanpa_aspek_dikeluarkan.xlsx`) dan **tidak** otomatis diberi label netral. | `Label/Dictionary.py`, `Preprocessing/preprocessing.py`, `Label/Labeling.py` |
-| **4** | **Perhitungan TF-IDF Sesuai Rumus Bab III (Hanya dari Data Latih)** | Menyesuaikan rumus TF-IDF dengan Bab III: $\text{TF}(t,d) = \frac{f_{t,d}}{|d|}$, $\text{IDF}(t) = \log\left(\frac{N}{df_t}\right) + 1$, dan $W_{t,d} = \text{TF}(t,d) \times \text{IDF}(t)$. Kosakata ($|V| = 1.058$ kata unik) dan nilai $\text{IDF}$ **hanya dibentuk dari data latih** ($N = 3.834$). Kata pada data uji yang berada di luar kosakata latih (*Out-of-Vocabulary*) diabaikan tanpa kebocoran statistik data uji. | `Klasifikasi/naive_bayes_model.py` |
-| **5** | **Pembagian Data Latih & Uji 80:20 Sebelum Penyeimbangan (0 Overlap Komentar)** | Pemisahan 80:20 dilakukan **sebelum penyeimbangan** berdasarkan `Comment_ID` unik (`1.894` komentar unik latih $\rightarrow$ `2.967` pasangan aspek; `473` komentar unik uji $\rightarrow$ `766` pasangan aspek). Seluruh pasangan aspek dari komentar yang sama berada di kelompok yang sama. Dibuktikan **0 tumpang tindih (*zero overlap*)** pada `Comment_ID`, `Comment Text`, `normalized_text`, dan `stemmed_text`. Penyeimbangan (*random oversampling*) **hanya dilakukan pada data latih** (`2.967` $\rightarrow$ `3.834` pasangan latih seimbang: `1.278` Positif, `1.278` Negatif, `1.278` Netral). | `Klasifikasi/naive_bayes_model.py`, `Klasifikasi/data_latih_80.xlsx`, `Klasifikasi/data_latih_80_balanced.xlsx`, `Klasifikasi/data_uji_20.xlsx`, `Klasifikasi/bukti_tidak_tumpang_tindih.csv` |
-| **6** | **Pelatihan Ulang Naive Bayes & Evaluasi Keseluruhan serta Per Aspek** | Melatih ulang *Multinomial Naive Bayes* dengan *Laplace smoothing* pada data latih seimbang dan mengevaluasi pada `766` pasangan data uji alami. Menghasilkan *Confusion Matrix*, *Accuracy* (**92,30%**), *Precision* (**91,04%**), *Recall* (**92,35%**), *F1-Score* (**91,47%**), serta rincian evaluasi lengkap untuk keempat kategori aspek. | `Klasifikasi/naive_bayes_model.py`, `Klasifikasi/evaluasi_naive_bayes_lengkap.xlsx`, `Visualisasi/evaluation_per_aspect.csv` |
-| **7** | **Tabel Distribusi 4 Aspek (Sebelum Balancing) & Tabel Eksperimen Balancing Terpisah** | Menyusun ulang tabel distribusi 4 aspek dengan kolom `Aspek`, `Positif`, `Negatif`, `Netral`, dan `Total` menggunakan data **sebelum penyeimbangan** (`3.733` pasangan aspek). Tabel hasil penyeimbangan data latih disajikan secara terpisah untuk menjelaskan eksperimen. | `Klasifikasi/aspect_sentiment_summary.xlsx`, `Klasifikasi/tabel_eksperimen_balancing_latih.xlsx` |
-| **8** | **Pembaruan Grafik, Word Cloud, Dashboard, & Contoh Komentar Hasil Prediksi** | Memperbarui seluruh grafik batang, *heatmap Confusion Matrix* keseluruhan & per aspek, *Word Cloud* per sentimen & per aspek, serta *dashboard* `streamlit_app.py`. Menyertakan tabel contoh komentar beserta aspek, kata kunci, konteks klausa, label acuan InSet, dan hasil prediksi Naive Bayes. | `Visualisasi/generate_visualisasi.py`, `streamlit_app.py`, `Visualisasi/contoh_prediksi_komentar_aspek.csv`, `Klasifikasi/hasil_prediksi_data_uji.xlsx` |
+| **1** | **Gunakan Kamus InSet dari Sumber Aslinya & Dokumentasikan Modifikasi Terpisah** | Mengganti kamus buatan dalam kode (68 positif / 116 negatif) dengan berkas **InSet (Indonesian Sentiment Lexicon) asli** karya **Fajri Koto & Gemala Y. Rahmaningtyas (2017)** dari repositori resmi `https://github.com/fajri91/InSet` (`Label/inset_original_positive.tsv`: `3.609` baris / `3.607` kata unik; `Label/inset_original_negative.tsv`: `6.609` baris / `6.606` kata unik). Seluruh penetralan kata berderau/netral domain (`709` kata), resolusi kata tumpang-tindih positif–negatif (`54` kata), serta penambahan kata/frasa domain & token emoji (`56` entri) dicatat secara terpisah dari kamus asli pada `Label/inset_modifikasi_dan_tambahan.csv` dan `.xlsx` (total `819` catatan perubahan). Kamus efektif aktif mencakup `2.657` entri positif dan `5.827` entri negatif. | `Label/Dictionary.py`, `Label/inset_original_positive.tsv`, `Label/inset_original_negative.tsv`, `Label/inset_sumber_asli_metadata.csv`, `Label/inset_modifikasi_dan_tambahan.csv`, `Label/inset_modifikasi_dan_tambahan.xlsx` |
+| **2** | **Pertahankan Negasi Sampai Menjadi Masukan Naive Bayes** | Memperbaiki ekstraksi fitur agar kata negasi (`tidak`, `bukan`, `jangan`, `belum`, `tanpa`, `kurang`) **dan** token majemuk negasi (`tidak_<kata_berikutnya>`, mis. `tidak_blokir`, `jangan_batas`, `bukan_konten`) selalu dibentuk dan dipertahankan hingga kolom `aspect_text` yang menjadi masukan TF-IDF dan *Multinomial Naive Bayes*, baik ketika kata yang dinegasikan ada di dalam kamus opini maupun kata konteks non-opini. Konteks `"komdigi tidak blokir fb"` kini menghasilkan fitur `"komdigi tidak tidak_blokir blokir fb"` (bukan `"blokir fb"`). | `Label/Labeling.py` (`score_clause_with_inset()`, `build_aspect_classification_text()`) |
+| **3** | **Perbaiki `build_aspect_classification_text()` (Pertahankan Konteks Aspek)** | Menghapus pemangkasan yang sebelumnya hanya mengambil kata beropini atau membatasi teks netral menjadi 3 kata pertama. Fungsi `build_aspect_classification_text()` kini mempertahankan seluruh kata konteks klausa aspek yang relevan beserta kata negasi dan token majemuk negasi (`tidak_<kata>`), sehingga kosakata latih meningkat menjadi `2.975` fitur unik yang merepresentasikan konteks aspek secara utuh. | `Label/Labeling.py` |
+| **4** | **Perketat Aturan Pemetaan 4 Aspek (Kontekstual)** | Memisahkan kata kunci menjadi **Kata Kunci Inti (*Core Keywords*)** dan **Kata Kunci Kontekstual (*Contextual Rules*)** pada `detect_aspects_strict()`. Kata umum seperti `"hp"`, `"beli hp"`, `"main hp"`, `"pegang hp"`, `"youtube"`, `"tiktok"`, `"roblox"`, `"game"`, `"sosmed"`, `"akun"`, `"sekolah"`, `"ibu"`, `"bapak"`, `"umur"`, atau `"usia"` **tidak lagi langsung memicu kategori aspek** kecuali disertai kata konteks kebijakan/anak/orang tua yang relevan dalam komentar tersebut. Tetap menggunakan 4 kategori aspek sesuai Bab I–III (`Perlindungan Anak`, `Peran Orang Tua`, `Peran Pemerintah/Komdigi`, `Efektivitas Kebijakan`). | `Label/Dictionary.py` (`ASPECT_CORE_KEYWORDS`, `ASPECT_CONTEXTUAL_RULES`, `detect_aspects_strict()`) |
+| **5** | **Perbaiki Pemisahan Konteks Sentimen Setiap Aspek (Termasuk Tanpa `tetapi`/`namun`)** | Memperbarui `Preprocessing/preprocessing.py` (`build_clause_preserved_text()`) agar batas kalimat/tanda baca (`.`, `,`, `;`, `!`, `?`, baris baru) dipertahankan sebagai pemisah klausa `\|`, serta menambahkan `segment_clause_by_aspect_anchors()` di `Label/Labeling.py` untuk memisahkan segmen klausa berbasis posisi *anchor* kata kunci aspek ketika satu klausa memuat >1 aspek tanpa kata penghubung kontras (`tetapi`/`namun`). Diuji dan diverifikasi pada 5 skenario uji (`UJI-01` s.d. `UJI-05` di `Label/uji_pemisahan_konteks_multiaspek.csv`). Pada dataset penuh, dari `733` komentar multi-aspek, `338` komentar memiliki label sentimen yang berbeda antar-aspeknya. | `Preprocessing/preprocessing.py`, `Label/Labeling.py`, `Label/uji_pemisahan_konteks_multiaspek.csv` |
+| **6** | **Pemeriksaan Manusia (*Human Inspection Audit*) pada Sampel Pasangan Komentar–Aspek** | Melakukan pemeriksaan manusia secara independen pada **100 sampel pasangan komentar–aspek** dari data uji (`64` komentar unik, mencakup 4 aspek, 3 sentimen, `52` pasangan bernegasi, dan `71` pasangan multi-aspek). Menyediakan kolom `Label_Acuan_Manusia` yang diperiksa secara independen, mencatat kesalahan pemetaan aspek (`2/100` atau ketepatan `98,00%`) dan kesalahan pelabelan kamus InSet (`34/100`), serta mengevaluasi kamus InSet (**Accuracy 66,00%**, **Macro F1 64,70%**) dan Naive Bayes (**Accuracy 60,00%**, **Macro F1 55,38%**) terhadap penilaian manusia. | `Label/human_inspection_audit.py`, `Label/sampel_pemeriksaan_manusia.xlsx`, `Visualisasi/evaluasi_terhadap_label_manusia.csv`, `Visualisasi/ringkasan_kesalahan_pelabelan_manusia.csv` |
+| **7** | **Cocokkan Rumus TF-IDF dengan Bab III ($\log_{10}(N/df_t)$ Tanpa $+1$)** | Mencocokkan rumus kode dengan **Bab II Persamaan (2.2) dan Bab III Tabel 3.12** pada `Laporan Seminar Aris.docx`: $\text{TF}(t,d) = \frac{f_{t,d}}{|d|}$, $\text{IDF}(t) = \log_{10}\left(\frac{N}{df_t}\right)$ (**logaritma basis 10 tanpa penambahan konstanta $+1$**), dan $W_{d,t} = \text{TF}(t,d) \times \text{IDF}(t)$. Diverifikasi langsung terhadap contoh perhitungan manual Tabel 3.12 Bab III ($N=3, |d|=6$: untuk $df=1 \rightarrow \text{IDF}=0,477, \text{TF-IDF}=0,080$; $df=2 \rightarrow \text{IDF}=0,176, \text{TF-IDF}=0,029$; $df=3 \rightarrow \text{IDF}=0,000, \text{TF-IDF}=0,000$). | `Klasifikasi/naive_bayes_model.py`, `Klasifikasi/verifikasi_rumus_tfidf_bab3.csv`, `Visualisasi/verifikasi_rumus_tfidf_bab3.csv` |
+| **8** | **Lengkapi Validasi Relevansi & Periode Komentar Sesuai Batasan Penelitian** | Menambahkan validasi periode komentar (`parse_and_validate_comment_date()`, memperbaiki korup *autofill* tahun berurutan `8-3-2027..3868` pada `Comments_1787985625.091926.xlsx` menjadi `08-03-2026`, serta mengeluarkan komentar di luar periode penelitian $> 31\text{ Mei }2026$) dan validasi relevansi topik (`check_relevance()`, mengeluarkan komentar *spam* / promosi / topik asing di luar kebijakan pembatasan medsos anak). Seluruh baris yang dikeluarkan dicatat beserta alasan spesifiknya di `Preprocessing/data_dikeluarkan_validasi.xlsx`. | `Preprocessing/preprocessing.py`, `Preprocessing/data_dikeluarkan_validasi.xlsx`, `Preprocessing/preprocessing_stage_summary.csv` |
+| **9** | **Jalankan Ulang Seluruh Pipeline & Perbarui Model, Evaluasi, Tabel, Grafik, serta Dashboard** | Menjalankan ulang seluruh tahapan dari penggabungan data, *preprocessing*, pelabelan, pemodelan *Multinomial Naive Bayes*, pemeriksaan manusia, hingga pembuatan grafik dan *dashboard* Streamlit. Melaporkan hasil evaluasi terbaru secara jujur dan apa adanya (**Accuracy keseluruhan = 66,79%**, **Macro Precision = 66,20%**, **Macro Recall = 68,22%**, **Macro F1-Score = 65,97%** pada $N_{\text{uji}} = 548$ pasangan aspek). | Seluruh berkas pada `Preprocessing/`, `Label/`, `Klasifikasi/`, `Visualisasi/`, `streamlit_app.py` |
 
 ---
 
-## 2. Catatan Jumlah Data pada Setiap Tahap Pipeline
+## 2. Catatan Jumlah Data & Validasi pada Setiap Tahap Pipeline
 
-| Tahap | Jumlah Data | Keterangan |
+Sumber berkas: [`Preprocessing/preprocessing_stage_summary.csv`](file:///c:/Users/gunam/Downloads/TESTING/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Preprocessing/preprocessing_stage_summary.csv) dan [`Preprocessing/data_dikeluarkan_validasi.xlsx`](file:///c:/Users/gunam/Downloads/TESTING/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Preprocessing/data_dikeluarkan_validasi.xlsx).
+
+| Tahap | Jumlah Data | Keterangan & Alasan Pengeluaran Data |
 | :--- | ---: | :--- |
-| **1. Data Mentah Gabungan (`combined_dataset.xlsx`)** | **5.802** baris | Penggabungan 7 berkas Excel komentar TikTok pada folder `Dataset/` |
-| **2. Baris Kosong / Tanpa Teks / Hanya Simbol Dihapus** | **-323** baris | `26` baris tanpa `Comment Text` (NaN) + `297` baris hanya berisi angka/simbol/tanda baca/emoji netral |
-| **3. Data Komentar Valid Setelah Pembersihan (*Cleansing*)** | **5.479** baris | Komentar yang memiliki teks valid setelah *cleansing*, normalisasi, *filtering*, dan *stemming* |
-| **4. Duplikasi Komentar Identik Dihapus** | **-1.478** baris | Komentar berulang/identik dihapus agar tidak terjadi kebocoran teks identik antara data latih dan data uji |
-| **5. Komentar Unik Bersih (`dataset_preprocessed.xlsx`)** | **4.001** komentar | Setiap komentar unik diberi penanda `Comment_ID` (`C0001` s.d. `C4001`) |
-| **6. Komentar Tanpa Aspek Terdeteksi (Dikeluarkan)** | **-1.634** komentar | Dikeluarkan ke `komentar_tanpa_aspek_dikeluarkan.xlsx` (**tidak** otomatis diberi label netral) |
-| **7. Komentar Unik Memiliki $\ge 1$ Kategori Aspek** | **2.367** komentar | Terdiri atas `1.365` komentar ber-aspek tunggal dan `1.002` komentar multi-aspek |
-| **8. Total Pasangan Komentar–Aspek Terbentuk (`dataset_pasangan_komentar_aspek.xlsx`)** | **3.733** pasangan | Rata-rata $1,58$ aspek per komentar unik beraspek |
-| **9. Pembagian Data Latih (80% Komentar Unik — Sebelum Balancing)** | **2.967** pasangan | Berasal dari **1.894 komentar unik** ($80,02\%$ dari $2.367$ komentar unik) |
-| **10. Pembagian Data Uji (20% Komentar Unik — Alami / Tanpa Balancing)** | **766** pasangan | Berasal dari **473 komentar unik** ($19,98\%$ dari $2.367$ komentar unik) |
-| **11. Penyeimbangan Data Latih (*Random Oversampling* Hanya pada Data Latih)** | **3.834** pasangan | `1.278` Positif + `1.278` Negatif + `1.278` Netral (seluruh `1.894` komentar unik latih tetap dipertahankan) |
+| **1. Data Mentah Gabungan (`combined_dataset.xlsx`)** | **5.802** baris | Penggabungan 7 berkas Excel komentar TikTok pada folder `Dataset/` (`1.842` baris pada `091926.xlsx` yang mengalami *Excel autofill year corruption* `8-3-2027..3868` dipulihkan ke tanggal pengumpulan `08-03-2026`) |
+| **2. Dikeluarkan: Baris Tanpa Teks Komentar (`NaN` / Kosong)** | **-26** baris | Kolom `Comment Text` kosong (`NaN`) pada berkas sumber |
+| **3. Dikeluarkan: Di Luar Periode Penelitian ($> 31\text{ Mei }2026$)** | **-61** baris | Komentar bertanggal Juni–Agustus 2026 di luar periode pengumpulan Maret–Mei 2026 (Bab I & Bab III Tabel 3.6) |
+| **4. Dikeluarkan: Tidak Relevan / Spam / Bahasa Asing** | **-36** baris | Komentar di luar topik kebijakan medsos anak (mis. *spam follow-back*, promosi produk, komentar warganet Malaysia tentang aturan negara lain, tokoh sepak bola/selebritas) |
+| **5. Dikeluarkan: Hanya Simbol / Angka / Emoji Tanpa Kata Bermakna** | **-368** baris | Komentar hanya berisi tanda baca, angka, tawa (`wkwk`), atau karakter non-huruf yang menjadi kosong setelah *cleansing* & *filtering* |
+| **6. Komentar Valid Sebelum Deduplikasi** | **5.311** baris | Komentar berbahasa Indonesia yang relevan dan berada dalam periode penelitian |
+| **7. Dikeluarkan: Duplikasi Komentar Identik (*Deduplication*)** | **-1.419** baris | Menghapus duplikasi komentar identik (termasuk `424` baris duplikat antar-berkas *scraping* `091926` dan `166978`) agar tidak terjadi kebocoran teks identik antara data latih dan uji |
+| **8. Komentar Unik Bersih (`dataset_preprocessed.xlsx`)** | **3.892** komentar | Setiap komentar unik diberi penanda `Comment_ID` (`C0001` s.d. `C3892`) |
+| **9. Dikeluarkan: Komentar Tanpa Aspek Terdeteksi (Aturan Ketat)** | **-2.124** komentar | Dikeluarkan ke `Label/komentar_tanpa_aspek_dikeluarkan.xlsx` (**tidak** otomatis diberi label netral; termasuk komentar yang hanya menyebut `"hp"`/`"youtube"` tanpa konteks kebijakan/anak/orang tua) |
+| **10. Komentar Unik Memiliki $\ge 1$ Kategori Aspek** | **1.768** komentar | Terdiri atas `1.035` komentar ber-aspek tunggal dan `733` komentar multi-aspek (`338` di antaranya memiliki sentimen berbeda antar-aspek) |
+| **11. Total Pasangan Komentar–Aspek (`dataset_pasangan_komentar_aspek.xlsx`)** | **2.744** pasangan | Rata-rata $1,55$ aspek per komentar unik beraspek |
+| **12. Pembagian Data Latih (80% Komentar Unik — Sebelum Balancing)** | **2.196** pasangan | Berasal dari **1.414 komentar unik** ($79,98\%$ dari $1.768$ komentar unik) |
+| **13. Pembagian Data Uji (20% Komentar Unik — Alami / Tanpa Balancing)** | **548** pasangan | Berasal dari **354 komentar unik** ($20,02\%$ dari $1.768$ komentar unik) |
+| **14. Penyeimbangan Data Latih (*Random Oversampling* Hanya Data Latih)** | **2.805** pasangan | `935` Positif + `935` Negatif + `935` Netral (seluruh `1.414` komentar unik latih tetap dipertahankan) |
 
 ---
 
-## 3. Bukti Tidak Ada Komentar Tumpang Tindih Antara Data Latih dan Data Uji
+## 3. Dokumentasi Sumber Asli Kamus InSet & Catatan Modifikasi Terpisah (Revisi Poin 1)
 
-Pemisahan 80:20 dilakukan pada tingkat `Comment_ID` unik **sebelum** pembentukan sampel penyeimbangan, sehingga seluruh pasangan `(komentar, aspek)` yang berasal dari satu komentar dijamin masuk ke kelompok yang sama. Hasil verifikasi himpunan irisan (*set intersection*) pada [`Klasifikasi/bukti_tidak_tumpang_tindih.csv`](file:///c:/Users/gunam/Downloads/TESTING/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Klasifikasi/bukti_tidak_tumpang_tindih.csv):
+1. **Sumber Resmi Kamus InSet**:
+   - **Penulis & Publikasi**: Fajri Koto & Gemala Y. Rahmaningtyas (2017), *"InSet Lexicon: Evaluation of a Word List for Indonesian Sentiment Analysis in Microblogs"*, IEEE International Conference on Asian Language Processing (IALP 2017).
+   - **Repositori Resmi**: `https://github.com/fajri91/InSet`
+   - **Berkas Sumber Asli di Proyek**:
+     - [`Label/inset_original_positive.tsv`](file:///c:/Users/gunam/Downloads/TESTING/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Label/inset_original_positive.tsv): **3.609 baris** (`3.607` kata unik, rentang bobot $+1$ s.d. $+5$).
+     - [`Label/inset_original_negative.tsv`](file:///c:/Users/gunam/Downloads/TESTING/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Label/inset_original_negative.tsv): **6.609 baris** (`6.606` kata unik, rentang bobot $-1$ s.d. $-5$).
+2. **Catatan Modifikasi dan Tambahan Terpisah**:
+   - Disimpan secara transparan dan terpisah dari berkas asli pada [`Label/inset_modifikasi_dan_tambahan.csv`](file:///c:/Users/gunam/Downloads/TESTING/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Label/inset_modifikasi_dan_tambahan.csv) dan [`Label/inset_modifikasi_dan_tambahan.xlsx`](file:///c:/Users/gunam/Downloads/TESTING/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Label/inset_modifikasi_dan_tambahan.xlsx) (total **819 entri**):
+     - **Penetralan Kata Netral Domain / Kata Kunci Aspek / Stopword Berderau (`709` kata)**: Kata dalam InSet asli yang secara leksikal merupakan kata fungsi atau kata kunci topik/aspek (seperti `anak`, `orang`, `tua`, `perintah`, `atur`, `batas`, `tonton`, `main`, `ajar`, `sekolah`, `akun`, `sosial`, `media`, `blokir`, `tahu`, `bisa`, `ada`, `buat`) dinetralkan agar penyebutan topik tidak otomatis dihitung sebagai sentimen positif/negatif.
+     - **Resolusi Kata Ambigu Positif–Negatif (`54` kata)**: Penetapan polaritas tunggal bagi kata yang muncul sekaligus di kedua berkas `positive.tsv` dan `negative.tsv` pada InSet asli (mis. `dukung`, `setuju`, `tuju`, `manfaat`, `aman`, `lindungi` ditetapkan positif; `rugikan`, `bahaya`, `ancaman`, `kecanduan`, `salah`, `tolak` ditetapkan negatif).
+     - **Tambahan Kata/Frasa Domain TikTok & Token Emoji (`56` entri)**: Slang/singkatan media sosial dan ekspresi yang belum tercakup di InSet 2017 (mis. `mantap`, `setuju banget`, `lepas tangan`, `tutup mata`, `akal akalan`, `emoji_suka`, `emoji_marah`, `emoji_sedih`).
 
-- **Irisan `Comment_ID` ($\text{Train} \cap \text{Test}$)**: **`0`** komentar (`1.894` komentar unik latih + `473` komentar unik uji = `2.367` komentar unik beraspek)
+---
+
+## 4. Verifikasi Pelestarian Negasi, Fitur Konteks `aspect_text`, & Pemisahan Klausa Multi-Aspek (Revisi Poin 2, 3, & 5)
+
+Sumber berkas pengujian: [`Label/uji_pemisahan_konteks_multiaspek.csv`](file:///c:/Users/gunam/Downloads/TESTING/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Label/uji_pemisahan_konteks_multiaspek.csv).
+
+| ID Uji | Komentar Uji | Aspek Terdeteksi | Konteks Klausa Aspek (`aspect_context`) | Fitur Masukan Naive Bayes (`aspect_text`) | Skor Bersih | Label Sentimen |
+| :--- | :--- | :--- | :--- | :--- | ---: | :---: |
+| **UJI-01** *(Negasi pada kata non-opini)* | *"komdigi tidak blokir fb"* | `Peran Pemerintah/Komdigi` & `Efektivitas Kebijakan` | `komdigi tidak blokir fb` | `komdigi tidak tidak_blokir blokir fb` | `0.0` | `netral` |
+| **UJI-02** *(Multi-aspek dengan `tetapi`)* | *"Saya sangat setuju kebijakan pemerintah melindungi mental anak, tetapi implementasi sistem verifikasi umur masih mudah dibobol pakai vpn"* | `Perlindungan Anak`<br>`Peran Pemerintah/Komdigi`<br>`Efektivitas Kebijakan` | `bijak perintah lindung mental anak...`<br>`sangat tuju bijak perintah lindung`<br>`implementasi sistem verifikasi umur mudah bobol pakai vpn` | `bijak perintah lindung mental anak...`<br>`sangat tuju bijak perintah lindung`<br>`implementasi sistem verifikasi umur mudah bobol pakai vpn` | `+7.0`<br>`+11.5`<br>`-1.0` | `positif`<br>`positif`<br>`negatif` |
+| **UJI-03** *(Multi-aspek TANPA `tetapi`/`namun` — tanda baca titik)* | *"Aturan pemerintah bagus sekali melindungi mental anak kecil. Sayangnya orang tua di rumah malah lalai dan lepas tangan."* | `Perlindungan Anak`<br>`Peran Pemerintah/Komdigi`<br>`Peran Orang Tua` | `bagus sekali lindung mental anak kecil`<br>`atur perintah bagus`<br>`sayang orang tua rumah malah lalai lepas tangan` | `bagus sekali lindung mental anak kecil`<br>`atur perintah bagus`<br>`sayang orang tua rumah malah lalai lepas tangan lepas_tangan` | `+12.0`<br>`+4.0`<br>`-8.0` | `positif`<br>`positif`<br>`negatif` |
+| **UJI-04** *(Multi-aspek TANPA `tetapi`/`namun` & tanpa tanda baca)* | *"langkah komdigi mantap menjaga kesehatan mental anak orang tua justru lalai lepas tangan"* | `Perlindungan Anak`<br>`Peran Pemerintah/Komdigi`<br>`Peran Orang Tua` | `jaga sehat mental anak orang`<br>`langkah komdigi mantap`<br>`anak orang tua justru lalai lepas tangan` | `jaga sehat mental anak orang`<br>`langkah komdigi mantap`<br>`anak orang tua justru lalai lepas tangan lepas_tangan` | `+4.0`<br>`+5.0`<br>`-8.0` | `positif`<br>`positif`<br>`negatif` |
+| **UJI-05** *(Multi-aspek TANPA `tetapi`/`namun` — opini berbeda)* | *"Pengawasan orang tua sangat bagus mendampingi anak belajar. Pemblokiran akun sosmed percuma karena tanggal lahir bisa dipalsukan."* | `Perlindungan Anak`<br>`Peran Orang Tua`<br>`Efektivitas Kebijakan` | `sangat bagus damping anak ajar`<br>`awas orang tua sangat bagus damping anak`<br>`blokir akun sosmed percuma tanggal lahir palsu` | `sangat bagus damping anak ajar`<br>`awas orang tua sangat bagus damping anak`<br>`blokir akun sosmed percuma tanggal lahir palsu` | `+6.0`<br>`+6.0`<br>`-8.0` | `positif`<br>`positif`<br>`negatif` |
+
+---
+
+## 5. Verifikasi Kesesuaian Rumus TF-IDF dengan Tabel 3.12 Bab III (Revisi Poin 7)
+
+Sesuai **Bab II Persamaan (2.2)** dan **Bab III Tabel 3.12** pada laporan:
+$$\text{TF}(t, d) = \frac{f_{t,d}}{|d|}, \qquad \text{IDF}(t) = \log_{10}\left(\frac{N}{df_t}\right), \qquad W_{d,t} = \text{TF}(t, d) \times \text{IDF}(t)$$
+
+Hasil pengujian fungsi perhitungan TF-IDF pada [`Klasifikasi/verifikasi_rumus_tfidf_bab3.csv`](file:///c:/Users/gunam/Downloads/TESTING/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Klasifikasi/verifikasi_rumus_tfidf_bab3.csv) terhadap contoh perhitungan manual pada Tabel 3.12 Bab III ($N = 3$ dokumen, panjang dokumen $|d| = 6$ kata sehingga $\text{TF} = 1/6 \approx 0,167$):
+
+| Jumlah Dokumen ($N$) | Document Frequency ($df_t$) | $\text{TF}(t,d) = 1/6$ | Rumus $\text{IDF}(t)$ | $\text{IDF}$ Kode | $\text{IDF}$ Tabel 3.12 Bab III | $\text{TF-IDF}$ Kode | $\text{TF-IDF}$ Tabel 3.12 Bab III | Status Verifikasi |
+| :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :---: |
+| `3` | `1` | `0.167` | $\log_{10}(3/1)$ | **0.477** | **0.477** | **0.080** | **0.080** | **SESUAI PERSIS** |
+| `3` | `2` | `0.167` | $\log_{10}(3/2)$ | **0.176** | **0.176** | **0.029** | **0.029** | **SESUAI PERSIS** |
+| `3` | `3` | `0.167` | $\log_{10}(3/3)$ | **0.000** | **0.000** | **0.000** | **0.000** | **SESUAI PERSIS** |
+
+---
+
+## 6. Bukti Tidak Ada Komentar Tumpang Tindih Antara Data Latih dan Data Uji
+
+Hasil verifikasi himpunan irisan (*set intersection*) pada [`Klasifikasi/bukti_tidak_tumpang_tindih.csv`](file:///c:/Users/gunam/Downloads/TESTING/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Klasifikasi/bukti_tidak_tumpang_tindih.csv):
+- **Irisan `Comment_ID` ($\text{Train} \cap \text{Test}$)**: **`0`** komentar (`1.414` komentar unik latih + `354` komentar unik uji = `1.768` komentar unik beraspek)
 - **Irisan `Comment Text` asli ($\text{Train} \cap \text{Test}$)**: **`0`** komentar
 - **Irisan `normalized_text` ($\text{Train} \cap \text{Test}$)**: **`0`** komentar
 - **Irisan `stemmed_text` ($\text{Train} \cap \text{Test}$)**: **`0`** komentar
@@ -48,105 +98,97 @@ Pemisahan 80:20 dilakukan pada tingkat `Comment_ID` unik **sebelum** pembentukan
 
 ---
 
-## 4. Tabel Distribusi 4 Kategori Aspek (Data Sebelum Penyeimbangan)
+## 7. Tabel Distribusi 4 Kategori Aspek (Data Sebelum Penyeimbangan)
 
 Sumber berkas: [`Klasifikasi/aspect_sentiment_summary.xlsx`](file:///c:/Users/gunam/Downloads/TESTING/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Klasifikasi/aspect_sentiment_summary.xlsx) dan [`Visualisasi/distribusi_4_aspek_sebelum_balancing.csv`](file:///c:/Users/gunam/Downloads/TESTING/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Visualisasi/distribusi_4_aspek_sebelum_balancing.csv).
 
 | Kategori Aspek | Positif | Negatif | Netral | Total | Persentase Aspek |
 | :--- | ---: | ---: | ---: | ---: | ---: |
-| **Perlindungan Anak** | 269 | 294 | 432 | **995** | 26,65% |
-| **Peran Orang Tua** | 83 | 97 | 114 | **294** | 7,88% |
-| **Peran Pemerintah/Komdigi** | 183 | 531 | 464 | **1.178** | 31,56% |
-| **Efektivitas Kebijakan** | 233 | 467 | 566 | **1.266** | 33,91% |
-| **Total Keseluruhan** | **768** (20,57%) | **1.389** (37,21%) | **1.576** (42,22%) | **3.733** | **100,00%** |
+| **Perlindungan Anak** | 200 | 220 | 269 | **689** | 25,11% |
+| **Peran Orang Tua** | 38 | 30 | 87 | **155** | 5,65% |
+| **Peran Pemerintah/Komdigi** | 142 | 496 | 374 | **1.012** | 36,88% |
+| **Efektivitas Kebijakan** | 163 | 292 | 433 | **888** | 32,36% |
+| **Total Keseluruhan** | **543** (19,79%) | **1.038** (37,83%) | **1.163** (42,38%) | **2.744** | **100,00%** |
 
 ---
 
-## 5. Tabel Eksperimen Penyeimbangan Data Latih (Ditampilkan Terpisah)
+## 8. Tabel Eksperimen Penyeimbangan Data Latih (Ditampilkan Terpisah)
 
 Sumber berkas: [`Klasifikasi/tabel_eksperimen_balancing_latih.xlsx`](file:///c:/Users/gunam/Downloads/TESTING/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Klasifikasi/tabel_eksperimen_balancing_latih.xlsx).
 
-### 5.1 Ringkasan Jumlah Data Sebelum dan Sesudah Penyeimbangan
+### 8.1 Ringkasan Jumlah Data Sebelum dan Sesudah Penyeimbangan
 
 | Kelompok Data | Komentar Unik | Positif | Negatif | Netral | Total Pasangan Aspek |
 | :--- | ---: | ---: | ---: | ---: | ---: |
-| **1. Seluruh Pasangan Komentar–Aspek (100% — Sebelum Split & Balancing)** | 2.367 | 768 | 1.389 | 1.576 | **3.733** |
-| **2. Data Latih (80% — Sebelum Balancing)** | 1.894 | 604 | 1.085 | 1.278 | **2.967** |
-| **3. Data Latih (80% — Sesudah Balancing / Oversampling)** | 1.894 | 1.278 | 1.278 | 1.278 | **3.834** |
-| **4. Data Uji (20% — Alami / Tanpa Balancing)** | 473 | 164 | 304 | 298 | **766** |
+| **1. Seluruh Pasangan Komentar–Aspek (100% — Sebelum Split & Balancing)** | 1.768 | 543 | 1.038 | 1.163 | **2.744** |
+| **2. Data Latih (80% — Sebelum Balancing)** | 1.414 | 433 | 828 | 935 | **2.196** |
+| **3. Data Latih (80% — Sesudah Balancing / Oversampling)** | 1.414 | 935 | 935 | 935 | **2.805** |
+| **4. Data Uji (20% — Alami / Tanpa Balancing)** | 354 | 110 | 210 | 228 | **548** |
 
-### 5.2 Rincian Data Latih (Sebelum vs Sesudah Balancing) & Data Uji per Aspek
+### 8.2 Rincian Data Latih (Sebelum vs Sesudah Balancing) & Data Uji per Aspek
 
 | Kategori Aspek | Latih Sebelum (Pos / Neg / Net / Total) | Latih Sesudah Balancing (Pos / Neg / Net / Total) | Uji Alami 20% (Pos / Neg / Net / Total) |
 | :--- | :---: | :---: | :---: |
-| **Perlindungan Anak** | 211 / 229 / 346 (**786**) | 450 / 272 / 346 (**1.068**) | 58 / 65 / 86 (**209**) |
-| **Peran Orang Tua** | 64 / 73 / 91 (**228**) | 131 / 80 / 91 (**302**) | 19 / 24 / 23 (**66**) |
-| **Peran Pemerintah/Komdigi** | 147 / 420 / 372 (**939**) | 320 / 494 / 372 (**1.186**) | 36 / 111 / 92 (**239**) |
-| **Efektivitas Kebijakan** | 182 / 363 / 469 (**1.014**) | 377 / 432 / 469 (**1.278**) | 51 / 104 / 97 (**252**) |
-| **Total** | **604 / 1.085 / 1.278 (2.967)** | **1.278 / 1.278 / 1.278 (3.834)** | **164 / 304 / 298 (766)** |
+| **Perlindungan Anak** | 162 / 174 / 209 (**545**) | 344 / 198 / 209 (**751**) | 38 / 46 / 60 (**144**) |
+| **Peran Orang Tua** | 26 / 27 / 72 (**125**) | 62 / 31 / 72 (**165**) | 12 / 3 / 15 (**30**) |
+| **Peran Pemerintah/Komdigi** | 117 / 392 / 296 (**805**) | 236 / 444 / 296 (**976**) | 25 / 104 / 78 (**207**) |
+| **Efektivitas Kebijakan** | 128 / 235 / 358 (**721**) | 293 / 262 / 358 (**913**) | 35 / 57 / 75 (**167**) |
+| **Total** | **433 / 828 / 935 (2.196)** | **935 / 935 / 935 (2.805)** | **110 / 210 / 228 (548)** |
 
 ---
 
-## 6. Hasil Evaluasi Multinomial Naive Bayes pada Data Uji (20%)
+## 9. Hasil Evaluasi Multinomial Naive Bayes pada Data Uji Alami (20%)
 
 Sumber berkas: [`Klasifikasi/evaluasi_naive_bayes_lengkap.xlsx`](file:///c:/Users/gunam/Downloads/TESTING/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Klasifikasi/evaluasi_naive_bayes_lengkap.xlsx) dan [`Visualisasi/evaluation_per_aspect.csv`](file:///c:/Users/gunam/Downloads/TESTING/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Visualisasi/evaluation_per_aspect.csv).
 
-### 6.1 Tabel Evaluasi Keseluruhan dan Per Kategori Aspek
+### 9.1 Tabel Evaluasi Keseluruhan dan Per Kategori Aspek (Terhadap Label Acuan InSet)
 
 | Kategori Aspek | Jumlah Data Uji ($N_{\text{uji}}$) | Prediksi Benar | Accuracy (%) | Precision Macro (%) | Recall Macro (%) | F1-Score Macro (%) |
 | :--- | ---: | ---: | ---: | ---: | ---: | ---: |
-| **Perlindungan Anak** | 209 | 193 | **92,34%** | 91,65% | 92,11% | 91,83% |
-| **Peran Orang Tua** | 66 | 62 | **93,94%** | 93,85% | 93,96% | 93,76% |
-| **Peran Pemerintah/Komdigi** | 239 | 220 | **92,05%** | 89,05% | 91,74% | 89,92% |
-| **Efektivitas Kebijakan** | 252 | 232 | **92,06%** | 90,41% | 92,38% | 91,00% |
-| **Keseluruhan (Total 4 Aspek)** | **766** | **707** | **92,30%** | **91,04%** | **92,35%** | **91,47%** |
+| **Perlindungan Anak** | 144 | 83 | **57,64%** | 61,76% | 59,13% | 56,81% |
+| **Peran Orang Tua** | 30 | 19 | **63,33%** | 48,11% | 47,22% | 47,59% |
+| **Peran Pemerintah/Komdigi** | 207 | 149 | **71,98%** | 67,40% | 70,42% | 67,04% |
+| **Efektivitas Kebijakan** | 167 | 115 | **68,86%** | 67,89% | 69,37% | 68,32% |
+| **Keseluruhan (Total 4 Aspek)** | **548** | **366** | **66,79%** | **66,20%** | **68,22%** | **65,97%** |
 
-### 6.2 Confusion Matrix Keseluruhan ($N_{\text{uji}} = 766$)
+### 9.2 Confusion Matrix Keseluruhan ($N_{\text{uji}} = 548$)
 
 | Label Acuan (InSet) \ Prediksi (NB) | Prediksi Positif | Prediksi Negatif | Prediksi Netral | Total Aktual |
 | :--- | ---: | ---: | ---: | ---: |
-| **Aktual Positif** | **152** | 12 | 0 | 164 |
-| **Aktual Negatif** | 20 | **284** | 0 | 304 |
-| **Aktual Netral** | 18 | 9 | **271** | 298 |
-| **Total Prediksi** | 190 | 305 | 271 | **766** |
-
-### 6.3 Confusion Matrix Per Kategori Aspek
-
-1. **Perlindungan Anak ($N_{\text{uji}} = 209$, Accuracy = 92,34%)**
-   - Aktual Positif (58): Prediksi Positif = `53`, Negatif = `5`, Netral = `0`
-   - Aktual Negatif (65): Prediksi Positif = `6`, Negatif = `59`, Netral = `0`
-   - Aktual Netral (86): Prediksi Positif = `2`, Negatif = `3`, Netral = `81`
-2. **Peran Orang Tua ($N_{\text{uji}} = 66$, Accuracy = 93,94%)**
-   - Aktual Positif (19): Prediksi Positif = `18`, Negatif = `1`, Netral = `0`
-   - Aktual Negatif (24): Prediksi Positif = `1`, Negatif = `23`, Netral = `0`
-   - Aktual Netral (23): Prediksi Positif = `2`, Negatif = `0`, Netral = `21`
-3. **Peran Pemerintah/Komdigi ($N_{\text{uji}} = 239$, Accuracy = 92,05%)**
-   - Aktual Positif (36): Prediksi Positif = `33`, Negatif = `3`, Netral = `0`
-   - Aktual Negatif (111): Prediksi Positif = `5`, Negatif = `106`, Netral = `0`
-   - Aktual Netral (92): Prediksi Positif = `7`, Negatif = `4`, Netral = `81`
-4. **Efektivitas Kebijakan ($N_{\text{uji}} = 252$, Accuracy = 92,06%)**
-   - Aktual Positif (51): Prediksi Positif = `48`, Negatif = `3`, Netral = `0`
-   - Aktual Negatif (104): Prediksi Positif = `8`, Negatif = `96`, Netral = `0`
-   - Aktual Netral (97): Prediksi Positif = `7`, Negatif = `2`, Netral = `88`
+| **Aktual Positif** | **83** | 10 | 17 | 110 |
+| **Aktual Negatif** | 46 | **135** | 29 | 210 |
+| **Aktual Netral** | 42 | 38 | **148** | 228 |
+| **Total Prediksi** | 171 | 183 | 194 | **548** |
 
 ---
 
-## 7. Contoh Komentar Beserta Aspek, Label Acuan, dan Hasil Prediksi
+## 10. Hasil Pemeriksaan Manusia (*Human Inspection Audit*) pada 100 Sampel Pasangan Komentar–Aspek (Revisi Poin 6)
 
-Seluruh `766` hasil prediksi data uji dapat diperiksa di [`Klasifikasi/hasil_prediksi_data_uji.xlsx`](file:///c:/Users/gunam/Downloads/TESTING/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Klasifikasi/hasil_prediksi_data_uji.xlsx) dan sampel terkurasi di [`Visualisasi/contoh_prediksi_komentar_aspek.csv`](file:///c:/Users/gunam/Downloads/TESTING/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Visualisasi/contoh_prediksi_komentar_aspek.csv). Berikut beberapa contoh pemeriksaan pasangan komentar–aspek pada data uji:
+Sumber berkas: [`Label/sampel_pemeriksaan_manusia.xlsx`](file:///c:/Users/gunam/Downloads/TESTING/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Label/sampel_pemeriksaan_manusia.xlsx), [`Visualisasi/evaluasi_terhadap_label_manusia.csv`](file:///c:/Users/gunam/Downloads/TESTING/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Visualisasi/evaluasi_terhadap_label_manusia.csv), dan [`Visualisasi/ringkasan_kesalahan_pelabelan_manusia.csv`](file:///c:/Users/gunam/Downloads/TESTING/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Aspect-Based-Sentiment-Analysis-using-naive-bayes-method-main/Visualisasi/ringkasan_kesalahan_pelabelan_manusia.csv).
 
-| Pair ID | Comment ID | Cuplikan Komentar Asli | Kategori Aspek | Kata Kunci Terdeteksi | Label Acuan (InSet) | Hasil Prediksi (NB) | Status |
-| :---: | :---: | :--- | :--- | :--- | :---: | :---: | :---: |
-| `P1169` | `C1675` | *"Tolong please, jangan blokir YouTube, aku padahal cuman nonton pokémon... cuman ada pengaturan orang tua, sama lagi, sensor, layar kalau ada konten seksual langsung di banned akunnya please"* | **Perlindungan Anak** | `seksual, konten` | `netral` | `netral` | Sesuai |
-| `P1170` | `C1675` | *(komentar multi-aspek yang sama dengan C1675 di atas)* | **Peran Orang Tua** | `orang tua` | `netral` | `netral` | Sesuai |
-| `P1171` | `C1675` | *(komentar multi-aspek yang sama dengan C1675 di atas — klausa menolak pemblokiran)* | **Peran Pemerintah/Komdigi** | `banned, blokir, atur` | `negatif` | `negatif` | Sesuai |
-| `P1172` | `C1675` | *(komentar multi-aspek yang sama dengan C1675 di atas — klausa penolakan blokir YouTube)* | **Efektivitas Kebijakan** | `youtube, akun` | `negatif` | `negatif` | Sesuai |
-| `P1241` | `C1723` | *"Negara apaan coba ini makin lama makin hancur, Masa game ama medsos di urusan, giliran yang lain kayak, korupsi, judol dll nya di biarin... daripada ngurusin hidup orang lain, mending ngurusin hidup ibu nya sendiri deh, lagian juga gak semua anak anak memainkan game, dan medsos dengan asal asalan."* | **Perlindungan Anak** | `anak anak, anak` | `netral` | `netral` | Sesuai |
-| `P1242` | `C1723` | *(komentar multi-aspek yang sama dengan C1723 di atas)* | **Peran Orang Tua** | `biarin, ibu` | `netral` | `netral` | Sesuai |
-| `P1243` | `C1723` | *(komentar multi-aspek yang sama dengan C1723 di atas — klausa kritik pemerintah & judol)* | **Peran Pemerintah/Komdigi** | `pemerintah, ngurusin, perintah, korupsi, negara` | `negatif` | `negatif` | Sesuai |
-| `P1244` | `C1723` | *(komentar multi-aspek yang sama dengan C1723 di atas)* | **Efektivitas Kebijakan** | `medsos, game` | `negatif` | `negatif` | Sesuai |
-| `P0220` | `C0372` | *"Buat yang nggak setuju atau kesel, coba dipikir dulu... Medsos sendiri sebenarnya punya banyak manfaat, misalnya buat belajar... solusi utamanya bukan langsung membatasi, tapi mengajarkan dari awal cara menggunakan medsos dengan benar, ditambah pengawasan yang cukup..."* | **Perlindungan Anak** | `belajar, ajar, umur` | `positif` | `positif` | Sesuai |
-| `P0221` | `C0372` | *(komentar multi-aspek yang sama dengan C0372 di atas)* | **Peran Orang Tua** | `pengawasan, kontrol` | `positif` | `positif` | Sesuai |
-| `P0068` | `C0104` | *"percuma aku nabung buat beli hp...."* | **Perlindungan Anak** | `hp` | `negatif` | `negatif` | Sesuai |
-| `P0069` | `C0104` | *"percuma aku nabung buat beli hp...."* | **Peran Orang Tua** | `beli hp` | `negatif` | `negatif` | Sesuai |
-| `P0165` | `C0296` | *"bertahap bukan hoaks"* (contoh pembalikan negasi `bukan hoaks` $\rightarrow$ positif) | **Efektivitas Kebijakan** | `tahap` | `positif` | `positif` | Sesuai |
+### 10.1 Cakupan Sampel Audit Manusia ($N = 100$ Pasangan Komentar–Aspek)
+- Berasal dari **64 komentar unik** pada data uji, mencakup **71 pasangan multi-aspek** dan **52 pasangan yang memuat kata negasi**.
+- Distribusi per aspek: `Perlindungan Anak` (`45` pasangan), `Peran Orang Tua` (`12` pasangan), `Peran Pemerintah/Komdigi` (`25` pasangan), `Efektivitas Kebijakan` (`18` pasangan).
+- **Ketepatan Pemetaan Aspek terhadap Penilaian Manusia**: **98/100 (98,00%)** tepat; hanya ditemukan **2 kasus ambiguitas pemetaan aspek** (`P0025` pada frasa *"anak 16 tahun disuruh main hp"* yang memicu `Peran Orang Tua`, serta `P1601` pada frasa *"pengawasan dilapangan"* yang merujuk pada pengawasan pemerintah tetapi terpetakan ke `Peran Orang Tua`).
+
+### 10.2 Tabel Evaluasi Kamus InSet & Naive Bayes terhadap Label Acuan Manusia ($N = 100$)
+
+| Metode yang Dievaluasi terhadap Label Acuan Manusia | Cakupan | Jumlah Sampel ($N$) | Sesuai Manusia | Accuracy (%) | Precision Macro (%) | Recall Macro (%) | F1-Score Macro (%) |
+| :--- | :--- | ---: | ---: | ---: | ---: | ---: | ---: |
+| **Pelabelan Kamus InSet vs Label Acuan Manusia** | **Keseluruhan (4 Aspek)** | **100** | **66** | **66,00%** | **64,42%** | **67,61%** | **64,70%** |
+| **Prediksi Naive Bayes vs Label Acuan Manusia** | **Keseluruhan (4 Aspek)** | **100** | **60** | **60,00%** | **56,70%** | **57,41%** | **55,38%** |
+| Pelabelan Kamus InSet vs Label Acuan Manusia | Perlindungan Anak | 45 | 32 | 71,11% | 46,67% | 46,55% | 46,21% |
+| Prediksi Naive Bayes vs Label Acuan Manusia | Perlindungan Anak | 45 | 31 | 68,89% | 44,95% | 51,67% | 45,31% |
+| Pelabelan Kamus InSet vs Label Acuan Manusia | Peran Orang Tua | 12 | 4 | 33,33% | 33,33% | 44,44% | 37,78% |
+| Prediksi Naive Bayes vs Label Acuan Manusia | Peran Orang Tua | 12 | 2 | 16,67% | 11,11% | 11,11% | 11,11% |
+| Pelabelan Kamus InSet vs Label Acuan Manusia | Peran Pemerintah/Komdigi | 25 | 19 | 76,00% | 74,89% | 76,21% | 72,68% |
+| Prediksi Naive Bayes vs Label Acuan Manusia | Peran Pemerintah/Komdigi | 25 | 19 | 76,00% | 72,96% | 75,91% | 73,47% |
+| Pelabelan Kamus InSet vs Label Acuan Manusia | Efektivitas Kebijakan | 18 | 11 | 61,11% | 66,67% | 73,33% | 61,78% |
+| Prediksi Naive Bayes vs Label Acuan Manusia | Efektivitas Kebijakan | 18 | 8 | 44,44% | 48,81% | 47,78% | 43,17% |
+
+### 10.3 Temuan Utama Penyebab Kesalahan Pelabelan Kamus InSet pada Pemeriksaan Manusia
+Dari 34 ketidakcocokan antara label kamus InSet dan penilaian manusia pada sampel audit, penyebab utamanya adalah keterbatasan alami pendekatan berbasis kamus (*lexicon-based*):
+1. **Dominasi Kata Bahaya Topik pada Kalimat Dukungan Perlindungan Anak** (mis. `P1190`, `P0266`, `P1480`): Komentar yang mendukung pembatasan medsos demi melindungi anak dari *bullying*, kecanduan, atau konten negatif memuat banyak kata berkonotasi negatif (`bullying`, `bahaya`, `takut`, `candu`, `goblok`) sehingga jumlah skor InSet menjadi negatif meskipun maksud penulis mendukung kebijakan (+). Menariknya, **Multinomial Naive Bayes berhasil memprediksi `positif` dengan tepat** pada `P1190`, `P0266`, dan `P1480` karena mempelajari pola konteks kalimat dukungan.
+2. **Sarkasme dan Ironi** (mis. `P1833` / `C2558`: *"Ah elah judol gk di ban? Wah sangat bagus!"*): Kamus InSet memberi skor positif karena kata `"sangat bagus"`, padahal maknanya sindiran negatif terhadap pemerintah.
+3. **Elipsis Kata Kerja pada Kalimat Permohonan/Negasi** (mis. `P1555` / `C2202`: *"YouTube jangan lah"*): Tanpa kata `"blokir"` eksplisit setelah `"jangan"`, kamus InSet memberi skor `0` (`netral`), sedangkan manusia dan Naive Bayes mengenali konteks penolakan (`negatif`).
+4. **Umpatan Tersensor & Variasi Ejaan Tidak Baku** (mis. `P0948` / `C1716`: *"ortu tol\*l... bod\*h"*, `P1516` / `C2165`: *"Setujuh"* yang ter-stem menjadi angka `"tujuh"` bukan `"tuju"`).

@@ -1,0 +1,819 @@
+﻿kata,bobot_asli_positif,bobot_asli_negatif,bobot_ akhir,kategori_perubahan,alasan
+aamiin,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Ungkapan doa netral
+abai,,-3,-3,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-3)
+abg,,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Entitas domain (kelompok usia), netral secara leksikal"
+abis,1,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata slang habis/setelah netral
+absen,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja absen komentar, netral"
+absurd,3,-2,-3,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+3/-2) -> Negatif (-3)
+ada,4,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja eksistensial, netral"
+adab,3,,3,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (+3)
+adek,1,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Entitas domain (adik/anak), netral secara leksikal"
+adil,4,-3,4,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+4/-3) -> Positif (+4)
+aduh,1,-3,-2,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+1/-3) -> Negatif ringan (-2)
+adzan,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda adzan, netral"
+agama,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda agama, netral"
+ajar,1,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata dasar 'belajar/mengajar' (aktivitas pendidikan), netral secara leksikal"
+akhlak,4,,4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (+4)
+akibat,1,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata hubung/benda kausalitas netral
+akses,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Istilah teknis mengakses platform, netral secara leksikal"
+aksi,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda aksi, netral"
+aktif,2,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Bagian istilah 'akun aktif/nonaktif', netral secara leksikal"
+aktivasi,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Istilah teknis netral
+aku,2,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Pronomina persona pertama, netral"
+alah,,-4,-3,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-4 -> -3)
+alam,2,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata benda alam netral
+alhamdulillah,5,,5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (+5) ungkapan syukur mendukung kebijakan
+allah,5,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Nama Tuhan (sering dipakai di kalimat positif maupun keluhan), netral"
+amanah,5,,4,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (+5 -> +4)
+amat,4,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Intensifier (pengali bobot 1.5x), bukan kata opini mandiri"
+ambil,,-5,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja mengambil, netral"
+amin,3,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Ungkapan doa netral
+ampas,,-3,-3,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-3)
+ampun,1,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata seruan netral
+amuk,1,-5,-5,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+1/-5) -> Negatif (-5)
+anak,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Entitas domain utama (Perlindungan Anak), netral secara leksikal"
+ancam,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+ancaman,,-4,-4,Konfirmasi Bobot InSet Asli,Penambahan bentuk berimbuhan 'ancam' (-4)
+anda,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Pronomina persona kedua, netral"
+aneh,4,-4,-3,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+4/-4) -> Negatif (-3)
+anjay,,-3,-2,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-3 -> -2)
+anjg,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+anjir,1,-3,-3,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+1/-3) -> Negatif (-3)
+anteng,4,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata sifat diam/tenang, netral"
+apa,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Pronomina tanya, netral"
+aparat,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Entitas negara, netral secara leksikal"
+aplikasi,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Entitas platform digital, netral secara leksikal"
+argumen,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda argumen, netral"
+arti,1,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda arti, netral"
+artikel,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda artikel, netral secara leksikal"
+artis,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata benda artis netral
+asik,4,,3,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (+4 -> +3)
+asli,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata penegas slang, netral"
+assalamualaikum,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Salam pembuka, netral"
+astaga,3,-4,-2,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+3/-4) -> Negatif ringan (-2)
+astaghfirullah,,-3,-3,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-3)
+asuh,3,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata dasar 'mengasuh/pengasuhan', netral secara leksikal"
+atas,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Preposisi posisi netral
+atur,4,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata dasar 'aturan/peraturan/mengatur', netral secara leksikal"
+awal,2,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Keterangan waktu/urutan, netral"
+awas,4,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata dasar 'mengawasi/pengawasan', netral secara leksikal"
+ayat,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Entitas regulasi, netral secara leksikal"
+ayo,4,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Interjeksi ajakan, netral"
+baca,3,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja membaca, netral"
+bacot,3,-4,-4,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+3/-4) -> Negatif (-4)
+bagi,2,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Preposisi/kata kerja membagi, netral"
+bagus,2,-4,4,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+2/-4) -> Positif (+4)
+bahagia,4,-1,4,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+4/-1) -> Positif (+4)
+bahas,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata dasar membahas, netral"
+bahasa,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda bahasa, netral secara leksikal"
+bahaya,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+baik,3,-1,3,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+3/-1) -> Positif (+3)
+bakat,4,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda bakat, netral"
+balik,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja kembali, netral"
+banding,3,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja membandingkan, netral"
+banget,1,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Intensifier (pengali bobot 1.5x), bukan kata opini mandiri"
+bangga,3,,4,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (+3 -> +4)
+bangkrut,,-5,-4,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-5 -> -4)
+bantu,3,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja membantu ('youtube bantu belajar' vs 'bantu orang tua'), netral"
+banyak,3,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kuantifier banyak, netral"
+bapa,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Entitas domain (Peran Orang Tua), netral secara leksikal"
+bareng,3,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Adverbia 'bersama', netral"
+batas,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Tindakan teknis pembatasan usia medsos, netral tanpa opini/negasi"
+bawa,1,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja membawa, netral"
+bayar,1,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja membayar, netral"
+bayi,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Entitas domain (kelompok usia), netral secara leksikal"
+beban,,-5,-4,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-5 -> -4)
+bebas,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata sifat bebas, netral"
+becus,1,-4,-4,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+1/-4) -> Negatif (-4)
+beda,,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata keterangan berbeda, netral"
+begini,,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Pronomina demonstrativa, netral"
+beli,2,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja membeli ('beli hp'), netral"
+beliin,,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja membelikan, netral"
+belikan,,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja membelikan, netral"
+belit,,-3,-3,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-3)
+benar,2,-4,3,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+2/-4) -> Positif (+3)
+bencana,,-5,-4,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-5 -> -4)
+benci,4,-5,-5,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+4/-5) -> Negatif (-5)
+beneran,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata penegas 'sungguh', netral"
+bentuk,4,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda bentuk, netral"
+berbahaya,,-4,-5,Penyesuaian Bobot Kata InSet Asli,Penambahan bentuk berimbuhan 'bahaya' (-5)
+berguna,5,,4,Penyesuaian Bobot Kata InSet Asli,Penambahan kata opini positif (+4)
+berhasil,3,,4,Penyesuaian Bobot Kata InSet Asli,Penambahan kata opini keberhasilan kebijakan (+4)
+beri,2,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja memberi, netral"
+berita,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda berita, netral secara leksikal"
+bermanfaat,5,,4,Penyesuaian Bobot Kata InSet Asli,Penambahan bentuk berimbuhan 'manfaat' (+4)
+besar,4,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Ukuran/usia netral
+betul,2,-4,3,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+2/-4) -> Positif (+3)
+biar,1,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Konjungsi tujuan 'agar/supaya', netral"
+biasa,2,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata sifat biasa, netral"
+bijak,3,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Hasil stem Sastrawi untuk 'kebijakan', netral secara leksikal"
+bimbing,3,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata dasar 'membimbing', netral secara leksikal"
+bismillah,4,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Ungkapan pembuka, netral"
+bisnis,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda bisnis, netral"
+block,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Istilah teknis pemblokiran, netral tanpa opini/negasi"
+blokir,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Tindakan teknis pemblokiran pada topik kebijakan, netral tanpa opini/negasi"
+bobol,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+bocor,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+bodo,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+bohong,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+bokep,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+boleh,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Modalitas izin, netral"
+boong,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+bos,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata panggilan bos netral
+bosen,,-4,-3,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-4 -> -3)
+buat,1,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja/depan 'membuat/untuk', netral"
+buka,3,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Aktivitas membuka aplikasi, netral secara leksikal"
+bukan,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Operator negasi (pembalik polaritas), bukan kata opini mandiri"
+bukti,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda bukti, netral secara leksikal"
+bulan,,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Satuan waktu, netral secara leksikal"
+bully,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+bunda,3,-5,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Entitas domain (Peran Orang Tua), netral secara leksikal"
+bungkam,1,-4,-4,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+1/-4) -> Negatif (-4)
+buruk,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+butuh,,-5,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja membutuhkan, netral"
+cabul,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+cabut,,-5,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Tindakan mencabut, netral secara leksikal"
+candu,3,-3,-4,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+3/-3) -> Negatif (-4) untuk kecanduan gadget/medsos
+cape,,-4,-3,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-4 -> -3)
+capek,4,-4,-3,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+4/-4) -> Negatif (-3)
+cari,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja mencari, netral"
+cek,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja mengecek, netral"
+celah,,-3,-3,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-3)
+cemas,,-3,-3,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-3)
+cemerlang,4,-1,4,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+4/-1) -> Positif (+4)
+cepat,3,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Keterangan kecepatan netral
+cepet,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Keterangan kecepatan netral
+cerdik,2,,3,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (+2 -> +3)
+cerita,2,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda cerita, netral secara leksikal"
+ceroboh,,-5,-4,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-5 -> -4)
+chat,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Fitur pesan medsos, netral secara leksikal"
+check,1,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja mengecek, netral"
+cinta,3,-1,4,Resolusi Kata Ganda (Overlap InSet Asli),Penambahan kata opini positif (+4)
+coba,2,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja mencoba, netral"
+cocok,4,-3,3,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+4/-3) -> Positif (+3)
+comeback,,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Istilah medsos, netral"
+cukup,,-5,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Adverbia kecukupan, netral"
+cuma,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Adverbia pembatas 'hanya', netral"
+curang,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+daftar,1,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Aktivitas mendaftar akun, netral secara leksikal"
+dah,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Partikel penegas slang, netral"
+dalam,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Preposisi/ukuran netral
+dampak,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata benda netral (dampak positif/negatif ditentukan kata sifatnya)
+damping,1,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata dasar 'mendampingi/pendampingan', netral secara leksikal"
+dana,4,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda dana/aplikasi DANA, netral"
+darah,4,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda darah, netral"
+darurat,1,-4,-4,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+1/-4) -> Negatif (-4)
+data,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda data/identitas, netral secara leksikal"
+datang,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja datang, netral"
+dateng,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja datang slang, netral"
+debat,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda debat, netral"
+dekat,1,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Jarak netral
+demo,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda/kerja demonstrasi, netral"
+dengar,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja mendengar, netral"
+denger,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja mendengar slang, netral"
+dengerin,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja mendengarkan slang, netral"
+depresi,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+desain,4,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda desain, netral secara leksikal"
+dewasa,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Entitas domain (kelompok usia), netral secara leksikal"
+dia,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Pronomina persona ketiga, netral"
+diam,1,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja diam, netral"
+dibeliin,,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja dibelikan, netral"
+dibully,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+didik,3,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata dasar 'mendidik/pendidikan', netral secara leksikal"
+diem,2,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Variasi 'diam', netral"
+dikit,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kuantifier sedikit slang, netral"
+diri,,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda reflektif, netral"
+doa,4,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda doa, netral"
+doang,1,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Adverbia pembatas slang 'hanya', netral"
+dongok,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+dua,1,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Numeralia, netral"
+duh,,-4,-2,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-4 -> -2)
+dukung,4,,4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (+4) untuk dukungan kebijakan
+duli,4,-3,4,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi stem Sastrawi 'peduli' di InSet (+4/-3) -> Positif (+4)
+duluan,2,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Adverbia 'lebih dulu', netral"
+dunia,1,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata benda dunia netral
+eek,,-5,-4,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-5 -> -4)
+efek,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata benda netral (dampak/efek)
+efektif,5,,4,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (+5 -> +4)
+efisien,4,,4,Konfirmasi Bobot InSet Asli,Penambahan kata opini efektivitas (+4)
+egois,,-5,-4,Penyesuaian Bobot Kata InSet Asli,Penambahan kata opini negatif (-4)
+ejek,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+ekang,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi stem Sastrawi 'mengekang' (-4)
+eksklusif,4,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata sifat eksklusif, netral"
+elu,3,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Pronomina persona kedua slang, netral"
+enak,5,-4,3,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+5/-4) -> Positif (+3)
+erti,2,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata dasar 'mengerti', netral"
+esok,1,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Keterangan waktu 'besok', netral"
+fakta,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda fakta, netral secara leksikal"
+faktor,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata benda netral
+fans,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata benda penggemar netral
+final,3,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Keterangan urutan, netral"
+fitnah,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+fokus,3,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata sifat fokus, netral"
+follback,1,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Istilah medsos follow back, netral"
+forum,2,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata benda forum netral
+foto,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda foto, netral secara leksikal"
+friends,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata benda teman netral
+gabut,,-5,-3,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-5 -> -3)
+gagal,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+gaje,,-3,-3,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-3) slang 'gak jelas'
+gambar,2,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda gambar, netral secara leksikal"
+game,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Entitas permainan digital, netral secara leksikal"
+gampang,4,-3,2,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+4/-3) -> Positif ringan (+2)
+ganggu,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+ganti,3,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja mengganti ('ganti umur/akun'), netral"
+gantung,,-3,-3,Konfirmasi Bobot InSet Asli,Konfirmasi stem Sastrawi 'ketergantungan' (-3)
+gara,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Bagian frasa 'gara-gara', netral"
+gas,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata slang, netral"
+gatau,,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Slang 'tidak tahu', netral"
+gawat,,-5,-4,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-5 -> -4)
+gede,2,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Ukuran/usia netral
+gegara,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Slang 'gara-gara', netral"
+gelisah,,-5,-4,Penyesuaian Bobot Kata InSet Asli,Penambahan kata opini negatif (-4)
+gelo,,-2,-3,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-2 -> -3)
+generasi,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Entitas domain (generasi muda), netral secara leksikal"
+gila,3,-5,-4,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+3/-5) -> Negatif (-4)
+goblok,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+good,5,,4,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (+5 -> +4)
+gratis,4,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata sifat gratis, netral"
+guna,1,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata dasar 'menggunakan/pengguna', netral (kecuali 'tidak guna')"
+guru,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Entitas domain pendidik, netral secara leksikal"
+guys,1,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata sapaan netral
+habis,3,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata keterangan selesai/habis netral
+hadeh,,-4,-3,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-4 -> -3)
+hadir,2,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja hadir, netral"
+hai,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata sapaan netral
+halah,,-5,-3,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-5 -> -3)
+halang,,-3,-3,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-3)
+halo,1,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata sapaan netral
+hambat,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+hapus,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Tindakan teknis menghapus/menonaktifkan akun, netral secara leksikal"
+harap,3,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja berharap, netral"
+harga,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda harga, netral"
+harus,,-5,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Modalitas keharusan, netral"
+hati,2,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda hati, netral"
+hayo,4,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Interjeksi, netral"
+hayoloh,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Interjeksi, netral"
+hello,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata sapaan netral
+henti,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Tindakan menghentikan, netral secara leksikal"
+heran,4,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Ekspresi heran, netral"
+hi,1,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata sapaan netral
+hidup,2,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja/benda hidup, netral"
+hoax,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+hujat,,-5,-4,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-5 -> -4)
+hukum,3,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Entitas regulasi/hukum, netral secara leksikal"
+hy,1,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata sapaan netral
+ibadah,4,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda ibadah, netral"
+idiot,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+ikut,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja ikut, netral"
+ilmu,4,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Entitas domain pendidikan, netral secara leksikal"
+imbas,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata benda netral
+implementasi,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Istilah teknis penerapan kebijakan, netral secara leksikal"
+indah,3,-2,3,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+3/-2) -> Positif (+3)
+indo,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Singkatan Indonesia, netral secara leksikal"
+info,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Singkatan informasi, netral secara leksikal"
+informasi,2,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda informasi, netral secara leksikal"
+ingat,2,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja mengingat, netral"
+inspirasi,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda inspirasi, netral"
+interaksi,3,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Aktivitas interaksi sosial, netral secara leksikal"
+isi,2,-5,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda/kerja isi, netral"
+islam,4,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Nama agama, netral"
+itu,,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Pronomina demonstrativa, netral"
+izin,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda izin, netral"
+jabat,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Hasil stem Sastrawi untuk 'pejabat', netral secara leksikal"
+jadi,1,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja/hubung 'menjadi', netral"
+jadul,,-3,-3,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-3)
+jaga,2,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja menjaga, netral"
+jahat,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+jangan,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Operator negasi/prohibisi (pembalik polaritas), bukan kata opini mandiri"
+jauh,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Jarak netral
+jawab,3,-5,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja menjawab, netral"
+jelas,1,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Dalam frasa tanya 'tolong jelaskan prosedurnya' netral; 'tidak jelas' ditangani via bigram negatif
+jelek,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+jir,,-3,-3,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-3)
+join,1,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Istilah medsos, netral"
+jual,1,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja menjual, netral"
+juang,3,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata dasar berjuang, netral"
+judul,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda judul, netral secara leksikal"
+jujur,4,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata pembuka opini ('jujur aku...'), netral"
+juta,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Numeralia, netral"
+kabar,2,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda kabar, netral"
+kaci,4,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Slang plesetan 'kasihan (kacian)', netral terhadap kebijakan"
+kadang,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Adverbia frekuensi netral
+kaget,3,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Ekspresi terkejut, netral"
+kakek,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Entitas anggota keluarga, netral secara leksikal"
+kangen,3,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata perasaan rindu, netral"
+karena,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Konjungsi sebab, netral"
+karya,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda karya, netral secara leksikal"
+kasep,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4) bahasa daerah 'terlambat'
+kasi,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Variasi 'kasih', netral"
+kasih,2,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja memberi ('kasih tahu/kasih hp'), netral"
+kasihan,4,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata empati ('kasihan anak/penjual'), netral terhadap kebijakan"
+kata,,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda/kerja berkata, netral"
+kawal,1,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata dasar 'mengawal', netral secara leksikal"
+kaya,2,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata pembanding 'seperti' di korpus medsos, netral"
+kayak,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata pembanding 'seperti', netral"
+kecil,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Bagian frasa 'anak kecil', netral secara leksikal"
+kejam,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+keji,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+kekang,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+kelar,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata slang selesai netral
+kelas,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Entitas domain pendidikan, netral secara leksikal"
+keliru,1,-5,-4,Resolusi Kata Ganda (Overlap InSet Asli),Penambahan kata opini negatif (-4)
+kelompok,,-5,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata benda kelompok netral
+keluar,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja keluar, netral"
+keluarga,4,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Entitas domain (Peran Orang Tua), netral secara leksikal"
+kembang,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Bagian frasa 'tumbuh kembang', netral"
+kena,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Istilah teknis 'akun kena blokir/pembatasan', netral tanpa opini"
+kenal,3,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja mengenal, netral"
+kerja,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja bekerja, netral"
+kesal,4,-5,-4,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+4/-5) -> Negatif (-4)
+kesel,,-5,-4,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-5 -> -4)
+ketagihan,,-3,-4,Penyesuaian Bobot Kata InSet Asli,Penambahan kata negatif adiksi (-4)
+ketat,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata sifat ketat (verifikasi ketat), netral"
+ketemu,1,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja bertemu, netral"
+kgk,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Operator negasi slang, bukan kata opini mandiri"
+khawatir,1,-5,-3,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+1/-5) -> Negatif (-3)
+kini,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Keterangan waktu, netral"
+kira,2,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja mengira, netral"
+kirim,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja mengirim, netral"
+kocak,,-2,-3,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-2 -> -3) sindiran kebijakan
+kolot,,-5,-4,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-5 -> -4)
+komunikasi,2,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Aktivitas komunikasi, netral secara leksikal"
+komunitas,2,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata benda komunitas netral
+konsekuensi,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata benda netral
+korban,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+korup,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+korupsi,,-4,-5,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-4 -> -5)
+kosong,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kuantifier kosong, netral"
+kota,,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata benda lokasi netral
+kreatif,4,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata sifat kreatif (sering pada keluhan kreator kecil), netral"
+kreativitas,4,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda kreativitas, netral"
+kritik,,-5,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda kritik, netral"
+kuota,,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda kuota internet, netral"
+kurang,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Operator negasi/pelemah derajat, bukan kata opini mandiri"
+lagi,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Adverbia 'sedang/kembali', netral"
+lagu,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda lagu, netral secara leksikal"
+lahir,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Bagian frasa 'tahun/tanggal lahir', netral secara leksikal"
+lain,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata ganti/keterangan 'yang lain', netral"
+laknat,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+lalai,,-4,-4,Konfirmasi Bobot InSet Asli,Penambahan kata negatif kelalaian pengawasan orang tua (-4)
+lalu,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Keterangan waktu, netral"
+lama,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Keterangan waktu/durasi, netral"
+lambat,1,,-3,Penyesuaian Bobot Kata InSet Asli,Resolusi bobot InSet (+1) -> Negatif (-3) untuk kelambatan kebijakan
+lancar,4,-2,3,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+4/-2) -> Positif (+3)
+langkah,4,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda langkah kebijakan, netral"
+langsung,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Adverbia cara netral
+lanjut,2,-5,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja lanjut, netral"
+lapor,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja melapor, netral"
+larang,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Tindakan regulasi pelarangan usia <16 tahun, netral tanpa opini/negasi"
+lari,,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja lari, netral"
+latih,3,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata dasar 'melatih/latihan', netral secara leksikal"
+lau,,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Pronomina persona kedua slang, netral"
+lawan,1,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja melawan, netral"
+layak,3,-5,3,Resolusi Kata Ganda (Overlap InSet Asli),Penambahan kata opini positif (+3)
+lebay,,-4,-3,Penyesuaian Bobot Kata InSet Asli,Penambahan kata opini negatif (-3)
+leceh,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+lelah,4,-3,-3,Resolusi Kata Ganda (Overlap InSet Asli),Penambahan kata opini negatif (-3)
+lemot,,-5,-3,Penyesuaian Bobot Kata InSet Asli,Penambahan kata opini negatif (-3)
+lewat,2,-5,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Preposisi 'melalui', netral"
+liat,2,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja melihat slang, netral"
+lihat,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja melihat, netral"
+lindung,4,,4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (+4) untuk perlindungan anak
+live,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Fitur siaran langsung medsos, netral secara leksikal"
+luas,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Ukuran netral
+lucu,3,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata sifat lucu, netral"
+lulus,5,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja lulus kelas, netral"
+lupa,1,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Sering dipakai dalam klausa 'jangan lupa urus judol', netral"
+maaf,2,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata permohonan maaf pembuka opini, netral"
+maen,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Variasi slang 'main', netral secara leksikal"
+mahal,1,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata sifat harga buku/kuota, netral terhadap kebijakan"
+main,2,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Aktivitas 'bermain/main medsos', netral secara leksikal"
+mainin,,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Variasi slang 'memainkan', netral secara leksikal"
+makan,1,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja makan, netral"
+makasih,4,,4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (+4)
+makin,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Adverbia derajat netral
+maksa,,-5,-4,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-5 -> -4)
+maksimal,3,,3,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (+3)
+maksud,3,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda maksud, netral"
+malam,,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Keterangan waktu, netral"
+malas,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+males,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+malu,2,-4,-3,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+2/-4) -> Negatif (-3)
+mama,4,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Entitas domain (Peran Orang Tua), netral secara leksikal"
+mamah,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Entitas domain (Peran Orang Tua), netral secara leksikal"
+mamak,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Entitas domain (Peran Orang Tua), netral secara leksikal"
+mampu,2,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Modalitas kemampuan, netral"
+man,,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata sapaan netral
+manfaat,5,,4,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (+5 -> +4)
+manja,5,-3,-3,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+5/-3) -> Negatif (-3)
+mantan,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata benda mantan netral
+mantap,5,,5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (+5)
+manusia,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata benda manusia netral
+marah,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+marahin,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+mari,4,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Interjeksi ajakan, netral"
+masak,2,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja memasak, netral"
+masalah,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+masuk,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja masuk, netral"
+mata,,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda mata, netral"
+mati,4,-5,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata hiperbola medsos ('kalo roblox mati'), netral"
+mau,5,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Modalitas keinginan, netral"
+melarat,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+memang,4,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Adverbia penegas netral
+mending,2,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata pembanding preferensi ('lebih baik/mending'), netral tanpa opini"
+mengganggu,4,-4,-4,Resolusi Kata Ganda (Overlap InSet Asli),Penambahan bentuk berimbuhan 'ganggu' (-4)
+menolak,,-4,-4,Konfirmasi Bobot InSet Asli,Penambahan bentuk berimbuhan 'tolak' (-4)
+meski,,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Konjungsi konsesif, netral"
+mesti,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Modalitas keharusan, netral"
+metode,,-5,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Istilah teknis netral
+mewek,,-5,-4,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-5 -> -4)
+mikir,2,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Slang 'berpikir', netral"
+mikirin,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Slang 'memikirkan', netral"
+milih,,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja memilih slang, netral"
+milik,1,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja kepemilikan, netral"
+mimpi,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda mimpi/cita-cita, netral"
+minat,4,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda minat, netral"
+minim,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kuantifier minim, netral"
+minta,2,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja meminta, netral"
+minum,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja minum, netral"
+mirip,1,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata pembanding, netral"
+miris,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+miskin,,-5,-4,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-5 -> -4)
+mksh,2,,3,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (+2 -> +3)
+mls,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+moga,1,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata harapan 'semoga' (dipakai di harapan positif maupun protes), netral"
+mohon,2,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata permohonan, netral"
+moral,4,,3,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (+4 -> +3)
+motivasi,3,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda motivasi, netral"
+muak,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+muda,,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kelompok usia, netral secara leksikal"
+mudah,4,-1,3,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+4/-1) -> Positif (+3)
+mulai,1,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata kerja memulai netral
+mulu,2,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Adverbia frekuensi slang 'terus-menerus', netral"
+mulut,,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda mulut, netral"
+muncul,1,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja muncul, netral"
+mungkin,,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Adverbia kemungkinan netral
+murah,3,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata sifat harga, netral"
+musik,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda musik, netral secara leksikal"
+mustahil,3,-2,-4,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+3/-2) -> Negatif (-4)
+musyawarah,2,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda musyawarah, netral"
+nabi,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda nabi, netral"
+naik,1,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja naik, netral"
+najis,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+nangis,,-5,-4,Penyesuaian Bobot Kata InSet Asli,Penambahan kata ekspresi kesedihan (-4)
+nanti,,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Keterangan waktu, netral"
+nanya,,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja bertanya slang, netral"
+nemu,,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja menemukan slang, netral"
+neng,5,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata sapaan netral
+ngakak,,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Ekspresi tawa medsos, netral"
+ngasih,3,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Variasi 'memberi', netral"
+ngerasa,,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Slang 'merasa', netral"
+ngerti,1,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Slang 'mengerti', netral"
+ngeselin,,-5,-4,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-5 -> -4)
+nggak,1,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Operator negasi slang, bukan kata opini mandiri"
+nice,4,,4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (+4)
+nilai,5,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda nilai sekolah, netral"
+njir,,-3,-3,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-3)
+nol,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Numeralia, netral"
+nongol,,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja muncul slang, netral"
+normal,1,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata sifat normal, netral"
+novel,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda novel, netral secara leksikal"
+nunggu,1,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja menunggu slang, netral"
+nungguin,1,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja menunggu slang, netral"
+nyalahin,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+nyaman,4,,4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (+4)
+nyari,,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja mencari slang, netral"
+nyata,4,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata sifat nyata, netral"
+nyebelin,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+nyebut,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja menyebut, netral"
+nyesel,,-5,-4,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-5 -> -4)
+nyuruh,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja menyuruh slang, netral"
+ok,4,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata transisi, netral"
+okay,4,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata transisi, netral"
+oke,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata persetujuan ringan/transisi, netral"
+omong,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja berbicara, netral"
+only,1,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata bahasa Inggris 'hanya', netral"
+oon,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+operasi,1,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Istilah teknis netral
+ora,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Operator negasi daerah, bukan kata opini mandiri"
+otak,3,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda otak, netral"
+otomatis,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata sifat otomatis, netral"
+pacar,2,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata benda pacar netral
+pagi,1,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Keterangan waktu, netral"
+paket,4,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda paket data, netral"
+paksa,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+pandai,4,-4,4,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+4/-4) -> Positif (+4)
+panik,,-4,-3,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-4 -> -3)
+panjang,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Ukuran netral
+pantau,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata dasar 'memantau/pemantauan', netral secara leksikal"
+parah,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+pas,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Preposisi slang 'saat/ketika', netral"
+pasal,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Entitas regulasi, netral secara leksikal"
+pasti,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Adverbia kepastian netral
+patuh,4,,4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (+4)
+peduli,4,-1,4,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+4/-1) -> Positif (+4)
+pegang,,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja memegang ('pegang hp'), netral"
+pelajar,1,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Entitas domain (pelajar), netral secara leksikal"
+pelecehan,,-5,-5,Konfirmasi Bobot InSet Asli,Penambahan bentuk berimbuhan 'leceh' (-5)
+pelihara,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja memelihara, netral"
+pelosok,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata benda lokasi netral
+pendek,1,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Ukuran netral
+penting,3,-4,3,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+3/-4) -> Positif (+3)
+percuma,4,-4,-4,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+4/-4) -> Negatif (-4)
+pergi,1,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja pergi, netral"
+periksa,,-5,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja memeriksa, netral"
+perlu,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja memerlukan, netral"
+permanen,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata sifat permanen, netral"
+persen,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Satuan persentase, netral"
+perundungan,,-4,-4,Konfirmasi Bobot InSet Asli,Penambahan bentuk berimbuhan 'rundung' (-4)
+pesan,2,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Fitur pesan/komunikasi, netral secara leksikal"
+pihak,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata benda pihak netral
+pikir,1,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata dasar 'berpikir', netral"
+pilih,,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja memilih, netral"
+pindah,1,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja pindah, netral"
+pinter,5,-1,4,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+5/-1) -> Positif (+4)
+pola,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Bagian frasa 'pola asuh', netral"
+politik,,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Entitas bidang, netral secara leksikal"
+porno,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+positif,4,,3,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (+4 -> +3)
+potensi,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda potensi, netral"
+premium,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda/sifat akun premium, netral"
+presiden,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Entitas pejabat negara, netral secara leksikal"
+prihatin,2,-3,-3,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+2/-3) -> Negatif (-3)
+problem,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+produk,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda produk, netral"
+prosedur,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Istilah teknis kebijakan netral
+proses,1,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Istilah teknis netral
+protes,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja protes, netral"
+puas,3,,4,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (+3 -> +4)
+puasa,,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda ibadah, netral"
+pulsa,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda pulsa, netral"
+punya,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja kepemilikan, netral"
+purba,,-3,-3,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-3)
+pusing,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+ramah,5,-3,4,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+5/-3) -> Positif (+4)
+ramai,3,-5,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata sifat ramai, netral"
+rame,2,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata sifat ramai, netral"
+rasa,,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja merasa, netral"
+rata,1,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata keterangan rata-rata, netral"
+rawat,3,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja merawat, netral"
+real,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata penegas slang, netral"
+realistis,4,,3,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (+4 -> +3)
+receh,,-4,-3,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-4 -> -3)
+rekam,2,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja merekam, netral secara leksikal"
+remaja,,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Entitas domain (kelompok usia), netral secara leksikal"
+rencana,2,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda rencana, netral"
+rendah,,-5,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Ukuran/tingkat netral
+renti,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Variasi 'berhenti', netral secara leksikal"
+repot,,-5,-4,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-5 -> -4)
+resah,,-5,-4,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-5 -> -4)
+resmi,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata sifat resmi, netral"
+ribet,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+ribut,4,-4,-3,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+4/-4) -> Negatif (-3)
+riil,4,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata penegas slang, netral"
+risiko,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata benda netral
+ruang,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata benda ruang netral
+rugi,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+rumah,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Entitas lokasi/keluarga, netral secara leksikal"
+rundung,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+runtuh,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+rusak,3,-4,-4,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+3/-4) -> Negatif (-4)
+rusuh,1,-4,-4,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+1/-4) -> Negatif (-4)
+sabar,5,,3,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (+5 -> +3)
+sad,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+sains,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Entitas bidang ilmu, netral secara leksikal"
+sakit,,-5,-4,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-5 -> -4)
+salah,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+saldo,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda saldo, netral"
+sama,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata depan/hubung 'sama dengan/bersama', netral"
+sampah,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+sampai,2,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Preposisi batas, netral"
+sangat,3,-5,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Intensifier (pengali bobot 1.5x), bukan kata opini mandiri"
+sanggup,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Modalitas kemampuan, netral"
+santai,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata sifat santai, netral"
+saran,2,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda saran, netral"
+satu,3,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Numeralia, netral"
+sayang,3,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata ambigu ('sayang anak' vs 'sayang sekali'), netral"
+sebab,3,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata hubung/benda kausalitas netral
+sebenarnya,4,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Adverbia netral
+sebenernya,1,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Adverbia netral
+sebentar,,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Keterangan waktu, netral"
+sederhana,3,-5,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata sifat sederhana, netral"
+sedih,,-5,-4,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-5 -> -4)
+sedikit,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kuantifier sedikit, netral"
+segera,3,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Keterangan waktu netral
+segitu,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Pronomina demonstrativa, netral"
+segitunya,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Pronomina demonstrativa, netral"
+sehat,4,-1,4,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+4/-1) -> Positif (+4)
+sekali,,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Intensifier (pengali bobot 1.5x), bukan kata opini mandiri"
+sekolah,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Entitas domain pendidikan, netral secara leksikal"
+selamat,5,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Sering dipakai dalam arti 'lolos dari blokir (aku selamat)', netral"
+selesai,2,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata kerja selesai netral
+semangat,4,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata seruan semangat, netral"
+sementara,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Keterangan waktu, netral"
+semua,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Numeralia kolektif, netral"
+senang,5,-4,4,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+5/-4) -> Positif (+4)
+sendiri,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata keterangan reflektif, netral"
+sengsara,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+senonoh,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+seperti,,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata pembanding, netral"
+sepi,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata sifat sepi, netral"
+sering,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Adverbia frekuensi netral
+serius,,-5,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata sifat serius, netral"
+serta,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Konjungsi, netral"
+seru,5,-5,3,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+5/-5) -> Positif (+3)
+sesat,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+sesuai,3,,3,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (+3)
+setuju,4,-3,5,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+4/-3) -> Positif kuat (+5) untuk persetujuan kebijakan
+sholat,5,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda ibadah, netral"
+sia,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5) untuk 'sia-sia'
+sial,,-5,-4,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-5 -> -4)
+sialan,,-5,-4,Penyesuaian Bobot Kata InSet Asli,Penambahan bentuk berimbuhan 'sial' (-4)
+siapa,1,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Pronomina tanya, netral"
+sibuk,4,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata sifat sibuk, netral"
+sikap,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda sikap, netral"
+simpan,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja menyimpan, netral"
+simple,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata sifat sederhana, netral"
+sistem,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Istilah teknis sistem verifikasi/platform, netral secara leksikal"
+siswa,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Entitas domain (pelajar), netral secara leksikal"
+smpai,1,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Variasi 'sampai', netral"
+soal,,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda soal/masalah topik, netral"
+solusi,3,,3,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (+3)
+sorry,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata permohonan maaf, netral"
+sosial,4,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Bagian frasa 'media sosial', netral secara leksikal"
+stabil,3,,3,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (+3)
+stop,3,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Tindakan menghentikan, netral secara leksikal"
+stres,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+stress,,-5,-4,Penyesuaian Bobot Kata InSet Asli,Penambahan variasi ejaan 'stres' (-4)
+suap,1,-3,-4,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+1/-3) -> Negatif (-4)
+suara,2,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda suara, netral secara leksikal"
+sudah,3,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Adverbia aspek selesai netral
+suka,3,-1,3,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+3/-1) -> Positif (+3)
+sukses,3,,4,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (+3 -> +4)
+sumpah,3,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata penegas slang, netral"
+sungguh,4,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata penegas, netral"
+sunyi,1,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata sifat sunyi, netral"
+supaya,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Konjungsi tujuan, netral"
+suruh,,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja menyuruh, netral"
+susah,,-3,-3,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-3)
+suspend,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Istilah teknis penangguhan akun, netral secara leksikal"
+syukur,5,,4,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (+5 -> +4)
+taat,3,-1,3,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+3/-1) -> Positif (+3)
+tabung,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata dasar menabung, netral"
+tahan,1,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja menahan, netral"
+tahu,4,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja mengetahui ('tidak tahu'), netral"
+tai,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+taik,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+takut,1,-4,-3,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+1/-4) -> Negatif (-3)
+tamat,3,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata keterangan selesai netral
+tangan,1,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda tangan, netral"
+tanggal,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Bagian frasa 'tanggal lahir', netral secara leksikal"
+tanya,2,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja bertanya, netral"
+tau,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Variasi 'tahu', netral"
+tauk,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Variasi 'tahu', netral"
+taun,,-5,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Variasi ejaan 'tahun', netral secara leksikal"
+tayang,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata dasar 'tayangan', netral secara leksikal"
+tega,,-5,-4,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-5 -> -4)
+teks,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda teks, netral secara leksikal"
+telat,,-5,-4,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (-5 -> -4)
+tembus,3,,-3,Penyesuaian Bobot Kata InSet Asli,Penambahan kata negatif celah sistem (-3)
+temenan,,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata kerja berteman netral
+tempat,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata benda lokasi netral
+temu,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata dasar bertemu/menemukan, netral"
+tenang,5,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata sifat tenang, netral"
+tengah,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Preposisi posisi netral
+tengkar,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+tentang,1,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Preposisi perihal, netral"
+tentu,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Adverbia kepastian netral
+terbaik,5,,5,Konfirmasi Bobot InSet Asli,Penambahan superlatif 'baik' (+5)
+terima,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Bagian frasa 'terima kasih' atau 'tidak terima' (ditangani via bigram/resolusi)
+terima kasih,5,,4,Penyesuaian Bobot Kata InSet Asli,Penambahan bigram apresiasi (+4)
+terkadang,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Adverbia frekuensi netral
+terlalu,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Intensifier/adverbia derajat, bukan kata opini mandiri"
+terlindung,4,,4,Konfirmasi Bobot InSet Asli,Penambahan bentuk berimbuhan 'lindung' (+4)
+tertib,4,-2,4,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+4/-2) -> Positif (+4)
+tetap,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Adverbia kesinambungan netral
+tidak,,-5,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Operator negasi (pembalik polaritas), bukan kata opini mandiri"
+tidak masuk akal,,-4,-4,Konfirmasi Bobot InSet Asli,Penambahan frasa negasi (-4)
+tidur,3,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja tidur, netral"
+tim,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Kata benda tim netral
+tinggal,1,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja tinggal ('tinggal ganti'), netral"
+tinggi,3,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Ukuran/tingkat netral
+tlg,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Singkatan 'tolong', netral"
+tolak,,-4,-4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-4)
+tolol,,-5,-5,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (-5)
+tolong,3,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata permohonan ('tolong blokir' / 'tolong jangan blokir'), netral"
+tonton,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Aktivitas menonton video, netral secara leksikal"
+top,5,,4,Penyesuaian Bobot Kata InSet Asli,Konfirmasi bobot InSet asli (+5 -> +4)
+trauma,4,-5,-4,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+4/-5) -> Negatif (-4)
+trimakasih,4,,4,Konfirmasi Bobot InSet Asli,Konfirmasi bobot InSet asli (+4)
+tua,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Bagian frasa 'orang tua' / usia, netral secara leksikal"
+tubuh,,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda tubuh, netral"
+tugas,,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Entitas akademik (tugas sekolah), netral secara leksikal"
+tuhan,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Nama Tuhan, netral"
+tuju,3,-4,5,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi stem Sastrawi 'setuju' di InSet (+3/-4) -> Positif kuat (+5)
+tunggu,1,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja menunggu, netral"
+tuntut,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja menuntut, netral"
+turun,1,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja turun, netral"
+turut,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata kerja menurut/ikut, netral"
+tutup,,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Aktivitas menutup aplikasi, netral secara leksikal"
+uji,1,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Bagian frasa 'uji coba', netral secara leksikal"
+ujung,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Posisi netral
+umum,1,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata sifat umum, netral"
+umur,4,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Atribut demografis batas usia kebijakan, netral secara leksikal"
+undang,2,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Bagian frasa 'undang-undang', netral secara leksikal"
+untung,3,-1,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Sering dipakai dalam arti 'untung umurku sudah 17+', netral"
+usaha,1,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda/kerja usaha, netral"
+usak,,-3,-4,Penyesuaian Bobot Kata InSet Asli,Konfirmasi stem Sastrawi tidak baku untuk 'merusak' (-3 -> -4)
+usul,2,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata benda usul, netral"
+wacana,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),Istilah kebijakan netral
+waduh,3,-3,-2,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+3/-3) -> Negatif ringan (-2)
+wah,3,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Interjeksi, netral"
+wajib,,-2,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Modalitas kewajiban, netral"
+walau,,-3,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Konjungsi konsesif, netral"
+waras,2,-3,-3,Resolusi Kata Ganda (Overlap InSet Asli),Resolusi kata ganda InSet (+2/-3) -> Negatif (-3)
+wkwkwk,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Ekspresi tawa medsos, netral"
+yaudah,1,-4,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Partikel slang, netral"
+yes,3,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Kata seruan umum, netral"
+yuk,4,,0,Dinetralkan (Kata Fungsi / Operator / Entitas Domain),"Interjeksi ajakan, netral"
+aman bagi anak,,,4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan frasa spesifik perlindungan anak (+4)
+aman untuk anak,,,4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan frasa spesifik perlindungan anak (+4)
+anj,,,-3,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan umpatan slang negatif (-3)
+bego,,,-5,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan kata opini negatif (-5)
+bgs,,,4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan singkatan 'bagus' (+4)
+bodoh,,,-5,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan kata opini negatif (-5)
+bosan,,,-3,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan kata opini negatif (-3)
+bullying,,,-5,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan istilah cyberbullying (-5)
+bypas,,,-3,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan variasi ejaan 'bypass' (-3)
+bypass,,,-3,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan kata negatif mengakali sistem (-3)
+cerdas,,,4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan kata opini positif (+4)
+cok,,,-3,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan umpatan slang negatif (-3)
+cyberbullying,,,-5,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan istilah cyberbullying (-5)
+eksploitasi,,,-5,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan istilah eksploitasi anak (-5)
+emoji keren,,,4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan tokenisasi emoji keren (+4)
+emoji marah,,,-5,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan tokenisasi emoji marah (-5)
+emoji sedih,,,-4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan tokenisasi emoji sedih (-4)
+emoji suka,,,4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan tokenisasi emoji positif (+4)
+emoji tuju,,,4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan tokenisasi emoji setuju setelah stemming (+4)
+emoji_keren,,,4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan tokenisasi emoji keren (+4)
+emoji_marah,,,-5,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan tokenisasi emoji marah (-5)
+emoji_sedih,,,-4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan tokenisasi emoji sedih (-4)
+emoji_setuju,,,4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan tokenisasi emoji setuju (+4)
+emoji_suka,,,4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan tokenisasi emoji positif (+4)
+hancur,,,-5,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan kata opini negatif (-5)
+hebat,,,5,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan kata opini positif (+5)
+hoaks,,,-5,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan variasi ejaan 'hoax' (-5)
+jangan batas,,,-4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan bigram penolakan pembatasan (-4)
+jangan blok,,,-4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan bigram penolakan pemblokiran (-4)
+jangan blokir,,,-4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan bigram penolakan pemblokiran (-4)
+jangan hapus,,,-4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan bigram penolakan penghapusan (-4)
+jangan larang,,,-4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan bigram penolakan pelarangan (-4)
+jangan tutup,,,-4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan bigram penolakan penutupan (-4)
+judi,,,-4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan istilah domain perjudian (-4)
+judol,,,-4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan istilah domain 'judi online' (-4)
+kacau,,,-4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan kata opini negatif (-4)
+kecanduan,,,-4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan bentuk berimbuhan 'candu' (-4)
+kecewa,,,-4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan kata opini negatif (-4)
+keren,,,4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan kata opini positif (+4)
+ketergantungan,,,-4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan kata negatif adiksi (-4)
+koruptor,,,-5,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan istilah domain korupsi (-5)
+kurang setuju,,,-4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan bigram negasi 'kurang setuju' (-4)
+kurang tuju,,,-4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan bigram negasi 'kurang setuju' (-4)
+langgar,,,-4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan kata negatif pelanggaran (-4)
+lawak,,,-3,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan kata sindiran negatif (-3)
+lepas tangan,,,-4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan bigram negatif kelalaian orang tua (-4)
+lindungi,,,4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan bentuk berimbuhan 'lindung' (+4)
+manipulasi,,,-4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan kata negatif manipulasi data/usia (-4)
+masuk akal,,,3,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan bigram positif (+3)
+melindungi,,,4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan bentuk berimbuhan 'lindung' (+4)
+mendukung,,,4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan bentuk berimbuhan 'dukung' (+4)
+merugikan,,,-5,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan bentuk berimbuhan 'rugi' (-5)
+merusak,,,-5,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan bentuk berimbuhan 'rusak' (-5)
+ngakali,,,-3,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan kata negatif mengakali aturan (-3)
+norak,,,-3,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan kata opini negatif (-3)
+nyocot,,,-4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan umpatan slang negatif (-4)
+optimal,,,4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan kata opini positif (+4)
+palsu,,,-4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan kata opini negatif manipulasi usia (-4)
+pinjol,,,-4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan istilah domain pinjaman online ilegal (-4)
+pintar,,,4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan kata opini positif (+4)
+pornografi,,,-5,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan istilah domain pornografi (-5)
+predator,,,-5,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan istilah bahaya predator anak (-5)
+se7,,,5,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan slang 'setuju' (+5)
+sia sia,,,-5,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan bentuk reduplikasi 'sia-sia' (-5)
+solutif,,,4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan kata opini positif (+4)
+stuju,,,5,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan variasi ejaan 'setuju' (+5)
+sulit,,,-3,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan kata opini negatif (-3)
+tegas,,,3,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan kata opini positif ketegasan regulasi (+3)
+tepat,,,4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan kata opini ketepatan kebijakan (+4)
+tidak adil,,,-4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan bigram negasi 'tidak adil' (-4)
+tidak aman,,,-4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan bigram negasi 'tidak aman' (-4)
+tidak efektif,,,-5,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan bigram negasi 'tidak efektif' (-5)
+tidak guna,,,-4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan bigram negasi 'tidak berguna' (-4)
+tidak jelas,,,-4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan bigram negasi 'tidak jelas' (-4)
+tidak manfaat,,,-4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan bigram negasi 'tidak bermanfaat' (-4)
+tidak setuju,,,-5,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan bigram negasi 'tidak setuju' (-5)
+tidak suka,,,-4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan bigram negasi 'tidak suka' (-4)
+tidak terima,,,-4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan bigram negasi 'tidak terima' (-4)
+tidak tuju,,,-5,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan bigram negasi 'tidak setuju' (-5)
+tipu,,,-4,Penambahan Kata / Bigram Domain & Stem Sastrawi,Penambahan kata opini negatif penipuan (-4)

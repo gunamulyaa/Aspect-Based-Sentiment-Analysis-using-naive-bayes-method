@@ -1,0 +1,39 @@
+﻿Kategori_Temuan_Audit,Jumlah_Pasangan,Persentase (%)
+Sesuai (Label InSet Tepat),49,49.0
+Sesuai (InSet & Naive Bayes Tepat),10,10.0
+Sesuai (InSet & Naive Bayes Tepat — Negasi 'tidak_blokir' Terjaga),2,2.0
+Sesuai (InSet Tepat Negatif),2,2.0
+Kesalahan Pelabelan InSet (Kalimat Permohonan Dukungan Blokir),2,2.0
+Kesalahan Pelabelan InSet (Frasa 'kurang terima' Terpisah Kata),2,2.0
+Sesuai (Pertanyaan Prosedural Netral),2,2.0
+Kesalahan Pelabelan InSet (Double Negation 'tidak senonoh'),1,1.0
+Kesalahan Pelabelan InSet (Kritik Usia 16 Tahun dengan Kata 'kaku'),1,1.0
+Kesalahan Pemetaan Aspek (Frasa 'main hp' bersama 'anak'),1,1.0
+Kesalahan Pelabelan InSet (Negasi pada Slang 'anjay' -> 'tidak blokir anjay'),1,1.0
+Kesalahan Pelabelan InSet (Kata 'bangga' Bukan Opini Kebijakan),1,1.0
+Kesalahan Pelabelan InSet (Kata 'bangga' pada Konteks Lolos Blokir),1,1.0
+Kesalahan Pelabelan InSet (Elipsis Kata Kerja pada 'YouTube jangan lah'),1,1.0
+Kesalahan Pelabelan InSet (Kata 'takut' dalam Konteks Dukungan Perlindungan Anak),1,1.0
+Kesalahan Pelabelan InSet (Dukungan Pemblokiran Demi Anak Tanpa Kata 'Setuju'),1,1.0
+Kesalahan Pelabelan InSet (Kecaman terhadap Game 'bikin anak goblok'),1,1.0
+Kesalahan Pelabelan InSet (Cakupan Negasi Jarak Jauh 'Ga semua orang suka'),1,1.0
+Kesalahan Pelabelan InSet (Emoji Suka pada Pernyataan Usia Pribadi),1,1.0
+Kesalahan Pelabelan InSet (Membantah Argumen Penolak Kebijakan),1,1.0
+Kesalahan Pelabelan InSet (Negasi 'ga 16th' Membalikkan 'emoji_sedih'),1,1.0
+Kesalahan Pelabelan InSet (Typo 'Setujuh' -> Stem 'tujuh' Bukan 'tuju'),1,1.0
+Kesalahan Pelabelan InSet (Pertanyaan Retoris 'Bagaimana kita bisa membahagiakan ortu'),1,1.0
+Kesalahan Pelabelan InSet (Double Negation 'tidak usah'),1,1.0
+Kesalahan Pelabelan InSet (False Neutral pada Kalimat Kompleks),1,1.0
+Kesalahan Pelabelan InSet (Kegagalan Deteksi Umpatan Tersensor & Negasi Ganda),1,1.0
+Kesalahan Pemisahan Klausa Implisit (Opini Positif di Klausa Pembuka),1,1.0
+Kesalahan Pemetaan Aspek & Pelabelan (Ambiguitas 'pengawasan dilapangan'),1,1.0
+Kesalahan Pelabelan InSet (Dominasi Kata Topik Bahaya 'bullying/bahaya/hilang'),1,1.0
+Kesalahan Pelabelan InSet (Kritik Konstruktif Berbahasa Sopan),1,1.0
+Kesalahan Pelabelan InSet (Sarkasme/Ironi 'Ah elah judol gk di ban? Wah sangat bagus!'),1,1.0
+Kesalahan Pelabelan InSet (Pembalikan Negasi pada 'Judol masa nggak'),1,1.0
+Kesalahan Pelabelan InSet (Kata 'setuju' dalam Konteks Protes Pemblokiran Roblox),1,1.0
+Kesalahan Pelabelan InSet (Negasi pada 'tidak pegang hp'),1,1.0
+Kesalahan Pelabelan InSet (Dukungan Kebijakan Disertai Keluhan Kuota/Ujian HP),1,1.0
+Kesalahan Pemisahan Klausa (Kata 'setuju' di Klausa Awal),1,1.0
+Kesalahan Pelabelan InSet (Frasa 'gk ngelawan ke org tua'),1,1.0
+"Kesalahan Pemisahan Klausa (Kata 'setuju' di Klausa Pertama, Alasan 'candu' di Klausa Kedua)",1,1.0

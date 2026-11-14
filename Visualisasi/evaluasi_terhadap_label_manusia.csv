@@ -1,0 +1,11 @@
+﻿Metode_Dievaluasi,Cakupan,Jumlah_Sampel,Sesuai_Manusia,Accuracy_Pct,Precision_Pct,Recall_Pct,F1_Score_Pct
+Pelabelan Kamus InSet vs Label Acuan Manusia (Total Sampel),Keseluruhan (4 Aspek),100,66,66.0,64.42,67.61,64.7
+Prediksi Naive Bayes vs Label Acuan Manusia (Total Sampel),Keseluruhan (4 Aspek),100,60,60.0,56.7,57.41,55.38
+Pelabelan Kamus InSet vs Label Acuan Manusia,Perlindungan Anak,45,32,71.11,46.67,46.55,46.21
+Prediksi Naive Bayes vs Label Acuan Manusia,Perlindungan Anak,45,31,68.89,44.95,51.67,45.31
+Pelabelan Kamus InSet vs Label Acuan Manusia,Peran Orang Tua,12,4,33.33,33.33,44.44,37.78
+Prediksi Naive Bayes vs Label Acuan Manusia,Peran Orang Tua,12,2,16.67,11.11,11.11,11.11
+Pelabelan Kamus InSet vs Label Acuan Manusia,Peran Pemerintah/Komdigi,25,19,76.0,74.89,76.21,72.68
+Prediksi Naive Bayes vs Label Acuan Manusia,Peran Pemerintah/Komdigi,25,19,76.0,72.96,75.91,73.47
+Pelabelan Kamus InSet vs Label Acuan Manusia,Efektivitas Kebijakan,18,11,61.11,66.67,73.33,61.78
+Prediksi Naive Bayes vs Label Acuan Manusia,Efektivitas Kebijakan,18,8,44.44,48.81,47.78,43.17

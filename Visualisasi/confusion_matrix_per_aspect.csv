@@ -1,13 +1,13 @@
 ﻿Aspek,Aktual,Prediksi_Positif,Prediksi_Negatif,Prediksi_Netral,Total_Aktual
-Perlindungan Anak,Positif,53,5,0,58
-Perlindungan Anak,Negatif,6,59,0,65
-Perlindungan Anak,Netral,2,3,81,86
-Peran Orang Tua,Positif,18,1,0,19
-Peran Orang Tua,Negatif,1,23,0,24
-Peran Orang Tua,Netral,2,0,21,23
-Peran Pemerintah/Komdigi,Positif,33,3,0,36
-Peran Pemerintah/Komdigi,Negatif,5,106,0,111
-Peran Pemerintah/Komdigi,Netral,7,4,81,92
-Efektivitas Kebijakan,Positif,48,3,0,51
-Efektivitas Kebijakan,Negatif,8,96,0,104
-Efektivitas Kebijakan,Netral,7,2,88,97
+Perlindungan Anak,Positif,31,3,4,38
+Perlindungan Anak,Negatif,21,18,7,46
+Perlindungan Anak,Netral,20,6,34,60
+Peran Orang Tua,Positif,9,0,3,12
+Peran Orang Tua,Negatif,0,0,3,3
+Peran Orang Tua,Netral,2,3,10,15
+Peran Pemerintah/Komdigi,Positif,17,5,3,25
+Peran Pemerintah/Komdigi,Negatif,17,81,6,104
+Peran Pemerintah/Komdigi,Netral,11,16,51,78
+Efektivitas Kebijakan,Positif,26,2,7,35
+Efektivitas Kebijakan,Negatif,8,36,13,57
+Efektivitas Kebijakan,Netral,9,13,53,75

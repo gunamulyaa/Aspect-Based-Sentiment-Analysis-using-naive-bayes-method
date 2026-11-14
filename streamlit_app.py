@@ -2,7 +2,7 @@
 """
 Dashboard Streamlit Analisis Sentimen Berbasis Aspek (ABSA)
 Kebijakan Pembatasan Media Sosial untuk Anak di Bawah 16 Tahun (Komdigi)
-Menggunakan Kamus InSet, Pembobotan TF-IDF, dan Multinomial Naive Bayes.
+Menggunakan Kamus InSet Asli (Koto & Rahmaningtyas, 2017), Pembobotan TF-IDF Bab III, dan Multinomial Naive Bayes.
 """
 
 from pathlib import Path
@@ -39,7 +39,7 @@ row = summary.iloc[0]
 # =========================================================
 st.subheader("1. Ringkasan Data & Pembagian Latih/Uji (80:20)")
 c1, c2, c3, c4, c5, c6 = st.columns(6)
-c1.metric("Komentar Unik Beraspek", f"{int(row.get('total_unique_comments', 2370)):,}")
+c1.metric("Komentar Unik Beraspek", f"{int(row.get('total_unique_comments', 1768)):,}")
 c2.metric("Total Pasangan Komentar–Aspek", f"{int(row['total_dataset']):,}")
 c3.metric("Positif (Sebelum Balancing)", f"{int(row['total_positif']):,}")
 c4.metric("Negatif (Sebelum Balancing)", f"{int(row['total_negatif']):,}")
@@ -49,26 +49,27 @@ c6.metric("Overlap Komentar Latih–Uji", f"{int(row.get('overlap_komentar', 0))
 c7, c8, c9 = st.columns(3)
 c7.metric(
     "Data Latih 80% (Sebelum Balancing)",
-    f"{int(row['train_set']):,} pasangan ({int(row.get('train_comments', 1896)):,} komentar)",
+    f"{int(row['train_set']):,} pasangan ({int(row.get('train_comments', 1414)):,} komentar)",
 )
 c8.metric(
     "Data Latih 80% (Sesudah Balancing)",
-    f"{int(row.get('train_set_balanced', 3735)):,} pasangan",
+    f"{int(row.get('train_set_balanced', 2805)):,} pasangan",
 )
 c9.metric(
     "Data Uji 20% (Alami / Tanpa Balancing)",
-    f"{int(row['test_set']):,} pasangan ({int(row.get('test_comments', 474)):,} komentar)",
+    f"{int(row['test_set']):,} pasangan ({int(row.get('test_comments', 354)):,} komentar)",
 )
 
 # =========================================================
 # TABS DASHBOARD
 # =========================================================
-tab1, tab2, tab3, tab4, tab5 = st.tabs([
+tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
     "📊 Distribusi 4 Aspek & Balancing",
     "🎯 Evaluasi Naive Bayes & Confusion Matrix",
+    "🧑‍⚖️ Pemeriksaan Manusia (Human Audit)",
     "☁️ Word Cloud Sentimen & 4 Aspek",
     "🔍 Pemeriksaan Contoh Komentar & Prediksi",
-    "📋 Rekapitulasi Tahap & Bukti 0 Overlap",
+    "📋 Validasi Tahap, Kamus InSet, & TF-IDF Bab III",
 ])
 
 with tab1:
@@ -140,6 +141,35 @@ with tab2:
             st.image(str(pcm2), use_container_width=True)
 
 with tab3:
+    st.markdown("### Pemeriksaan Manusia (Human Inspection Audit) pada 100 Sampel Pasangan Komentar–Aspek")
+    st.info(
+        "Pemeriksaan manusia dilakukan secara independen terhadap **100 sampel pasangan komentar–aspek** dari data uji "
+        "(mencakup keempat kategori aspek, tiga sentimen, konstruksi negasi, dan komentar multi-aspek) untuk mengevaluasi "
+        "ketepatan pemetaan aspek, pelabelan kamus InSet, serta prediksi Naive Bayes terhadap penilaian manusia."
+    )
+
+    col_ha1, col_ha2 = st.columns([1.15, 1])
+    with col_ha1:
+        eval_hum_csv = VIS_DIR / "evaluasi_terhadap_label_manusia.csv"
+        if eval_hum_csv.exists():
+            st.markdown("#### Evaluasi InSet & Naive Bayes terhadap Label Acuan Manusia")
+            st.dataframe(pd.read_csv(eval_hum_csv), use_container_width=True, hide_index=True)
+    with col_ha2:
+        p_ha = VIS_DIR / "bar_chart_evaluasi_manusia.png"
+        if p_ha.exists():
+            st.image(str(p_ha), use_container_width=True)
+
+    err_hum_csv = VIS_DIR / "ringkasan_kesalahan_pelabelan_manusia.csv"
+    if err_hum_csv.exists():
+        st.markdown("#### Ringkasan Temuan Kesalahan Pemetaan & Pelabelan (Audit Manusia)")
+        st.dataframe(pd.read_csv(err_hum_csv), use_container_width=True, hide_index=True)
+
+    samp_hum_csv = VIS_DIR / "sampel_pemeriksaan_manusia.csv"
+    if samp_hum_csv.exists():
+        st.markdown("#### Daftar 100 Sampel Pasangan Komentar–Aspek dengan Label Acuan Manusia")
+        st.dataframe(pd.read_csv(samp_hum_csv), use_container_width=True, hide_index=True)
+
+with tab4:
     st.markdown("### Word Cloud Berdasarkan Kelas Sentimen")
     wc1, wc2, wc3 = st.columns(3)
     with wc1:
@@ -154,19 +184,24 @@ with tab3:
     if wc_asp_img.exists():
         st.image(str(wc_asp_img), use_container_width=True)
 
-with tab4:
+with tab5:
     st.markdown("### Pemeriksaan Contoh Komentar, Aspek, Label Acuan (InSet), dan Hasil Prediksi (Naive Bayes)")
     sample_csv = VIS_DIR / "contoh_prediksi_komentar_aspek.csv"
     full_pred_xlsx = KLAS_DIR / "hasil_prediksi_data_uji.xlsx"
 
     if sample_csv.exists():
-        st.markdown("#### Sampel Representatif (Termasuk Komentar Multi-Aspek)")
+        st.markdown("#### Sampel Representatif (Termasuk Komentar Multi-Aspek & Negasi)")
         sample_df = pd.read_csv(sample_csv)
         st.dataframe(sample_df, use_container_width=True, hide_index=True)
 
+    uji_multi_csv = LABEL_DIR / "uji_pemisahan_konteks_multiaspek.csv"
+    if uji_multi_csv.exists():
+        st.markdown("#### Uji Kasus Pemisahan Konteks Multi-Aspek (Dengan & Tanpa 'tetapi'/'namun') dan Negasi")
+        st.dataframe(pd.read_csv(uji_multi_csv), use_container_width=True, hide_index=True)
+
     if full_pred_xlsx.exists():
-        st.markdown("#### Eksplorasi Seluruh Data Uji (791 Pasangan Komentar–Aspek)")
         full_pred_df = pd.read_excel(full_pred_xlsx)
+        st.markdown(f"#### Eksplorasi Seluruh Data Uji ({len(full_pred_df):,} Pasangan Komentar–Aspek)")
         f_col1, f_col2, f_col3 = st.columns(3)
         with f_col1:
             sel_aspect = st.selectbox("Filter Kategori Aspek:", ["Semua Aspek"] + sorted(full_pred_df["aspect"].unique().tolist()))
@@ -185,19 +220,35 @@ with tab4:
 
         display_cols = [
             "Pair_ID", "Comment_ID", "Comment Text", "aspect",
-            "matched_keywords", "aspect_context", "sentiment",
-            "predicted_sentiment", "Status_Prediksi",
+            "matched_keywords", "aspect_context", "aspect_text",
+            "sentiment", "predicted_sentiment", "Status_Prediksi",
         ]
+        display_cols = [c for c in display_cols if c in filtered.columns]
         st.caption(f"Menampilkan {len(filtered):,} dari {len(full_pred_df):,} pasangan komentar–aspek pada data uji.")
         st.dataframe(filtered[display_cols], use_container_width=True, hide_index=True)
 
-with tab5:
-    st.markdown("### Catatan Jumlah Data pada Setiap Tahap Pipeline")
+with tab6:
+    st.markdown("### 1. Catatan Jumlah Data & Validasi Relevansi/Periode pada Setiap Tahap Pipeline")
     stage_csv = PREP_DIR / "preprocessing_stage_summary.csv"
     if stage_csv.exists():
         st.dataframe(pd.read_csv(stage_csv), use_container_width=True, hide_index=True)
 
-    st.markdown("### Bukti Tidak Ada Komentar Tumpang Tindih Antara Data Latih dan Data Uji")
+    st.markdown("### 2. Bukti Tidak Ada Komentar Tumpang Tindih Antara Data Latih dan Data Uji")
     proof_csv = VIS_DIR / "bukti_tidak_tumpang_tindih.csv"
     if proof_csv.exists():
         st.dataframe(pd.read_csv(proof_csv), use_container_width=True, hide_index=True)
+
+    st.markdown("### 3. Verifikasi Kesesuaian Rumus TF-IDF dengan Tabel 3.12 Bab III (`log10(N/df)`)")
+    tfidf_csv = VIS_DIR / "verifikasi_rumus_tfidf_bab3.csv"
+    if tfidf_csv.exists():
+        st.dataframe(pd.read_csv(tfidf_csv), use_container_width=True, hide_index=True)
+
+    st.markdown("### 4. Sumber Asli Kamus InSet & Dokumentasi Modifikasi/Tambahan Terpisah")
+    inset_meta_csv = LABEL_DIR / "inset_sumber_asli_metadata.csv"
+    if inset_meta_csv.exists():
+        st.dataframe(pd.read_csv(inset_meta_csv), use_container_width=True, hide_index=True)
+    inset_mod_csv = LABEL_DIR / "inset_modifikasi_dan_tambahan.csv"
+    if inset_mod_csv.exists():
+        mod_df = pd.read_csv(inset_mod_csv)
+        st.caption(f"Total entri modifikasi/penetralan/penambahan pada kamus InSet yang dicatat terpisah: {len(mod_df):,} entri.")
+        st.dataframe(mod_df, use_container_width=True, hide_index=True)
